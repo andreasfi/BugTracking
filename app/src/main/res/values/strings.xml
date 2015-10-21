@@ -3,10 +3,10 @@
 
 
     <!-- Login Activity-->
-  <!--  <string name="login">login</string>
+    <string name="login">login</string>
     <string name="password">password</string>
     <string name="register">register</string>
-    <string name="logButton">Log in</string>-->
+    <string name="logButton">Log in</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -16,4 +16,6 @@
     <string name="action_register">Register</string>
     <string name="action_already_account">Already an account? Go back</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="about">About</string>
+    <string name="profil">Profile</string>
 </resources>
