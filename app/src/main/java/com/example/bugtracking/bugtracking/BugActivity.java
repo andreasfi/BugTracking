@@ -1,4 +1,5 @@
 package com.example.bugtracking.bugtracking;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
 
 public class BugActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    //private ActionBar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -24,10 +26,10 @@ public class BugActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bug);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);// Some problems here...
         //setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //toolbar = getActionBar();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -38,9 +40,11 @@ public class BugActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BugCurrentFragment(), "ONE");
-        adapter.addFragment(new BugSolvedFragment(), "TWO");
-        adapter.addFragment(new BugOnholdFragment(), "THREE");
+
+        // Add the fragments to the Tab menu of BugActivity
+        adapter.addFragment(new BugCurrentFragment(), getString(R.string.tab_current));
+        adapter.addFragment(new BugSolvedFragment(), getString(R.string.tab_solved));
+        adapter.addFragment(new BugOnholdFragment(), getString(R.string.tab_onhold));
         viewPager.setAdapter(adapter);
     }
 
@@ -75,7 +79,8 @@ public class BugActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
