@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ce fichier est utiliser pour essayer de contruire un contenu sans layout
+        et essayet de l'utiliser dans le fichier java-->
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buttonProject"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    android:text="Add"/>
+   <!-- android:onClick="clicLogin"-->

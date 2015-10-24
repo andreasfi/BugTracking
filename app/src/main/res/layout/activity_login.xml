@@ -37,4 +37,6 @@
         android:text="@string/logButton"
         android:onClick="clicLogin"/>
 
+
+
 </LinearLayout>

@@ -18,4 +18,5 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="about">About</string>
     <string name="profil">Profile</string>
+    <string name="title_activity_project_main">ProjectMainActivity</string>
 </resources>
