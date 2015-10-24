@@ -38,6 +38,11 @@
             android:name=".ProjectMainActivity"
             android:label="BugTraking - Project" >
         </activity>
+        <activity
+            android:name=".BugActivity"
+            android:label="BugActivity"
+            android:parentActivityName=".MainActivity" >
+        </activity>
     </application>
 
 </manifest>

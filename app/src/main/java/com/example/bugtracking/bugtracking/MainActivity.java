@@ -50,4 +50,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+    public void goToIssues(View view){
+        Intent intent = new Intent(this, BugActivity.class);
+        startActivity(intent);
+    }
 }
