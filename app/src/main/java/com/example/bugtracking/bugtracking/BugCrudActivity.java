@@ -1,16 +1,23 @@
 package com.example.bugtracking.bugtracking;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 /**
  * Created by Andreas on 25.10.2015.
  */
-public class BugCrudActivity extends AppCompatActivity {
+public class BugCrudActivity extends AppCompatActivity implements BugAssignDeveloperFragment.SelectionListener {
+    Button openButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +38,32 @@ public class BugCrudActivity extends AppCompatActivity {
         stateadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         statespinner.setAdapter(stateadapter);
+
+
+        openButton = (Button)findViewById(R.id.assignedevelopers);
+        openButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                BugAssignDeveloperFragment dialog = new BugAssignDeveloperFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList(BugAssignDeveloperFragment.DATA, getItems());     // Require ArrayList
+                bundle.putInt(BugAssignDeveloperFragment.SELECTED, 0);
+                dialog.setArguments(bundle);
+                dialog.show(manager, "Dialog");
+            }
+        });
+    }
+    private ArrayList<String> getItems()
+    {
+        ArrayList<String> ret_val = new ArrayList<String>();
+
+        ret_val.add("Sylvain");
+        ret_val.add("Andreas");
+
+        return ret_val;
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,5 +71,10 @@ public class BugCrudActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void selectItem(int position) {
+        Log.d("Favorites", getItems().get(position));
     }
 }
