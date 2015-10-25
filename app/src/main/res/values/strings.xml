@@ -44,5 +44,6 @@
         <item>Current</item>
         <item>Solved</item>
     </string-array>
+    <string name="title_activity_project_crud">ProjectCrudActivity</string>
 
 </resources>

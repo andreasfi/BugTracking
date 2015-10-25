@@ -1,0 +1,115 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:orientation="vertical"
+    tools:context="com.example.bugtracking.bugtracking.ProjectCrudActivity">
+
+    <EditText
+        android:id="@+id/proCrudTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"/>
+
+    <EditText
+        android:id="@+id/proCrudDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:singleLine="false"/>
+
+    <EditText
+        android:id="@+id/proStartDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="StartDate"
+        android:inputType="datetime"/>
+
+    <EditText
+        android:id="@+id/proEndDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="EndDate"
+        android:inputType="datetime"/>
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:orientation="vertical"
+        tools:context="com.example.bugtracking.bugtracking.ProjectCrudActivity">
+
+        <TextView
+            android:id="@+id/prodCrudDevelopersTitle"
+            android:layout_marginTop="20px"
+            android:layout_marginBottom="20px"
+            android:paddingBottom="140px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Developpers"/>
+
+        <Button
+            android:id="@+id/prodCrudAddDevelopper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/prodCrudDevelopersTitle"
+            android:layout_alignParentRight="true"
+            android:text="Add"
+            />
+
+
+
+        <TextView
+            android:id="@+id/prodCrudDevelopers1Example"
+            android:paddingBottom="140px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/prodCrudDevelopersTitle"
+            android:text="Developper1"/>
+
+        <Button
+            android:id="@+id/prodCrudDeleteDevelopper1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/prodCrudDevelopers1Example"
+            android:layout_below="@id/prodCrudDevelopersTitle"
+            android:layout_alignBaseline="@id/prodCrudDevelopers1Example"
+            android:layout_alignParentRight="true"
+            android:text="Delete"
+            />
+
+
+
+
+        <TextView
+            android:id="@+id/prodCrudDevelopers2Example"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/prodCrudDevelopers1Example"
+            android:text="Developper2"/>
+
+        <Button
+            android:id="@+id/prodCrudDeleteDevelopper2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/prodCrudDevelopers2Example"
+            android:layout_below="@id/prodCrudDevelopers1Example"
+            android:layout_alignBaseline="@id/prodCrudDevelopers2Example"
+            android:layout_alignParentRight="true"
+            android:text="Delete"
+            />
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+

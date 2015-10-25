@@ -44,9 +44,8 @@
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name=".BugCrudActivity"
-            android:label="BugCrud"
-            android:parentActivityName=".BugActivity" >
+            android:name=".ProjectCrudActivity"
+            android:label="Project CRUD" >
         </activity>
     </application>
 
