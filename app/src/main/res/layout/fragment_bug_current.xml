@@ -11,5 +11,11 @@ tools:context="info.androidhive.materialtabs.fragments.OneFragment">
     android:textSize="40dp"
     android:textStyle="bold"
     android:layout_centerInParent="true"/>
-
+    <Button
+        android:id="@+id/issues"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Add Issue"
+        android:onClick="goToAddIssue"/>
 </RelativeLayout>

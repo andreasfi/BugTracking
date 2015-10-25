@@ -43,6 +43,11 @@
             android:label="BugActivity"
             android:parentActivityName=".MainActivity" >
         </activity>
+        <activity
+            android:name=".BugCrudActivity"
+            android:label="BugCrud"
+            android:parentActivityName=".BugActivity" >
+        </activity>
     </application>
 
 </manifest>

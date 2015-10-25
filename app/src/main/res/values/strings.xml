@@ -28,4 +28,21 @@
     <string name="tab_current">Current</string>
     <string name="tab_solved">Solved</string>
     <string name="tab_onhold">On hold</string>
+    <string name="issue_title">Title</string>
+    <string name="issue_description">Description</string>
+    <string name="issue_reproduction">How to reproduce</string>
+    <string name="issue_effects">Effects</string>
+
+
+    <string-array name="priority_array">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+    <string-array name="state_array">
+        <item>On Hold</item>
+        <item>Current</item>
+        <item>Solved</item>
+    </string-array>
+
 </resources>

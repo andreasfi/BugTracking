@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/issue_title"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:inputType="textCapWords"/>
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/issue_description"
+        android:inputType="textCapWords"/>
+
+    <Spinner
+        android:id="@+id/spinnerPriority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal" />
+    <Spinner
+        android:id="@+id/spinnerState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal" />
+    <EditText
+        android:id="@+id/reproduction"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/issue_reproduction"
+        android:inputType="textCapWords"/>
+    <EditText
+        android:id="@+id/effects"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/issue_effects"
+        android:inputType="textCapWords"/>
+</LinearLayout>
