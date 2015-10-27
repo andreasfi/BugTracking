@@ -36,7 +36,8 @@
         </activity>
         <activity
             android:name=".ProjectMainActivity"
-            android:label="BugTraking - Project" >
+            android:label="BugTraking - Project"
+            android:parentActivityName=".LoginActivity">
         </activity>
         <activity
             android:name=".BugActivity"
@@ -52,11 +53,13 @@
 
         <activity
             android:name=".ProjectCrudActivity"
-            android:label="Project CRUD" >
+            android:label="Project CRUD"
+            android:parentActivityName=".ProjectMainActivity" >
         </activity>
         <activity
             android:name=".IssueViewActivity"
-            android:label="Issue View" >
+            android:label="Issue View"
+            android:parentActivityName=".BugActivity">
         </activity>
     </application>
 

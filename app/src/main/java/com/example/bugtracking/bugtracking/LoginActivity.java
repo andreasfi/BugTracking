@@ -18,18 +18,18 @@ public class LoginActivity extends AppCompatActivity {
         avec la bae de donnée dans le futur
          */
 
-        //Intent intent=new Intent(this, ProjectActivity.class);//Il faut créer la classe "Projectactivity pour que 4a fonctionne
+        Intent intent=new Intent(this, ProjectMainActivity.class);//Il faut créer la classe "Projectactivity pour que 4a fonctionne
         EditText login=(EditText) findViewById(R.id.login);
         String _login=login.getText().toString();
 
-       /* intent.putExtra(EXTRA_MESSAGE,_login);
-        startActivity(intent);*/
+        intent.putExtra(EXTRA_MESSAGE,_login);
+        startActivity(intent);
     }
 
     //Renvoie juste à l'Activity pour créer un nouveau Login
     public void clicRegister(View view){
-      /*  Intent intent =new Intent(this, RegisterActivity);
-        startActivity(intent);*/
+        Intent intent =new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     @Override

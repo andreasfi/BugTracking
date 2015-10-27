@@ -1,6 +1,9 @@
 package com.example.bugtracking.bugtracking;
 
 import android.app.ActionBar;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +23,14 @@ public class ProjectMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Récupération de username (login) + stock dans une variable pour l'affichage
+        Intent intent=getIntent();
+        String login=intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
+        TextView textLogin=new TextView(this);
+        textLogin.setText("User : "+login);
+        textLogin.setPadding(400, 16, 0, 16);
+
+
        // setContentView(R.layout.activity_project_main);
 
 
@@ -38,7 +49,7 @@ public class ProjectMainActivity extends AppCompatActivity {
         //Création de la scrollbar
         ScrollView scroll=new ScrollView(this);
 
-
+        ll.addView(textLogin);
         //Création des Items
         for(int i=0;i<15;i++){
              item=new TextView(this);
