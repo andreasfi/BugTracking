@@ -45,13 +45,20 @@ public class ProjectMainActivity extends AppCompatActivity {
         //Création du boutton
         Button addbutton=new Button(this);
         addbutton.setText("Add");
+        addbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ProjectMainActivity.this, ProjectCrudActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Création de la scrollbar
         ScrollView scroll=new ScrollView(this);
 
         ll.addView(textLogin);
-        //Création des Items
-        for(int i=0;i<15;i++){
+        //Création des Items de manière dynamique
+      /*  for(int i=0;i<15;i++){
              item=new TextView(this);
             item.setText("Item " + i);
             item.setPadding(16, 16, 16, 16);
@@ -64,9 +71,9 @@ public class ProjectMainActivity extends AppCompatActivity {
                }
            });
 
-            ll.addView(item);
+           // ll.addView(item);
 
-        }
+        }*/
          ll.addView(addbutton);
         //Ici on ajoute le linearLayout dans le ScrollView
         scroll.addView(ll);
@@ -109,6 +116,12 @@ public class ProjectMainActivity extends AppCompatActivity {
         if(items[2].isClickable()) {
             items[2].setText("Selected2");
         }
+
+    }
+
+    public void goTo_ProjectCRUD(View view){
+        Intent intent=new Intent(this, ProjectCrudActivity.class);
+        startActivity(intent);
 
     }
 

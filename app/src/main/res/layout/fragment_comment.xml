@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:text="Comment"
         android:layout_marginLeft="20px"
-        android:layout_marginTop="20px"/>
+        android:layout_marginTop="20px"
+        android:onClick="clicComment"/>
 
 </LinearLayout>
