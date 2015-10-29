@@ -57,7 +57,7 @@
             android:parentActivityName=".ProjectMainActivity" >
         </activity>
         <activity
-            android:name=".IssueViewActivity"
+            android:name=".BugViewActivity"
             android:label="Issue View"
             android:parentActivityName=".BugActivity">
         </activity>

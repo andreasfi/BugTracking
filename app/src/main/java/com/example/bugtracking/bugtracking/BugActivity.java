@@ -1,5 +1,4 @@
 package com.example.bugtracking.bugtracking;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -102,6 +100,10 @@ public class BugActivity extends AppCompatActivity {
     }
     public void goToAddIssue(View view){
         Intent intent = new Intent(this, BugCrudActivity.class);
+        startActivity(intent);
+    }
+    public void goToViewIssue(View view){
+        Intent intent = new Intent(this, BugViewActivity.class);
         startActivity(intent);
     }
 }

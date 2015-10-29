@@ -12,6 +12,13 @@ tools:context="info.androidhive.materialtabs.fragments.OneFragment">
     android:textStyle="bold"
     android:layout_centerInParent="true"/>
     <Button
+        android:id="@+id/issueview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:text="View Bug"
+        android:onClick="goToViewIssue"/>
+    <Button
         android:id="@+id/issues"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

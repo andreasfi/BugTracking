@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IssueViewActivity extends AppCompatActivity {
+public class BugViewActivity extends AppCompatActivity {
 
 
     private TabLayout tabLayout;
@@ -23,7 +23,7 @@ public class IssueViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_issue_view);
+        setContentView(R.layout.activity_bug_view);
 
         viewPager=(ViewPager) findViewById(R.id.viewpagerIssueView);
         setupViewPager(viewPager);

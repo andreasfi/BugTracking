@@ -12,6 +12,21 @@ public class MainActivity extends AppCompatActivity {
 
     //Mon comentaire test
     // Commentaire test 2
+
+    //@// TODO: 03.12.2015 Implementation swipe calendrier -> Sylvain
+    //@// TODO: 03.12.2015 Login authentification -> Sylvain
+    //@// TODO: 03.12.2015 Assign developer -> Andreas
+    //@// TODO: 03.12.2015 Structure activites -> Andreas
+    //@// TODO: 03.12.2015 Créer faux Data + affichage -> Andreas & Sylvain
+    //@// TODO: 03.12.2015 Code java pour les activités -> Andreas & Sylvain
+    //@// TODO: 03.12.2015 Button plus (materialize) -> ..
+    //@// TODO: 03.12.2015 Design -> Andreas
+    //@// TODO: 03.12.2015 Add profile crud Activity -> ...
+    //@// TODO: 03.12.2015 Check dimensions -> Andreas
+    //@// TODO: 03.12.2015 Create comment system -> Andreas & Sylvain
+
+    //@// TODO: 03.12.2015 Adapt Menu (developer image) -> ...
+    //@// TODO: 03.12.2015 Give a comment a Comment Ref -> ...
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
