@@ -7,22 +7,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
 
 public class LoginActivity extends AppCompatActivity {
 
+    boolean isLogin=false;
+
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
+    public final  static String ETAT="Etat";
+    public static boolean CONNECTED=false;
+
+    //Test message d'erreur utilisateur non connecté
+    public static boolean MESSAGE_ERROR =false;
 
     public void clicLogin(View view){
         /*Code provisoir pour naviguer entre les activity
         il sera nécéssaire de faire un contrôle de mot de passe
         avec la bae de donnée dans le futur
          */
-
+        isLogin=true;
         Intent intent=new Intent(this, ProjectMainActivity.class);//Il faut créer la classe "Projectactivity pour que 4a fonctionne
         EditText login=(EditText) findViewById(R.id.login);
         String _login=login.getText().toString();
 
         intent.putExtra(EXTRA_MESSAGE,_login);
+        //intent.putExtra(ETAT,isLogin);
+        CONNECTED=true;
         startActivity(intent);
     }
 
@@ -35,7 +46,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TextView messageError;
         setContentView(R.layout.activity_login);
+
+
+        messageError=(TextView) findViewById(R.id.login_messageError);
+        if(MESSAGE_ERROR==true){
+            messageError.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

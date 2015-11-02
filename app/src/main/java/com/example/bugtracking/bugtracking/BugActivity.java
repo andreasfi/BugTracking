@@ -24,6 +24,14 @@ public class BugActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Test si l'utilisateur est connecté
+       /* if(LoginActivity.CONNECTED==false){
+            LoginActivity.MESSAGE_ERROR=true;
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }*/
+
         setContentView(R.layout.activity_bug);
 
         //toolbar = (Toolbar) findViewById(R.id.toolbar);// Some problems here...

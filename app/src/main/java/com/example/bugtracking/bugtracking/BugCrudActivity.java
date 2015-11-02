@@ -1,6 +1,7 @@
 package com.example.bugtracking.bugtracking;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +22,15 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Test si l'utilisateur est connecté
+       /* if(LoginActivity.CONNECTED==false){
+            LoginActivity.MESSAGE_ERROR=true;
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }*/
+
+
         setContentView(R.layout.activity_bug_crud);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinnerPriority);

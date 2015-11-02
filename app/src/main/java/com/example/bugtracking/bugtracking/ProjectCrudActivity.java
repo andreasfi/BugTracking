@@ -1,5 +1,6 @@
 package com.example.bugtracking.bugtracking;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,14 @@ public class ProjectCrudActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Pour retourner à Login Activity si on est pas connecté
+        if(LoginActivity.CONNECTED==false){
+            LoginActivity.MESSAGE_ERROR=true;
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
+
         setContentView(R.layout.activity_project_crud);
     }
 

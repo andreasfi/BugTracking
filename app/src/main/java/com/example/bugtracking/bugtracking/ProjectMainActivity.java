@@ -23,11 +23,24 @@ public class ProjectMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+       /* if(LoginActivity.CONNECTED==false){
+            LoginActivity.MESSAGE_ERROR=true;
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }*/
+
         //Récupération de username (login) + stock dans une variable pour l'affichage
         Intent intent=getIntent();
         String login=intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
+
+
+        Boolean isLogin=LoginActivity.CONNECTED;
+
         TextView textLogin=new TextView(this);
+        TextView isLoginView=new TextView(this);
+
         textLogin.setText("User : "+login);
+        isLoginView.setText(isLogin.toString());
         textLogin.setPadding(400, 16, 0, 16);
 
 
@@ -57,6 +70,7 @@ public class ProjectMainActivity extends AppCompatActivity {
         ScrollView scroll=new ScrollView(this);
 
         ll.addView(textLogin);
+        ll.addView(isLoginView);
         //Création des Items de manière dynamique
       /*  for(int i=0;i<15;i++){
              item=new TextView(this);

@@ -1,5 +1,6 @@
 package com.example.bugtracking.bugtracking;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,14 @@ public class BugViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //test si l'utilisateur est connecté
+       /* if(LoginActivity.CONNECTED==false){
+            LoginActivity.MESSAGE_ERROR=true;
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }*/
+
         setContentView(R.layout.activity_bug_view);
 
         viewPager=(ViewPager) findViewById(R.id.viewpagerIssueView);
