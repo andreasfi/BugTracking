@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView messageError;
         setContentView(R.layout.activity_login);
 
+        // Verifier si déjà connecté, sinon revoyer sur l'activity project
 
         messageError=(TextView) findViewById(R.id.login_messageError);
         if(MESSAGE_ERROR==true){

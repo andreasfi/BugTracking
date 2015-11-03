@@ -39,6 +39,7 @@ public class BugActivity extends AppCompatActivity {
         //toolbar = getActionBar();
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Adapter that handles the tabs/fragments as a menu
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
