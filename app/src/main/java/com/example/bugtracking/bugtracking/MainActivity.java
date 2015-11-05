@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     // Commentaire test 2
 
     //@// TODO: 03.12.2015 Implementation swipe calendrier -> Sylvain
-    //@// TODO: 03.12.2015 Login authentification -> Sylvain
+    //@// TODO: 03.12.2015 Login authentification -> Sylvain ------OK-------
     //@// TODO: 03.12.2015 Assign developer -> Andreas
     //@// TODO: 03.12.2015 Structure activites -> Andreas
     //@// TODO: 03.12.2015 Créer faux Data + affichage -> Andreas & Sylvain

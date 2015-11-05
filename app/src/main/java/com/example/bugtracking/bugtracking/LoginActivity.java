@@ -15,11 +15,14 @@ public class LoginActivity extends AppCompatActivity {
     boolean isLogin=false;
 
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
+    //public final  static String PASSWORD="";
     public final  static String ETAT="Etat";
     public static boolean CONNECTED=false;
+    public static String TEST_LOGIN;
 
     //Test message d'erreur utilisateur non connecté
     public static boolean MESSAGE_ERROR =false;
+    public static boolean WRON_LOGIN =false;
 
     public void clicLogin(View view){
         /*Code provisoir pour naviguer entre les activity
@@ -27,11 +30,16 @@ public class LoginActivity extends AppCompatActivity {
         avec la bae de donnée dans le futur
          */
         isLogin=true;
-        Intent intent=new Intent(this, ProjectMainActivity.class);//Il faut créer la classe "Projectactivity pour que 4a fonctionne
+        Intent intent=new Intent(this, ProjectMainActivity.class);
         EditText login=(EditText) findViewById(R.id.login);
         String _login=login.getText().toString();
+        TEST_LOGIN=_login;
+
+        EditText password=(EditText)findViewById(R.id.password);
+        String _password=password.getText().toString();
 
         intent.putExtra(EXTRA_MESSAGE,_login);
+        intent.putExtra("Password",_password);
         //intent.putExtra(ETAT,isLogin);
         CONNECTED=true;
         startActivity(intent);
@@ -47,12 +55,18 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TextView messageError;
+        TextView messageError_login;
         setContentView(R.layout.activity_login);
 
-
+        //Display the messages error if the password is wrong or if the user is not connected
         messageError=(TextView) findViewById(R.id.login_messageError);
         if(MESSAGE_ERROR==true){
             messageError.setVisibility(View.VISIBLE);
+        }
+
+        messageError_login=(TextView) findViewById(R.id.login_messageError2);
+        if(WRON_LOGIN==true){
+            messageError_login.setVisibility(View.VISIBLE);
         }
 
     }

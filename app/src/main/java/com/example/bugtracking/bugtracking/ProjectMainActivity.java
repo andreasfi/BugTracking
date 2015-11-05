@@ -29,19 +29,49 @@ public class ProjectMainActivity extends AppCompatActivity {
             startActivity(intent);
         }*/
 
+        //Create developers
+        Developer dev[]=new Developer[4];
+
+        for(int i=0;i<dev.length;i++){
+            dev[i]=new Developer("test"+i, "test1234"+i,(int)(Math.random()*15)+1);
+        }
+
+
         //Récupération de username (login) + stock dans une variable pour l'affichage
         Intent intent=getIntent();
-        String login=intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-
+        //String login=intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
+       // LoginActivity.TEST_LOGIN=intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
+        String login=LoginActivity.TEST_LOGIN;
+        String password=intent.getStringExtra("Password");
 
         Boolean isLogin=LoginActivity.CONNECTED;
 
         TextView textLogin=new TextView(this);
+        TextView textPassword=new TextView(this);
         TextView isLoginView=new TextView(this);
 
         textLogin.setText("User : "+login);
         isLoginView.setText(isLogin.toString());
         textLogin.setPadding(400, 16, 0, 16);
+
+        textPassword.setText("Password : "+ password);
+
+
+        //Test login and password
+        //Search developper
+        Developer logDev=new Developer("","",2);
+        for(int i=0;i<dev.length;i++){
+            if(dev[i].login.equals(login)){
+                logDev=dev[i];
+                i=dev.length;
+            }
+        }
+
+        if(!password.equals(logDev.password)){
+            LoginActivity.WRON_LOGIN=true;
+            Intent intent2=new Intent(this, LoginActivity.class);
+            startActivity(intent2);
+        }
 
 
        // setContentView(R.layout.activity_project_main);
@@ -70,9 +100,10 @@ public class ProjectMainActivity extends AppCompatActivity {
         ScrollView scroll=new ScrollView(this);
 
         ll.addView(textLogin);
+        ll.addView(textPassword);
         ll.addView(isLoginView);
         //Création des Items de manière dynamique
-      /*  for(int i=0;i<15;i++){
+       for(int i=0;i<logDev.nbProject;i++){
              item=new TextView(this);
             item.setText("Item " + i);
             item.setPadding(16, 16, 16, 16);
@@ -81,13 +112,15 @@ public class ProjectMainActivity extends AppCompatActivity {
            item.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   item.setText("New text");
+                   Intent intent2=new Intent(ProjectMainActivity.this,ProjectCrudActivity.class);
+                  // item.setText("New text");
+                   startActivity(intent2);
                }
            });
 
-           // ll.addView(item);
+            ll.addView(item);
 
-        }*/
+        }
          ll.addView(addbutton);
         //Ici on ajoute le linearLayout dans le ScrollView
         scroll.addView(ll);
@@ -164,5 +197,18 @@ public class ProjectMainActivity extends AppCompatActivity {
 
     class onClicTextView {
 
+    }
+
+    class Developer{
+
+        String login;
+        String password;
+        int nbProject;
+
+        public Developer(String login, String password, int nbProject){
+            this.login=login;
+            this.password=password;
+            this.nbProject=nbProject;
+        }
     }
 }
