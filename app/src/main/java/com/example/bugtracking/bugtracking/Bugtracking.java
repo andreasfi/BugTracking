@@ -145,7 +145,7 @@ public final class Bugtracking {
                 +Issue.DATE+"TEXT,"
                 +Issue.PROID+"INTEGER,"
                 +Issue.DEVID+"INTEGER,"
-                +"FOREIGN KEY ("+PROID+") REFERENCES "+Project.TABLE_PROJECT+" ("+ID+"), "
+                +"FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
                 +"FOREIGN KEY ("+DEVID+") REFERENCES "+Developer.TABLE_DEVELOPER+" ("+ID+"), "
                 +");";
     }
