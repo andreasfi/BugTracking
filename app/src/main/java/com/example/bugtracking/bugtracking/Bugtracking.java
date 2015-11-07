@@ -2,8 +2,6 @@ package com.example.bugtracking.bugtracking;
 
 import android.provider.BaseColumns;
 
-import com.example.bugtracking.bugtracking.object.Project;
-
 /**
  * Created by Andreas on 07.11.2015.
  */
@@ -31,7 +29,7 @@ public final class Bugtracking {
                 + Developer.LANGUAGE + " TEXT "
                 + ");";
     }
-    public  static abstract class Project implements BaseColumns {
+    public  static abstract class ProjectEntry implements BaseColumns {
         // Table name
         public static final String TABLE_PROJECT = "project";
 
@@ -45,11 +43,11 @@ public final class Bugtracking {
         // Create statement
         public static final String CREATE_TABLE_PROJECT = "CREATE TABLE "
                 + TABLE_PROJECT + "("
-                + Project.ID + " INTEGER PRIMARY KEY,"
-                + Project.NAME + " TEXT "
-                + Project.DESCRIPTION + " TEXT "
-                + Project.STARTDATE + " TEXT "
-                + Project.ENDDATE + " TEXT "
+                + ProjectEntry.ID + " INTEGER PRIMARY KEY,"
+                + ProjectEntry.NAME + " TEXT "
+                + ProjectEntry.DESCRIPTION + " TEXT "
+                + ProjectEntry.STARTDATE + " TEXT "
+                + ProjectEntry.ENDDATE + " TEXT "
                 + ");";
     }
     public static abstract class ProjectDeveloper implements BaseColumns{

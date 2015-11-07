@@ -1,5 +1,7 @@
 package com.example.bugtracking.bugtracking.object;
 
+import android.text.format.DateFormat;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -9,8 +11,8 @@ public class Project {
     private int id;
     private String name;
     private String description;
-    private SimpleDateFormat startdate;
-    private SimpleDateFormat enddate;
+    private String startdate;
+    private String enddate;
     public int getId() {
         return id;
     }
@@ -29,16 +31,16 @@ public class Project {
     public void setDescription(String description) {
         this.description = description;
     }
-    public SimpleDateFormat getStartdate() {
+    public String getStartdate() {
         return startdate;
     }
-    public void setStartdate(SimpleDateFormat startdate) {
+    public void setStartdate(String startdate) {
         this.startdate = startdate;
     }
-    public SimpleDateFormat getEnddate() {
+    public String getEnddate() {
         return enddate;
     }
-    public void setEnddate(SimpleDateFormat enddate) {
+    public void setEnddate(String enddate) {
         this.enddate = enddate;
     }
 }
