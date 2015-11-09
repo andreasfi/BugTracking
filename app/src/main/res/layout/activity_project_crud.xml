@@ -25,14 +25,32 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="StartDate"
-        android:inputType="datetime"/>
+
+        />
+    <Button
+        android:id="@+id/proStartDateAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="90px"
+        android:text="Add Start Date"
+        android:textSize="9dp"
+        android:onClick="clicAddStartDate"
+        />
 
     <EditText
         android:id="@+id/proEndDate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="EndDate"
-        android:inputType="datetime"/>
+
+        />
+    <Button
+        android:id="@+id/proEndDateAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="90px"
+        android:text="Add End Date"
+        android:textSize="9dp"
+        android:onClick="clicAddEndDate"
+        />
 
 
 

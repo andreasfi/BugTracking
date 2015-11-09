@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class ProjectCrudActivity extends AppCompatActivity {
 
@@ -14,11 +16,11 @@ public class ProjectCrudActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Pour retourner à Login Activity si on est pas connecté
-        if(LoginActivity.CONNECTED==false){
+       /* if(LoginActivity.CONNECTED==false){
             LoginActivity.MESSAGE_ERROR=true;
             Intent intent=new Intent(this,LoginActivity.class);
             startActivity(intent);
-        }
+        }*/
 
         setContentView(R.layout.activity_project_crud);
     }
@@ -44,5 +46,25 @@ public class ProjectCrudActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Action pour ajouter une date de début
+    public void clicAddStartDate(View view){
+        EditText text=(EditText)findViewById(R.id.proStartDate);
+
+        MyDatePickerFragment datePicker=new MyDatePickerFragment();
+        datePicker.setView(text);
+        datePicker.show(getSupportFragmentManager(),"Date Picker");
+
+    }
+
+    //Action pour ajouter une date de fin
+    public void clicAddEndDate(View view){
+        EditText text=(EditText)findViewById(R.id.proEndDate);
+
+        MyDatePickerFragment datePicker=new MyDatePickerFragment();
+        datePicker.setView(text);
+        datePicker.show(getSupportFragmentManager(),"Date Picker");
+
     }
 }
