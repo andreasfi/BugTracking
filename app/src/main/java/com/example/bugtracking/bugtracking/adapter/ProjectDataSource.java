@@ -61,7 +61,7 @@ public class ProjectDataSource {
         project.setDescription(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.DESCRIPTION)));
         project.setStartdate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.STARTDATE)));
         project.setEnddate(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.ProjectEntry.ENDDATE)));
-
+//eh
         return project;
     }
 
