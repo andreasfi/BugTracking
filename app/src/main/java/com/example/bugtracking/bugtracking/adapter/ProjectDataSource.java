@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.bugtracking.bugtracking.Bugtracking;
+import com.example.bugtracking.bugtracking.SQLiteHelper;
 import com.example.bugtracking.bugtracking.object.Project;
 
 import java.text.DateFormat;
@@ -21,8 +22,8 @@ public class ProjectDataSource {
 
     public ProjectDataSource(Context context) {
         // Une fois que le helper est crée enlever le commentaire
-        //SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(context);
-        ///db = sqLiteHelper.getWritableDatabase();
+        SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(context);
+        db = sqLiteHelper.getWritableDatabase();
         this.context = context;
     }
 

@@ -44,9 +44,9 @@ public final class Bugtracking {
         public static final String CREATE_TABLE_PROJECT = "CREATE TABLE "
                 + TABLE_PROJECT + "("
                 + ProjectEntry.ID + " INTEGER PRIMARY KEY,"
-                + ProjectEntry.NAME + " TEXT "
-                + ProjectEntry.DESCRIPTION + " TEXT "
-                + ProjectEntry.STARTDATE + " TEXT "
+                + ProjectEntry.NAME + " TEXT, "
+                + ProjectEntry.DESCRIPTION + " TEXT, "
+                + ProjectEntry.STARTDATE + " TEXT, "
                 + ProjectEntry.ENDDATE + " TEXT "
                 + ");";
     }
@@ -64,8 +64,8 @@ public final class Bugtracking {
         public static final String CREATE_TABLE_PROJECTDEVELOPER = "CREATE TABLE "
                 + TABLE_PROJECTDEVELOPER + "("
                 + ProjectDeveloper.ID + " INTEGER PRIMARY KEY,"
-                + ProjectDeveloper.DEVID + " TEXT "
-                + ProjectDeveloper.PROID + " TEXT "
+                + ProjectDeveloper.DEVID + " TEXT, "
+                + ProjectDeveloper.PROID + " TEXT, "
                 + ProjectDeveloper.ROLE + " TEXT "
                 + ");";
     }
@@ -86,7 +86,7 @@ public final class Bugtracking {
                 +Comment.ID+ "INTEGER PRIMARY KEY, "
                 +Comment.COMMENT+"TEXT, "
                 +Comment.DEV_ID+"INTEGER, "
-                +Comment.ISS_ID+"INTEGER, "
+                +Comment.ISS_ID+"INTEGER "
                 +");";
     }
 
@@ -106,7 +106,7 @@ public final class Bugtracking {
                 +DevIss.DEV_ID+"INTEGER, "
                 +DevIss.ISS_ID+"INTEGER, "
                 +"FOREIGN KEY ("+DEV_ID+") REFERENCES "+Developer.TABLE_DEVELOPER+" ("+ID+"), "
-                +"FOREIGN KEY ("+ISS_ID+") REFERENCES "+Issue.TABLE_ISSUE+" ("+ID+"), "
+                +"FOREIGN KEY ("+ISS_ID+") REFERENCES "+Issue.TABLE_ISSUE+" ("+ID+") "
                 +");";
     }
 
@@ -146,7 +146,7 @@ public final class Bugtracking {
                 +Issue.PROID+"INTEGER,"
                 +Issue.DEVID+"INTEGER,"
                 +"FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
-                +"FOREIGN KEY ("+DEVID+") REFERENCES "+Developer.TABLE_DEVELOPER+" ("+ID+"), "
+                +"FOREIGN KEY ("+DEVID+") REFERENCES "+Developer.TABLE_DEVELOPER+" ("+ID+") "
                 +");";
     }
 
