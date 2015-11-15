@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BugTracking</string>
 
-
+    <string name="default_lang">en</string>
     <!-- Login Activity-->
     <string name="login">login</string>
     <string name="password">password</string>

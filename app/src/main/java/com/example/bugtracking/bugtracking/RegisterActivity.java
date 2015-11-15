@@ -1,6 +1,7 @@
 package com.example.bugtracking.bugtracking;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -26,6 +27,8 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText passwordrepeatView = (EditText) findViewById(R.id.passwordrepeat);
         Button register_button = (Button) findViewById(R.id.register_button);
 
+        // Pass this(context) to the inner class
+        final Context thisclass = this;
 
         // Inner class for button with listener
         register_button.setOnClickListener(new View.OnClickListener() {
@@ -35,14 +38,27 @@ public class RegisterActivity extends AppCompatActivity {
                 String username = usernameView.getText().toString();
                 String password = passwordView.getText().toString();
                 String passwordrepeat = passwordrepeatView.getText().toString();
-                List<Developer> developers = new ArrayList<Developer>();
+
                 //ArrayList<Bugtracking.DeveloperEntry> = new List<Bugtracking.DeveloperEntry>();
                 //DeveloperDataSource developers = new DeveloperDataSource();
+
                 if(!username.isEmpty() || !password.isEmpty() || !passwordrepeat.isEmpty()){ // Check if a field is empty
                     if(password.equals(passwordrepeat)){ // check if password is the same
-                        if(!username.equals("already in the database")){ // check if username is unique
-                            // Add a new user to the database
 
+                        DeveloperDataSource developerds = new DeveloperDataSource(thisclass);
+
+                        List<Developer> developers = developerds.getAllDevelopers();
+
+
+                        if(!developers.contains(username)){ // check if username is unique
+                            // Add a new user to the database
+                            Developer developer = new Developer();
+
+                            developer.setUsername(username);
+                            developer.setPassword(password);
+                            developer.setLang("en");
+
+                            developer.setId((int) developerds.createDeveloper(developer));
                             // Go to project activity
                         } else {
                             // show error
@@ -71,6 +87,8 @@ public class RegisterActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
+                SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
+                sqlHelper.getWritableDatabase().close();
             }
         });
     }
