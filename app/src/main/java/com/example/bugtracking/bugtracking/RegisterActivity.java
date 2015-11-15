@@ -9,6 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
+import com.example.bugtracking.bugtracking.object.Developer;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String username = usernameView.getText().toString();
                 String password = passwordView.getText().toString();
                 String passwordrepeat = passwordrepeatView.getText().toString();
+                List<Developer> developers = new ArrayList<Developer>();
+                //ArrayList<Bugtracking.DeveloperEntry> = new List<Bugtracking.DeveloperEntry>();
+                //DeveloperDataSource developers = new DeveloperDataSource();
                 if(!username.isEmpty() || !password.isEmpty() || !passwordrepeat.isEmpty()){ // Check if a field is empty
                     if(password.equals(passwordrepeat)){ // check if password is the same
                         if(!username.equals("already in the database")){ // check if username is unique

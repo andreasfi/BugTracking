@@ -21,7 +21,6 @@ public class ProjectDataSource {
     private Context context;
 
     public ProjectDataSource(Context context) {
-        // Une fois que le helper est crée enlever le commentaire
         SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(context);
         db = sqLiteHelper.getWritableDatabase();
         this.context = context;
@@ -42,7 +41,7 @@ public class ProjectDataSource {
 
         id = this.db.insert(Bugtracking.ProjectEntry.TABLE_PROJECT, null, values);
 
-        return 0;
+        return id;
     }
 
     // GET PROJECT

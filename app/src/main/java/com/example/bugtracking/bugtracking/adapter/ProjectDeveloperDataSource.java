@@ -25,10 +25,10 @@ public class ProjectDeveloperDataSource {
 
     public  long createProjectDeveloper(long developer_id, long project_id){
         ContentValues values = new ContentValues();
-        values.put(Bugtracking.ProjectDeveloper.DEVID, developer_id );
-        values.put(Bugtracking.ProjectDeveloper.PROID, project_id);
+        values.put(Bugtracking.ProjectDeveloperEntry.DEVID, developer_id );
+        values.put(Bugtracking.ProjectDeveloperEntry.PROID, project_id);
 
-        return this.db.insert(Bugtracking.ProjectDeveloper.TABLE_PROJECTDEVELOPER, null, values);
+        return this.db.insert(Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER, null, values);
     }
 
 }

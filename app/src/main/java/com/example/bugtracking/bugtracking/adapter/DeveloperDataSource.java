@@ -20,7 +20,6 @@ public class DeveloperDataSource {
     private Context context;
 
     public DeveloperDataSource(Context context) {
-        // Une fois que le helper est crée enlever le commentaire
         SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(context);
         db = sqLiteHelper.getWritableDatabase();
         this.context = context;
@@ -34,18 +33,18 @@ public class DeveloperDataSource {
     public long createDeveloper(Developer developer){
         long id;
         ContentValues values = new ContentValues();
-        values.put(Bugtracking.Developer.USERNAME, developer.getUsername());
-        values.put(Bugtracking.Developer.PASSWORD, developer.getPassword());
-        values.put(Bugtracking.Developer.LANGUAGE, developer.getLang());
+        values.put(Bugtracking.DeveloperEntry.USERNAME, developer.getUsername());
+        values.put(Bugtracking.DeveloperEntry.PASSWORD, developer.getPassword());
+        values.put(Bugtracking.DeveloperEntry.LANGUAGE, developer.getLang());
 
-        id = this.db.insert(Bugtracking.Developer.TABLE_DEVELOPER, null, values);
+        id = this.db.insert(Bugtracking.DeveloperEntry.TABLE_DEVELOPER, null, values);
 
         return id;
     }
     // FIND DEVELOPER BY ID
     public Developer getDeveloperByID(long id){
-        String sql = "SELECT * FROM " + Bugtracking.Developer.TABLE_DEVELOPER +
-                " WHERE " + Bugtracking.Developer.ID+ " = " + id;
+        String sql = "SELECT * FROM " + Bugtracking.DeveloperEntry.TABLE_DEVELOPER +
+                " WHERE " + Bugtracking.DeveloperEntry.ID+ " = " + id;
 
         Cursor cursor = this.db.rawQuery(sql, null);
 
@@ -54,27 +53,27 @@ public class DeveloperDataSource {
         }
 
         Developer developer = new Developer();
-        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.Developer.ID)));
-        developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.Developer.USERNAME)));
-        developer.setPassword(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.Developer.PASSWORD)));
-        developer.setLang(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.Developer.LANGUAGE)));
+        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
+        developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
+        developer.setPassword(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+        developer.setLang(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
 
         return developer;
     }
     // GET ALL DEVELOPERS
     public List<Developer> getAllDevelopers(){
-        List<Developer> developers = new ArrayList<Developer>();
-        String sql = "SELECT * FROM "+ Bugtracking.Developer.TABLE_DEVELOPER + " ORDER BY " + Bugtracking.Developer.USERNAME;
+        List<Developer> developers = new ArrayList<>();
+        String sql = "SELECT * FROM "+ Bugtracking.DeveloperEntry.TABLE_DEVELOPER + " ORDER BY " + Bugtracking.DeveloperEntry.USERNAME;
 
         Cursor cursor = this.db.rawQuery(sql, null);
 
         if(cursor.moveToFirst()){
             do {
                 Developer developer = new Developer();
-                developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.Developer.ID)));
-                developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.Developer.USERNAME)));
-                developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.Developer.PASSWORD)));
-                developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.Developer.LANGUAGE)));
+                developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
+                developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
+                developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+                developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
 
                 developers.add(developer);
             } while (cursor.moveToNext());
@@ -84,15 +83,16 @@ public class DeveloperDataSource {
     // UPDATE DEVELOPER
     public int updateDeveloper(Developer developer){
         ContentValues values = new ContentValues();
-        values.put(Bugtracking.Developer.USERNAME, developer.getUsername());
-        values.put(Bugtracking.Developer.PASSWORD, developer.getPassword());
-        values.put(Bugtracking.Developer.LANGUAGE, developer.getLang());
+        values.put(Bugtracking.DeveloperEntry.USERNAME, developer.getUsername());
+        values.put(Bugtracking.DeveloperEntry.PASSWORD, developer.getPassword());
+        values.put(Bugtracking.DeveloperEntry.LANGUAGE, developer.getLang());
 
-        return this.db.update(Bugtracking.Developer.TABLE_DEVELOPER, values, Bugtracking.Developer.ID + " = ?", new String[]{String.valueOf(developer.getId())});
+        return this.db.update(Bugtracking.DeveloperEntry.TABLE_DEVELOPER, values, Bugtracking.DeveloperEntry.ID + " = ?", new String[]{String.valueOf(developer.getId())});
 
     }
     // DELETE DEVELOPER
     public void deleteDeveloper(long id){
+
         //ProjectDeveloperDataSource pdds = new ProjectDeveloperDataSource(context);
         // List<Record> records = pra.getAllRecordsByPerson(id);
         /*
@@ -100,6 +100,6 @@ public class DeveloperDataSource {
 			pra.deleteRecord(record.getId());
 		}
          */
-        this.db.delete(Bugtracking.Developer.TABLE_DEVELOPER, Bugtracking.ProjectDeveloper.ID + " = ?", new String[]{ String.valueOf(id)});
+        this.db.delete(Bugtracking.DeveloperEntry.TABLE_DEVELOPER, Bugtracking.ProjectDeveloperEntry.ID + " = ?", new String[]{ String.valueOf(id)});
     }
 }

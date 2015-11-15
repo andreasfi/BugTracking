@@ -10,7 +10,7 @@ public final class Bugtracking {
         // empty
     }
 
-    public static abstract class Developer implements BaseColumns{
+    public static abstract class DeveloperEntry implements BaseColumns{
         // Table name
         public static final String TABLE_DEVELOPER = "developer";
 
@@ -23,10 +23,10 @@ public final class Bugtracking {
         // Create statement
         public static final String CREATE_TABLE_DEVELOPER = "CREATE TABLE "
                 + TABLE_DEVELOPER + "("
-                + Developer.ID + " INTEGER PRIMARY KEY,"
-                + Developer.USERNAME + " TEXT, "
-                + Developer.PASSWORD + " TEXT, "
-                + Developer.LANGUAGE + " TEXT "
+                + DeveloperEntry.ID + " INTEGER PRIMARY KEY,"
+                + DeveloperEntry.USERNAME + " TEXT, "
+                + DeveloperEntry.PASSWORD + " TEXT, "
+                + DeveloperEntry.LANGUAGE + " TEXT "
                 + ");";
     }
     public  static abstract class ProjectEntry implements BaseColumns {
@@ -50,7 +50,7 @@ public final class Bugtracking {
                 + ProjectEntry.ENDDATE + " TEXT "
                 + ");";
     }
-    public static abstract class ProjectDeveloper implements BaseColumns{
+    public static abstract class ProjectDeveloperEntry implements BaseColumns{
         // Table name
         public static final String TABLE_PROJECTDEVELOPER = "projectdeveloper";
 
@@ -63,14 +63,14 @@ public final class Bugtracking {
         // Create statement
         public static final String CREATE_TABLE_PROJECTDEVELOPER = "CREATE TABLE "
                 + TABLE_PROJECTDEVELOPER + "("
-                + ProjectDeveloper.ID + " INTEGER PRIMARY KEY,"
-                + ProjectDeveloper.DEVID + " TEXT, "
-                + ProjectDeveloper.PROID + " TEXT, "
-                + ProjectDeveloper.ROLE + " TEXT "
+                + ProjectDeveloperEntry.ID + " INTEGER PRIMARY KEY,"
+                + ProjectDeveloperEntry.DEVID + " TEXT, "
+                + ProjectDeveloperEntry.PROID + " TEXT, "
+                + ProjectDeveloperEntry.ROLE + " TEXT "
                 + ");";
     }
 
-    public static abstract class Comment implements BaseColumns{
+    public static abstract class CommentEntry implements BaseColumns{
         //Table name
         public static final String TABLE_COMMENT="comments";
 
@@ -83,17 +83,17 @@ public final class Bugtracking {
         //Create statement
         public static final String CREATE_TABLE_COMMENT="CREATE TABLE "+
                 TABLE_COMMENT+"("
-                +Comment.ID+ "INTEGER PRIMARY KEY, "
-                +Comment.COMMENT+"TEXT, "
-                +Comment.DEV_ID+"INTEGER, "
-                +Comment.ISS_ID+"INTEGER "
+                + CommentEntry.ID+ "INTEGER PRIMARY KEY, "
+                + CommentEntry.COMMENT+"TEXT, "
+                + CommentEntry.DEV_ID+"INTEGER, "
+                + CommentEntry.ISS_ID+"INTEGER "
                 +");";
     }
 
 
-    public static abstract class DevIss implements BaseColumns{
+    public static abstract class DeveloperIssueEntry implements BaseColumns{
 
-        public static final String TABLE_DEVISSUE="devIssue";
+        public static final String TABLE_DEVELOPERISSUE ="developerissue";
 
         //Columns
         public static final String ID="id";
@@ -101,18 +101,18 @@ public final class Bugtracking {
         public static final String ISS_ID="issId";
 
         //Create statement
-        public static final String CREATE_TABLE_DEVISSUE="CREATE TABLE "+TABLE_DEVISSUE+"("
-                +DevIss.ID+"INTEGER PRIMARY KEY,"
-                +DevIss.DEV_ID+"INTEGER, "
-                +DevIss.ISS_ID+"INTEGER, "
-                +"FOREIGN KEY ("+DEV_ID+") REFERENCES "+Developer.TABLE_DEVELOPER+" ("+ID+"), "
-                +"FOREIGN KEY ("+ISS_ID+") REFERENCES "+Issue.TABLE_ISSUE+" ("+ID+") "
+        public static final String CREATE_TABLE_DEVELOPERISSUE ="CREATE TABLE "+ TABLE_DEVELOPERISSUE +"("
+                + DeveloperIssueEntry.ID+"INTEGER PRIMARY KEY,"
+                + DeveloperIssueEntry.DEV_ID+"INTEGER, "
+                + DeveloperIssueEntry.ISS_ID+"INTEGER, "
+                +"FOREIGN KEY ("+DEV_ID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+"), "
+                +"FOREIGN KEY ("+ISS_ID+") REFERENCES "+ IssueEntry.TABLE_ISSUE+" ("+ID+") "
                 +");";
     }
 
-    public static abstract class Issue implements BaseColumns{
+    public static abstract class IssueEntry implements BaseColumns{
 
-        public static final String TABLE_ISSUE="issues";
+        public static final String TABLE_ISSUE="issue";
 
         //Colums
 
@@ -131,22 +131,22 @@ public final class Bugtracking {
 
 
         //Create statements
-        public static final String CREATE_TABLE_DEVISSUE="CREATE TABLE "+TABLE_ISSUE+"("
-                +Issue.ID+"INTEGER PRIMARY KEY,"
-                +Issue.TITLE+"TEXT,"
-                +Issue.DESCRIPTION+"TEXT,"
-                +Issue.REFERENCE+"TEXT,"
-                +Issue.REFERENCE+"TEXT,"
-                +Issue.CATEGORY+"TEXT,"
-                +Issue.REPRODUCE+"TEXT,"
-                +Issue.EFFECT+"TEXT,"
-                +Issue.PRIORITY+"TEXT,"
-                +Issue.STATE+"TEXT,"
-                +Issue.DATE+"TEXT,"
-                +Issue.PROID+"INTEGER,"
-                +Issue.DEVID+"INTEGER,"
+        public static final String CREATE_TABLE_ISSUE="CREATE TABLE "+TABLE_ISSUE+"("
+                + IssueEntry.ID+"INTEGER PRIMARY KEY,"
+                + IssueEntry.TITLE+"TEXT,"
+                + IssueEntry.DESCRIPTION+"TEXT,"
+                + IssueEntry.REFERENCE+"TEXT,"
+                + IssueEntry.REFERENCE+"TEXT,"
+                + IssueEntry.CATEGORY+"TEXT,"
+                + IssueEntry.REPRODUCE+"TEXT,"
+                + IssueEntry.EFFECT+"TEXT,"
+                + IssueEntry.PRIORITY+"TEXT,"
+                + IssueEntry.STATE+"TEXT,"
+                + IssueEntry.DATE+"TEXT,"
+                + IssueEntry.PROID+"INTEGER,"
+                + IssueEntry.DEVID+"INTEGER,"
                 +"FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
-                +"FOREIGN KEY ("+DEVID+") REFERENCES "+Developer.TABLE_DEVELOPER+" ("+ID+") "
+                +"FOREIGN KEY ("+DEVID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+") "
                 +");";
     }
 

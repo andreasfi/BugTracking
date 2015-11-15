@@ -40,7 +40,7 @@ public class CommentFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_comment, container, false);
     }
 
-    //Methode appelée dans le Fragment "Comment"
+    //Methode appelée dans le Fragment "CommentEntry"
     public void clicComment(View view){
         CommentToast toast=new CommentToast();
         toast.runToast("MON COMMENTAIRE");
