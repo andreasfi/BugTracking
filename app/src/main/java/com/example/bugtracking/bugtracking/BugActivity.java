@@ -1,4 +1,5 @@
 package com.example.bugtracking.bugtracking;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.bugtracking.bugtracking.adapter.IssueDataSource;
+import com.example.bugtracking.bugtracking.object.Issue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class BugActivity extends AppCompatActivity {
     //private ActionBar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    int projectid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,13 @@ public class BugActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        // ID of the project
+        projectid = 0; // change,, get selected project id
+
+        //DB
+        //IssueDataSource ids = new IssueDataSource(this);
+        //List<Issue> issues = ids.getAllIssueByProject(projectid);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +66,10 @@ public class BugActivity extends AppCompatActivity {
                 //TODO
             }
         });
+    }
+
+    public int getProjectid() {
+        return projectid;
     }
 
     private void setupViewPager(ViewPager viewPager) {
