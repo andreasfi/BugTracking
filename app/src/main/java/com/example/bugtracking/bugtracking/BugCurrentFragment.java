@@ -16,6 +16,8 @@ public class BugCurrentFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Get db items
     }
 
     @Override

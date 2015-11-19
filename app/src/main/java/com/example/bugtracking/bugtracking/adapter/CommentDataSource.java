@@ -70,6 +70,7 @@ public class CommentDataSource {
 
     //DELETE COMMENT
     public void deleteComment(long id){
+
         //IL NE RECONNAIS PAS CERTAINE CLASSES
         /*RecordDataSource pra = new RecordDataSource(context);
         List<Record> records = pra.getAllRecordsByPerson(id);*/

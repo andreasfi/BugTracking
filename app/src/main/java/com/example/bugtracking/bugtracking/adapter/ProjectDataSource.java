@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.bugtracking.bugtracking.Bugtracking;
 import com.example.bugtracking.bugtracking.SQLiteHelper;
+import com.example.bugtracking.bugtracking.object.Issue;
 import com.example.bugtracking.bugtracking.object.Project;
 
 import java.text.DateFormat;
@@ -100,14 +101,14 @@ public class ProjectDataSource {
         return this.db.update(Bugtracking.ProjectEntry.TABLE_PROJECT, values, Bugtracking.ProjectEntry.ID + " = ?", new String[]{String.valueOf(project.getId())});
     }
 
-    public void deleteProject(long id){
-        // RecordDataSource pra = new RecordDataSource(context);
-        // List<Record> records = pra.getAllRecordsByPerson(id);
-        /*
-        for(Record record : records){
-			pra.deleteRecord(record.getId());
-		}
-         */
-        this.db.delete(Bugtracking.ProjectEntry.TABLE_PROJECT, Bugtracking.ProjectEntry.ID + " = ?", new String[] { String.valueOf(id)} );
+    public void deleteProject(long projectid){
+        // Delete all Issues linked to projecct
+        IssueDataSource ids = new IssueDataSource(context);
+        List<Issue> issues = ids.getAllIssueByProject(projectid);
+        for (Issue issue : issues){
+            ids.deletEIssue(issue.getId());
+        }
+        // Delete the project
+        this.db.delete(Bugtracking.ProjectEntry.TABLE_PROJECT, Bugtracking.ProjectEntry.ID + " = ?", new String[] { String.valueOf(projectid)} );
     }
 }

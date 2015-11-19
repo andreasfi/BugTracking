@@ -40,16 +40,19 @@ public class RegisterActivity extends AppCompatActivity {
                 String passwordrepeat = passwordrepeatView.getText().toString();
 
                 //ArrayList<Bugtracking.DeveloperEntry> = new List<Bugtracking.DeveloperEntry>();
-                //DeveloperDataSource developers = new DeveloperDataSource();
+
+
+
 
                 if(!username.isEmpty() || !password.isEmpty() || !passwordrepeat.isEmpty()){ // Check if a field is empty
                     if(password.equals(passwordrepeat)){ // check if password is the same
 
-                        DeveloperDataSource developerds = new DeveloperDataSource(thisclass);
+                        //DeveloperDataSource developerds = new DeveloperDataSource(thisclass);
 
-                        List<Developer> developers = developerds.getAllDevelopers();
-
-
+                        //List<Developer> developers = developerds.getAllDevelopers();
+                        DeveloperDataSource dds = new DeveloperDataSource(thisclass);
+                        List<Developer> developers = new ArrayList<Developer>();
+                        developers = dds.getAllDevelopers();
                         if(!developers.contains(username)){ // check if username is unique
                             // Add a new user to the database
                             Developer developer = new Developer();
@@ -58,8 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
                             developer.setPassword(password);
                             developer.setLang("en");
 
-                            developer.setId((int) developerds.createDeveloper(developer));
-                            // Go to project activity
+                            developer.setId((int) dds.createDeveloper(developer));
+                            //@todo Set user to logged in
+                            //@todo Go to project activity
                         } else {
                             // show error
                             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
