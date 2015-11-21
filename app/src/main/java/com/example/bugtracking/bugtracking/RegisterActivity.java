@@ -1,9 +1,12 @@
 package com.example.bugtracking.bugtracking;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -17,8 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
+    public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -28,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         Button register_button = (Button) findViewById(R.id.register_button);
 
         // Pass this(context) to the inner class
-        final Context thisclass = this;
+        final Activity thisclass = this;
 
         // Inner class for button with listener
         register_button.setOnClickListener(new View.OnClickListener() {
@@ -38,22 +42,35 @@ public class RegisterActivity extends AppCompatActivity {
                 String username = usernameView.getText().toString();
                 String password = passwordView.getText().toString();
                 String passwordrepeat = passwordrepeatView.getText().toString();
-
-                //ArrayList<Bugtracking.DeveloperEntry> = new List<Bugtracking.DeveloperEntry>();
-
-
-
-
-                if(!username.isEmpty() || !password.isEmpty() || !passwordrepeat.isEmpty()){ // Check if a field is empty
-                    if(password.equals(passwordrepeat)){ // check if password is the same
+                if (!username.isEmpty() || !password.isEmpty() || !passwordrepeat.isEmpty()) { // Check if a field is empty
+                    if (password.equals(passwordrepeat)) { // check if password is the same
 
                         //DeveloperDataSource developerds = new DeveloperDataSource(thisclass);
-
                         //List<Developer> developers = developerds.getAllDevelopers();
+
                         DeveloperDataSource dds = new DeveloperDataSource(thisclass);
                         List<Developer> developers = new ArrayList<Developer>();
                         developers = dds.getAllDevelopers();
-                        if(!developers.contains(username)){ // check if username is unique
+                        if (developers.isEmpty()) {
+                            Developer developer = new Developer();
+
+                            developer.setUsername(username);
+                            developer.setPassword(password);
+                            developer.setLang("en");
+
+                            developer.setId((int) dds.createDeveloper(developer));
+
+                            SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
+                            sqlHelper.getWritableDatabase().close();
+
+                            // Send to next activity
+                            Intent intent = new Intent(thisclass, ProjectMainActivity.class);
+                            intent.putExtra(EXTRA_MESSAGE,username);
+                            intent.putExtra("Password",password);
+                            startActivity(intent);
+
+                        }
+                        if (!developers.contains(username)) { // check if username is unique
                             // Add a new user to the database
                             Developer developer = new Developer();
 
@@ -62,8 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
                             developer.setLang("en");
 
                             developer.setId((int) dds.createDeveloper(developer));
+
+                            SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
+                            sqlHelper.getWritableDatabase().close();
                             //@todo Set user to logged in
                             //@todo Go to project activity
+                            Intent intent = new Intent(thisclass, ProjectMainActivity.class);
+                            intent.putExtra(EXTRA_MESSAGE,username);
+                            intent.putExtra("Password",password);
+                            startActivity(intent);
                         } else {
                             // show error
                             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
@@ -91,8 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-                SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
-                sqlHelper.getWritableDatabase().close();
+
             }
         });
     }

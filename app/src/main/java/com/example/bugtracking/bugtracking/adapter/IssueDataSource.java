@@ -53,8 +53,8 @@ public class IssueDataSource {
     // get issues by project
     public List<Issue> getAllIssueByProject(long projectid){
         List<Issue> issues = new ArrayList<>();
-        String sql = "SELECT * FROM"+ Bugtracking.IssueEntry.TABLE_ISSUE +
-                " WHERE"+ Bugtracking.IssueEntry.PROID+ " = "+ projectid;
+        String sql = "SELECT * FROM "+ Bugtracking.IssueEntry.TABLE_ISSUE +
+                " WHERE "+ Bugtracking.IssueEntry.PROID+ " = "+ projectid;
 
         Cursor cursor = this.db.rawQuery(sql, null);
         if(cursor.moveToFirst()){

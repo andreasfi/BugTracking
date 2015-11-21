@@ -15,7 +15,7 @@ public final class Bugtracking {
         public static final String TABLE_DEVELOPER = "developer";
 
         // Columns
-        public static final String ID = "id";
+        public static final String ID = "iddeveloper";
         public static final String USERNAME = "username";
         public static final String PASSWORD = "password";
         public static final String LANGUAGE = "language";
@@ -34,7 +34,7 @@ public final class Bugtracking {
         public static final String TABLE_PROJECT = "project";
 
         // Columns
-        public static final String ID = "id";
+        public static final String ID = "idproject";
         public static final String NAME = "name";
         public static final String DESCRIPTION = "description";
         public static final String STARTDATE = "startdate";
@@ -55,7 +55,7 @@ public final class Bugtracking {
         public static final String TABLE_PROJECTDEVELOPER = "projectdeveloper";
 
         // Columns
-        public static final String ID = "id";
+        public static final String ID = "idprodev";
         public static final String DEVID = "devid";
         public static final String PROID = "proid";
         public static final String ROLE = "role";
@@ -75,7 +75,7 @@ public final class Bugtracking {
         public static final String TABLE_COMMENT="comments";
 
         //Columns
-        public static final String ID= "id";
+        public static final String ID= "idcomment";
         public static final String COMMENT="comment";
         public static final String DEV_ID="devID";
         public static final String ISS_ID="issID";
@@ -83,10 +83,10 @@ public final class Bugtracking {
         //Create statement
         public static final String CREATE_TABLE_COMMENT="CREATE TABLE "+
                 TABLE_COMMENT+"("
-                + CommentEntry.ID+ "INTEGER PRIMARY KEY, "
-                + CommentEntry.COMMENT+"TEXT, "
-                + CommentEntry.DEV_ID+"INTEGER, "
-                + CommentEntry.ISS_ID+"INTEGER "
+                + CommentEntry.ID+ " INTEGER PRIMARY KEY, "
+                + CommentEntry.COMMENT+" TEXT, "
+                + CommentEntry.DEV_ID+" INTEGER, "
+                + CommentEntry.ISS_ID+" INTEGER "
                 +");";
     }
 
@@ -96,17 +96,17 @@ public final class Bugtracking {
         public static final String TABLE_DEVELOPERISSUE ="developerissue";
 
         //Columns
-        public static final String ID="id";
+        public static final String ID="iddeviss";
         public static final String DEV_ID="devID";
         public static final String ISS_ID="issId";
 
         //Create statement
         public static final String CREATE_TABLE_DEVELOPERISSUE ="CREATE TABLE "+ TABLE_DEVELOPERISSUE +"("
-                + DeveloperIssueEntry.ID+"INTEGER PRIMARY KEY,"
-                + DeveloperIssueEntry.DEV_ID+"INTEGER, "
-                + DeveloperIssueEntry.ISS_ID+"INTEGER, "
-                +"FOREIGN KEY ("+DEV_ID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+"), "
-                +"FOREIGN KEY ("+ISS_ID+") REFERENCES "+ IssueEntry.TABLE_ISSUE+" ("+ID+") "
+                + DeveloperIssueEntry.ID+" INTEGER PRIMARY KEY,"
+                + DeveloperIssueEntry.DEV_ID+" INTEGER, "
+                + DeveloperIssueEntry.ISS_ID+" INTEGER, "
+                +" FOREIGN KEY ("+DEV_ID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+"), "
+                +" FOREIGN KEY ("+ISS_ID+") REFERENCES "+ IssueEntry.TABLE_ISSUE+" ("+ID+") "
                 +");";
     }
 
@@ -116,7 +116,7 @@ public final class Bugtracking {
 
         //Colums
 
-        public static final String ID="id";
+        public static final String ID="idissue";
         public static final String TITLE="title";
         public static final String DESCRIPTION="description";
         public static final String REFERENCE="reference";
@@ -132,21 +132,20 @@ public final class Bugtracking {
 
         //Create statements
         public static final String CREATE_TABLE_ISSUE="CREATE TABLE "+TABLE_ISSUE+"("
-                + IssueEntry.ID+"INTEGER PRIMARY KEY,"
-                + IssueEntry.TITLE+"TEXT,"
-                + IssueEntry.DESCRIPTION+"TEXT,"
-                + IssueEntry.REFERENCE+"TEXT,"
-                + IssueEntry.REFERENCE+"TEXT,"
-                + IssueEntry.CATEGORY+"TEXT,"
-                + IssueEntry.REPRODUCE+"TEXT,"
-                + IssueEntry.EFFECT+"TEXT,"
-                + IssueEntry.PRIORITY+"TEXT,"
-                + IssueEntry.STATE+"TEXT,"
-                + IssueEntry.DATE+"TEXT,"
-                + IssueEntry.PROID+"INTEGER,"
-                + IssueEntry.DEVID+"INTEGER,"
-                +"FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
-                +"FOREIGN KEY ("+DEVID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+") "
+                + IssueEntry.ID+" INTEGER PRIMARY KEY,"
+                + IssueEntry.TITLE+" TEXT,"
+                + IssueEntry.DESCRIPTION+" TEXT,"
+                + IssueEntry.REFERENCE+" TEXT,"
+                + IssueEntry.CATEGORY+" TEXT,"
+                + IssueEntry.REPRODUCE+" TEXT,"
+                + IssueEntry.EFFECT+" TEXT,"
+                + IssueEntry.PRIORITY+" TEXT,"
+                + IssueEntry.STATE+" TEXT,"
+                + IssueEntry.DATE+" TEXT,"
+                + IssueEntry.PROID+" INTEGER,"
+                + IssueEntry.DEVID+" INTEGER,"
+                +" FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
+                +" FOREIGN KEY ("+DEVID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+") "
                 +");";
     }
 
