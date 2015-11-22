@@ -16,6 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
+import com.example.bugtracking.bugtracking.object.Developer;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class ProjectMainActivity extends AppCompatActivity {
 
     TextView item;
@@ -30,44 +37,42 @@ public class ProjectMainActivity extends AppCompatActivity {
         }*/
 
         //Create developers
-        Developer dev[]=new Developer[4];
+      /*  Developer dev[]=new Developer[4];
 
         for(int i=0;i<dev.length;i++){
             dev[i]=new Developer("test"+i, "test1234"+i,(int)(Math.random()*15)+1);
-        }
+        }*/
 
 
         //Récupération de username (login) + stock dans une variable pour l'affichage
         Intent intent=getIntent();
-        //String login=intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-       // LoginActivity.TEST_LOGIN=intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-        String login=LoginActivity.TEST_LOGIN;
-        String password=intent.getStringExtra("Password");
+        String login=intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
+        String password = intent.getStringExtra("Password");
+
+        //Contrôle dans la base donnée
+        DeveloperDataSource dds =new DeveloperDataSource(this);
+
 
         Boolean isLogin=LoginActivity.CONNECTED;
 
         TextView textLogin=new TextView(this);
         TextView textPassword=new TextView(this);
         TextView isLoginView=new TextView(this);
-
+        TextView idView=new TextView(this);
         textLogin.setText("User : "+login);
         isLoginView.setText(isLogin.toString());
         textLogin.setPadding(400, 16, 0, 16);
 
         textPassword.setText("Password : "+ password);
 
+        List<Developer> developers;
+        developers=dds.getAllDevelopers();
+        long id=findDevelopper(developers,login,password);
+        idView.setText(id+" ");
 
-        //Test login and password
-        //Search developper
-        Developer logDev=new Developer("","",2);
-        for(int i=0;i<dev.length;i++){
-            if(dev[i].login.equals(login)){
-                logDev=dev[i];
-                i=dev.length;
-            }
-        }
 
-        if(!password.equals(logDev.password)){
+        //Si le mot de passe ou l'username est incorrect, ça renvoie à Login Activity
+        if(id==-1){
             LoginActivity.WRON_LOGIN=true;
             Intent intent2=new Intent(this, LoginActivity.class);
             startActivity(intent2);
@@ -98,12 +103,12 @@ public class ProjectMainActivity extends AppCompatActivity {
 
         //Création de la scrollbar
         ScrollView scroll=new ScrollView(this);
-
+        ll.addView(idView);
         ll.addView(textLogin);
         ll.addView(textPassword);
         ll.addView(isLoginView);
         //Création des Items de manière dynamique
-       for(int i=0;i<logDev.nbProject;i++){
+      /*for(int i=0;i<logDev.nbProject;i++){
              item=new TextView(this);
             item.setText("Item " + i);
             item.setPadding(16, 16, 16, 16);
@@ -120,8 +125,11 @@ public class ProjectMainActivity extends AppCompatActivity {
 
             ll.addView(item);
 
-        }
-         ll.addView(addbutton);
+        }*/
+        item=new TextView(this);
+        item.setText("TEST");
+        ll.addView(item);
+        ll.addView(addbutton);
         //Ici on ajoute le linearLayout dans le ScrollView
         scroll.addView(ll);
         setContentView(scroll);
@@ -195,20 +203,41 @@ public class ProjectMainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public long findDevelopper(List<Developer> developers, String userName, String password){
+        Iterator iterator=developers.iterator();
+
+        int i=0;
+        long id=-1;
+        boolean find=false;
+
+        for(i=0;i<developers.size();i++){
+            if(developers.get(i).getUsername().equals(userName)){
+                if(developers.get(i).getPassword().equals(password)){
+                    id=developers.get(i).getId();
+                    LoginActivity.CONNECTED=true;
+
+                }
+            }
+        }
+        //TODO Essayer de récupérer les donnée avec un Iterator
+       /* while(iterator.hasNext())
+        {
+            if(developers.get(i).getUsername().equals(userName)){
+                if(developers.get(i).getPassword().equals(password)){
+                    id=developers.get(i).getId();
+                    LoginActivity.CONNECTED=true;
+
+                }
+            }
+
+            i++;
+        }*/
+
+        return id;
+    }
+
     class onClicTextView {
 
     }
 
-    class Developer{
-
-        String login;
-        String password;
-        int nbProject;
-
-        public Developer(String login, String password, int nbProject){
-            this.login=login;
-            this.password=password;
-            this.nbProject=nbProject;
-        }
-    }
 }
