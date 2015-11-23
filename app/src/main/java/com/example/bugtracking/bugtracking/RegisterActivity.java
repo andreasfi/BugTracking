@@ -51,26 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
                         DeveloperDataSource dds = new DeveloperDataSource(thisclass);
                         List<Developer> developers = new ArrayList<Developer>();
                         developers = dds.getAllDevelopers();
-                        if (developers.isEmpty()) {
-                            Developer developer = new Developer();
 
-                            developer.setUsername(username);
-                            developer.setPassword(password);
-                            developer.setLang("en");
-
-                            developer.setId((int) dds.createDeveloper(developer));
-
-                            SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
-                            sqlHelper.getWritableDatabase().close();
-
-                            // Send to next activity
-                            Intent intent = new Intent(thisclass, ProjectMainActivity.class);
-                            intent.putExtra(EXTRA_MESSAGE,username);
-                            intent.putExtra("Password",password);
-                            startActivity(intent);
-
-                        }
-                        if (!developers.contains(username)) { // check if username is unique
+                        if (!developers.contains(username) || developers.isEmpty()) { // check if username is unique
                             // Add a new user to the database
                             Developer developer = new Developer();
 

@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created by Sylvain on 17.11.2015.
  */
-public class IssueDeveloperDataSource {
+public class BugDeveloperDataSource {
     private SQLiteDatabase db;
     private Context context;
 
-    public IssueDeveloperDataSource(Context context){
+    public BugDeveloperDataSource(Context context){
         SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(context);
         db = sqLiteHelper.getWritableDatabase();
         this.context = context;

@@ -5,7 +5,7 @@ import java.sql.Date;
 /**
  * Created by Sylvain on 07.11.2015.
  */
-public class Issue {
+public class Bug {
     private int id;
     private String title;
     private String description;
@@ -13,7 +13,7 @@ public class Issue {
     private String category;
     private String reproduce;
     private String effects;
-    private int priority;
+    private String priority;
     private String state;
     private String date;
     private int projectId;
@@ -21,6 +21,10 @@ public class Issue {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -71,11 +75,11 @@ public class Issue {
         this.effects = effects;
     }
 
-    public int getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 

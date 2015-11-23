@@ -1,5 +1,5 @@
 package com.example.bugtracking.bugtracking;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.example.bugtracking.bugtracking.adapter.IssueDataSource;
-import com.example.bugtracking.bugtracking.object.Issue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,14 +53,18 @@ public class BugActivity extends AppCompatActivity {
         projectid = 0; // change,, get selected project id
 
         //DB
-        //IssueDataSource ids = new IssueDataSource(this);
-        //List<Issue> issues = ids.getAllIssueByProject(projectid);
+        //BugDataSource ids = new BugDataSource(this);
+        //List<Bug> issues = ids.getAllIssueByProject(projectid);
 
+        final Activity thisclass = this;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                //TODO open add bug activity
+                Intent intent = new Intent(thisclass, BugCrudActivity.class);
+                intent.putExtra("action", "add");
+                startActivity(intent);
             }
         });
     }

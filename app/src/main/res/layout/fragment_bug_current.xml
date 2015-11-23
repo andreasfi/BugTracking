@@ -10,19 +10,14 @@ tools:context="info.androidhive.materialtabs.fragments.OneFragment">
     android:text="Current "
     android:textSize="40dp"
     android:textStyle="bold"
-    android:layout_centerInParent="true"/>
-    <Button
-        android:id="@+id/issueview"
+    android:layout_centerInParent="true"
+    android:id="@+id/textView" />
+
+
+    <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:text="View Bug"
-        android:onClick="goToViewIssue"/>
-    <Button
-        android:id="@+id/issues"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Add Issue"
-        android:onClick="goToAddIssue"/>
+        android:id="@+id/listViewIssues"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/textView" />
 </RelativeLayout>
