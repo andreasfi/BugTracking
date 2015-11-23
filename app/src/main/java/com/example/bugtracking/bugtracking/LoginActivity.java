@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     public final  static String ETAT="Etat";
     public static boolean CONNECTED=false;
     public static String TEST_LOGIN;
+    public static long ID=-1;
 
     //Test message d'erreur utilisateur non connecté
     public static boolean MESSAGE_ERROR =false;

@@ -8,6 +8,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
+import com.example.bugtracking.bugtracking.object.Project;
 
 public class ProjectCrudActivity extends AppCompatActivity {
 
@@ -66,5 +70,28 @@ public class ProjectCrudActivity extends AppCompatActivity {
         datePicker.setView(text);
         datePicker.show(getSupportFragmentManager(),"Date Picker");
 
+    }
+
+    public void clicAddProject(View view){
+        ProjectDataSource pds=new ProjectDataSource(this);
+        EditText title=(EditText)findViewById(R.id.proCrudTitle);
+        EditText description=(EditText)findViewById(R.id.proCrudDescription);
+        EditText startDate=(EditText)findViewById(R.id.proStartDate);
+        EditText endDate=(EditText)findViewById(R.id.proEndDate);
+
+        Project project=new Project();
+        project.setName(title.getText().toString());
+        project.setDescription(description.getText().toString());
+        project.setStartdate(startDate.getText().toString());
+        project.setEnddate(endDate.getText().toString());
+
+       /* TextView test=(TextView) findViewById(R.id.proCrudTest);
+        test.setText(project.getName());*/
+        pds.createProject(project);
+        SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
+        sqlHelper.getWritableDatabase().close();
+
+        Intent intent = new Intent(this, ProjectMainActivity.class);
+        startActivity(intent);
     }
 }

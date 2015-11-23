@@ -17,7 +17,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
+import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
 import com.example.bugtracking.bugtracking.object.Developer;
+import com.example.bugtracking.bugtracking.object.Project;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,6 +28,7 @@ import java.util.List;
 public class ProjectMainActivity extends AppCompatActivity {
 
     TextView item;
+    long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,49 +38,42 @@ public class ProjectMainActivity extends AppCompatActivity {
             Intent intent=new Intent(this,LoginActivity.class);
             startActivity(intent);
         }*/
-
-        //Create developers
-      /*  Developer dev[]=new Developer[4];
-
-        for(int i=0;i<dev.length;i++){
-            dev[i]=new Developer("test"+i, "test1234"+i,(int)(Math.random()*15)+1);
-        }*/
-
-
         //Récupération de username (login) + stock dans une variable pour l'affichage
-        Intent intent=getIntent();
-        String login=intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
-        String password = intent.getStringExtra("Password");
 
-        //Contrôle dans la base donnée
-        DeveloperDataSource dds =new DeveloperDataSource(this);
+        if(LoginActivity.ID==-1){
+            Intent intent=getIntent();
+            String login=intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
+            String password = intent.getStringExtra("Password");
 
-
-        Boolean isLogin=LoginActivity.CONNECTED;
-
-        TextView textLogin=new TextView(this);
-        TextView textPassword=new TextView(this);
-        TextView isLoginView=new TextView(this);
-        TextView idView=new TextView(this);
-        textLogin.setText("User : "+login);
-        isLoginView.setText(isLogin.toString());
-        textLogin.setPadding(400, 16, 0, 16);
-
-        textPassword.setText("Password : "+ password);
-
-        List<Developer> developers;
-        developers=dds.getAllDevelopers();
-        long id=findDevelopper(developers,login,password);
-        idView.setText(id+" ");
+            //Contrôle dans la base donnée
+            DeveloperDataSource dds =new DeveloperDataSource(this);
 
 
+            Boolean isLogin=LoginActivity.CONNECTED;
+
+            TextView textLogin=new TextView(this);
+            TextView textPassword=new TextView(this);
+            TextView isLoginView=new TextView(this);
+            TextView idView=new TextView(this);
+            textLogin.setText("User : " + login);
+            isLoginView.setText(isLogin.toString());
+            textLogin.setPadding(400, 16, 0, 16);
+
+            textPassword.setText("Password : "+ password);
+
+            List<Developer> developers;
+            developers=dds.getAllDevelopers();
+            id=findDevelopper(developers, login, password);
+            idView.setText(id+" ");
+            LoginActivity.ID=id;
+        }
         //Si le mot de passe ou l'username est incorrect, ça renvoie à Login Activity
         if(id==-1){
             LoginActivity.WRON_LOGIN=true;
             Intent intent2=new Intent(this, LoginActivity.class);
             startActivity(intent2);
         }
-
+        List<Project> projects=findProject();
 
        // setContentView(R.layout.activity_project_main);
 
@@ -103,11 +99,18 @@ public class ProjectMainActivity extends AppCompatActivity {
 
         //Création de la scrollbar
         ScrollView scroll=new ScrollView(this);
-        ll.addView(idView);
+       /* ll.addView(idView);
         ll.addView(textLogin);
         ll.addView(textPassword);
-        ll.addView(isLoginView);
+        ll.addView(isLoginView);*/
         //Création des Items de manière dynamique
+        for(int i=0;i<projects.size();i++){
+            item=new TextView(this);
+            item.setText(projects.get(i).getName());
+            item.setPadding(16,16,16,16);
+            ll.addView(item);
+        }
+
       /*for(int i=0;i<logDev.nbProject;i++){
              item=new TextView(this);
             item.setText("Item " + i);
@@ -126,9 +129,9 @@ public class ProjectMainActivity extends AppCompatActivity {
             ll.addView(item);
 
         }*/
-        item=new TextView(this);
+       /* item=new TextView(this);
         item.setText("TEST");
-        ll.addView(item);
+        ll.addView(item);*/
         ll.addView(addbutton);
         //Ici on ajoute le linearLayout dans le ScrollView
         scroll.addView(ll);
@@ -226,7 +229,6 @@ public class ProjectMainActivity extends AppCompatActivity {
                 if(developers.get(i).getPassword().equals(password)){
                     id=developers.get(i).getId();
                     LoginActivity.CONNECTED=true;
-
                 }
             }
 
@@ -234,6 +236,12 @@ public class ProjectMainActivity extends AppCompatActivity {
         }*/
 
         return id;
+    }
+
+    public List<Project> findProject(){
+        ProjectDataSource pds=new ProjectDataSource(this);
+
+        return pds.getAllProjects();
     }
 
     class onClicTextView {

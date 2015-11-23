@@ -51,9 +51,22 @@
         android:textSize="9dp"
         android:onClick="clicAddEndDate"
         />
+    <Button
+        android:id="@+id/AddProjectCrud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="AddProject"
 
+        android:onClick="clicAddProject"
+        android:foreground="#adffae36" />
 
+    <TextView
+        android:id="@+id/proCrudTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+<!--
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent" android:paddingLeft="16dp"
@@ -81,8 +94,6 @@
             android:text="Add"
             />
 
-
-
         <TextView
             android:id="@+id/prodCrudDevelopers1Example"
             android:paddingBottom="140px"
@@ -102,30 +113,9 @@
             android:text="Delete"
             />
 
+    </RelativeLayout>-->
 
 
-
-        <TextView
-            android:id="@+id/prodCrudDevelopers2Example"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/prodCrudDevelopers1Example"
-            android:text="Developper2"/>
-
-        <Button
-            android:id="@+id/prodCrudDeleteDevelopper2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@id/prodCrudDevelopers2Example"
-            android:layout_below="@id/prodCrudDevelopers1Example"
-            android:layout_alignBaseline="@id/prodCrudDevelopers2Example"
-            android:layout_alignParentRight="true"
-            android:text="Delete"
-            />
-
-
-
-    </RelativeLayout>
 
 </LinearLayout>
 
