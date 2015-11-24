@@ -1,5 +1,6 @@
 package com.example.bugtracking.bugtracking;
 
+import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +11,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
+import com.example.bugtracking.bugtracking.object.Developer;
 import com.example.bugtracking.bugtracking.object.Project;
 
-public class ProjectCrudActivity extends AppCompatActivity {
+import java.util.List;
 
+public class ProjectCrudActivity extends AppCompatActivity implements ListDeveloperFragment.DeveloperDialogListener {
+
+    List<Developer> listdeveloperAssociate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +85,7 @@ public class ProjectCrudActivity extends AppCompatActivity {
         EditText startDate=(EditText)findViewById(R.id.proStartDate);
         EditText endDate=(EditText)findViewById(R.id.proEndDate);
 
+        //Récupération des données inserées
         Project project=new Project();
         project.setName(title.getText().toString());
         project.setDescription(description.getText().toString());
@@ -87,11 +94,40 @@ public class ProjectCrudActivity extends AppCompatActivity {
 
        /* TextView test=(TextView) findViewById(R.id.proCrudTest);
         test.setText(project.getName());*/
+        //Création du projet
         pds.createProject(project);
         SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
         sqlHelper.getWritableDatabase().close();
 
         Intent intent = new Intent(this, ProjectMainActivity.class);
         startActivity(intent);
+    }
+    //Méthode utilisée par le DialogFragment
+    public List<Developer> getListdeveloper(){
+        DeveloperDataSource dds=new DeveloperDataSource(this);
+
+        return dds.getAllDevelopers();
+    }
+
+    public void clicAddDeveloper(View view){
+        showDialog();
+    }
+
+    //Aficche la liste de developpers dns un Dialog
+    public void showDialog(){
+        DialogFragment dialog=new ListDeveloperFragment();
+        dialog.show(getSupportFragmentManager(), "ChoiceDeveloper");
+    }
+    //Ce qui se passe quand on clic sur ok
+    @Override
+    public void onDialogPositiveClick(List<String> usernameList) {
+        TextView test=(TextView) findViewById(R.id.proCrudTest);
+        test.setText(usernameList.get(0));
+    }
+
+    //Quand on clic sur "cancel"
+    @Override
+    public void onDialogNegativeClick() {
+
     }
 }
