@@ -26,9 +26,6 @@ public class BugCurrentFragment extends Fragment{
 
         // Get the activity
         //Context context = getActivity();
-
-
-
     }
 
     @Override

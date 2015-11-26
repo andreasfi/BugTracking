@@ -2,6 +2,8 @@ package com.example.bugtracking.bugtracking;
 
 import android.provider.BaseColumns;
 
+import com.example.bugtracking.bugtracking.object.Project;
+
 /**
  * Created by Andreas on 07.11.2015.
  */
@@ -64,10 +66,13 @@ public final class Bugtracking {
         public static final String CREATE_TABLE_PROJECTDEVELOPER = "CREATE TABLE "
                 + TABLE_PROJECTDEVELOPER + "("
                 + ProjectDeveloperEntry.ID + " INTEGER PRIMARY KEY,"
-                + ProjectDeveloperEntry.DEVID + " TEXT, "
-                + ProjectDeveloperEntry.PROID + " TEXT, "
-                + ProjectDeveloperEntry.ROLE + " TEXT "
+                + ProjectDeveloperEntry.DEVID + " INTEGER, "
+                + ProjectDeveloperEntry.PROID+" INTEGER,"
+                + ProjectDeveloperEntry.ROLE + " TEXT, "
+                + " FOREIGN KEY (" +PROID+") REFERENCES "+ ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
+                + " FOREIGN KEY (" +DEVID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+") "
                 + ");";
+        // +" FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
     }
 
     public static abstract class CommentEntry implements BaseColumns{
@@ -86,7 +91,9 @@ public final class Bugtracking {
                 + CommentEntry.ID+ " INTEGER PRIMARY KEY, "
                 + CommentEntry.COMMENT+" TEXT, "
                 + CommentEntry.DEV_ID+" INTEGER, "
-                + CommentEntry.ISS_ID+" INTEGER "
+                + CommentEntry.ISS_ID+" INTEGER, "
+                + " FOREIGN KEY (" +DEV_ID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+"), "
+                + " FOREIGN KEY (" +ISS_ID+") REFERENCES "+ IssueEntry.TABLE_ISSUE+" ("+ID+") "
                 +");";
     }
 

@@ -47,12 +47,19 @@ public class RegisterActivity extends AppCompatActivity {
 
                         //DeveloperDataSource developerds = new DeveloperDataSource(thisclass);
                         //List<Developer> developers = developerds.getAllDevelopers();
+                        //SQLiteHelper sqLiteHelper = new SQLiteHelper(thisclass);
 
                         DeveloperDataSource dds = new DeveloperDataSource(thisclass);
-                        List<Developer> developers = new ArrayList<Developer>();
-                        developers = dds.getAllDevelopers();
+                        List<Developer> developers = dds.getAllDevelopers();
+                        boolean developerExists = true;
 
-                        if (!developers.contains(username) || developers.isEmpty()) { // check if username is unique
+                        for(int i = 0; i < developers.size(); i++){
+                            if(developers.get(i).getUsername().toString().equals(username)){
+                                developerExists = false;
+                                Log.d("MyApp","OOOMMMMGGG it worked -----------------");
+                            }
+                        }
+                        if (developerExists || developers.isEmpty()) { // check if username is unique
                             // Add a new user to the database
                             Developer developer = new Developer();
 
