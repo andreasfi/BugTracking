@@ -61,6 +61,10 @@
             android:label="Issue View"
             android:parentActivityName=".BugActivity">
         </activity>
+        <activity android:name=".ProfileActivity"
+            android:label="Profile"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>
