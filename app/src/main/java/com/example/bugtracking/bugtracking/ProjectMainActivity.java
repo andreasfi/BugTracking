@@ -61,9 +61,6 @@ public class ProjectMainActivity extends AppCompatActivity {
 
             textPassword.setText("Password : "+ password);
 
-            List<Developer> developers;
-            developers=dds.getAllDevelopers();
-            id=findDevelopper(developers, login, password);
             idView.setText(id+" ");
             LoginActivity.ID=id;
         }
@@ -76,8 +73,6 @@ public class ProjectMainActivity extends AppCompatActivity {
         List<Project> projects=findProject();
 
        // setContentView(R.layout.activity_project_main);
-
-
 
         /*Création d'un affichage dynamique fonctionne partiellement, probléme
             avec le one clic listener. Ca fonctionne que sur le dernière item.
@@ -206,37 +201,6 @@ public class ProjectMainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public long findDevelopper(List<Developer> developers, String userName, String password){
-        Iterator iterator=developers.iterator();
-
-        int i=0;
-        long id=-1;
-        boolean find=false;
-
-        for(i=0;i<developers.size();i++){
-            if(developers.get(i).getUsername().equals(userName)){
-                if(developers.get(i).getPassword().equals(password)){
-                    id=developers.get(i).getId();
-                    LoginActivity.CONNECTED=true;
-
-                }
-            }
-        }
-        //TODO Essayer de récupérer les donnée avec un Iterator
-       /* while(iterator.hasNext())
-        {
-            if(developers.get(i).getUsername().equals(userName)){
-                if(developers.get(i).getPassword().equals(password)){
-                    id=developers.get(i).getId();
-                    LoginActivity.CONNECTED=true;
-                }
-            }
-
-            i++;
-        }*/
-
-        return id;
-    }
 
     public List<Project> findProject(){
         ProjectDataSource pds=new ProjectDataSource(this);

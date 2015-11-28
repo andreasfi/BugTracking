@@ -60,6 +60,26 @@ public class DeveloperDataSource {
 
         return developer;
     }
+
+    // FIND DEVELOPER BY Username
+    public Developer getDeveloperByUsername(String username){
+        String sql = "SELECT * FROM " + Bugtracking.DeveloperEntry.TABLE_DEVELOPER +
+                " WHERE " + Bugtracking.DeveloperEntry.USERNAME+ " = " + username;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+        Developer developer = new Developer();
+        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
+        developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
+        developer.setPassword(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+        developer.setLang(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
+
+        return developer;
+    }
     // GET ALL DEVELOPERS
     public List<Developer> getAllDevelopers(){
         List<Developer> developers = new ArrayList<>();

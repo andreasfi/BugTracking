@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
+import com.example.bugtracking.bugtracking.adapter.ProjectDeveloperDataSource;
 import com.example.bugtracking.bugtracking.object.Developer;
 import com.example.bugtracking.bugtracking.object.Project;
 
@@ -20,7 +21,8 @@ import java.util.List;
 
 public class ProjectCrudActivity extends AppCompatActivity implements ListDeveloperFragment.DeveloperDialogListener {
 
-    List<Developer> listdeveloperAssociate;
+    long idProject;
+    List<String> listdeveloperAssociate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
 
     }
 
+    //Fonction pour créer un nouveau Projet
     public void clicAddProject(View view){
         ProjectDataSource pds=new ProjectDataSource(this);
         EditText title=(EditText)findViewById(R.id.proCrudTitle);
@@ -95,13 +98,25 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
        /* TextView test=(TextView) findViewById(R.id.proCrudTest);
         test.setText(project.getName());*/
         //Création du projet
-        pds.createProject(project);
+       idProject= pds.createProject(project);
+
+        if(listdeveloperAssociate!=null){
+            for(int i=0;i<listdeveloperAssociate.size();i++){
+                joinDeveloperToProject(listdeveloperAssociate.get(i), idProject);
+            }
+        }
+
         SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
         sqlHelper.getWritableDatabase().close();
+
+
+        //Associe les developer choisis au projet.
+
 
         Intent intent = new Intent(this, ProjectMainActivity.class);
         startActivity(intent);
     }
+
     //Méthode utilisée par le DialogFragment
     public List<Developer> getListdeveloper(){
         DeveloperDataSource dds=new DeveloperDataSource(this);
@@ -129,5 +144,13 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
     @Override
     public void onDialogNegativeClick() {
 
+    }
+
+    public void joinDeveloperToProject(String username, long idProject){
+        DeveloperDataSource dds=new DeveloperDataSource(this);
+        ProjectDeveloperDataSource pdds=new ProjectDeveloperDataSource(this);
+        Developer developer;
+        developer=dds.getDeveloperByUsername(username);
+        pdds.createProjectDeveloper(developer.getId(), idProject);
     }
 }
