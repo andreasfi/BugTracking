@@ -7,7 +7,7 @@ public class ProjectDeveloper {
     private int id;
     private int devID;
     private int proID;
-    private int role;
+    private String role;
 
     public int getId() {
         return id;
@@ -33,11 +33,11 @@ public class ProjectDeveloper {
         this.proID = proID;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

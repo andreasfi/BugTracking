@@ -64,7 +64,7 @@ public class DeveloperDataSource {
     // FIND DEVELOPER BY Username
     public Developer getDeveloperByUsername(String username){
         String sql = "SELECT * FROM " + Bugtracking.DeveloperEntry.TABLE_DEVELOPER +
-                " WHERE " + Bugtracking.DeveloperEntry.USERNAME+ " = " + username;
+                " WHERE " + Bugtracking.DeveloperEntry.USERNAME+ " = '" +username+"'";
 
         Cursor cursor = this.db.rawQuery(sql, null);
 
@@ -73,8 +73,9 @@ public class DeveloperDataSource {
         }
 
         Developer developer = new Developer();
-        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
         developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
+        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
+
         developer.setPassword(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
         developer.setLang(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
 

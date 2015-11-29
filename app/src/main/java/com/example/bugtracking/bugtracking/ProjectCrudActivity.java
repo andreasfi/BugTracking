@@ -101,9 +101,9 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
        idProject= pds.createProject(project);
 
         if(listdeveloperAssociate!=null){
-            for(int i=0;i<listdeveloperAssociate.size();i++){
-                joinDeveloperToProject(listdeveloperAssociate.get(i), idProject);
-            }
+
+            joinDeveloperToProject(listdeveloperAssociate, idProject);
+
         }
 
         SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
@@ -138,6 +138,7 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
     public void onDialogPositiveClick(List<String> usernameList) {
         TextView test=(TextView) findViewById(R.id.proCrudTest);
         test.setText(usernameList.get(0));
+        listdeveloperAssociate=usernameList;
     }
 
     //Quand on clic sur "cancel"
@@ -146,11 +147,19 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
 
     }
 
-    public void joinDeveloperToProject(String username, long idProject){
+    //Liaison entre le projet et les développeur séléctioné
+    public void joinDeveloperToProject(List<String> developers, long idProject){
         DeveloperDataSource dds=new DeveloperDataSource(this);
         ProjectDeveloperDataSource pdds=new ProjectDeveloperDataSource(this);
+        //Ajout du déveloper qui crée le projet
+        pdds.createProjectDeveloper(LoginActivity.ID, idProject, "1");
         Developer developer;
-        developer=dds.getDeveloperByUsername(username);
-        pdds.createProjectDeveloper(developer.getId(), idProject);
+        for(int i=0;i<developers.size();i++){
+
+            developer=dds.getDeveloperByUsername(developers.get(i));
+            //Ajout des developer associé
+            pdds.createProjectDeveloper(developer.getId(), idProject, "0");
+        }
+
     }
 }

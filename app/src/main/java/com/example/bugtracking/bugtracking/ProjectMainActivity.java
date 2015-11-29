@@ -4,8 +4,10 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,8 +20,10 @@ import android.widget.TextView;
 
 import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
+import com.example.bugtracking.bugtracking.adapter.ProjectDeveloperDataSource;
 import com.example.bugtracking.bugtracking.object.Developer;
 import com.example.bugtracking.bugtracking.object.Project;
+import com.example.bugtracking.bugtracking.object.ProjectDeveloper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,11 +43,11 @@ public class ProjectMainActivity extends AppCompatActivity {
             startActivity(intent);
         }*/
         //Récupération de username (login) + stock dans une variable pour l'affichage
-
+        setContentView(R.layout.activity_project_main);
         if(LoginActivity.ID==-1){
-            Intent intent=getIntent();
+            /*Intent intent=getIntent();
             String login=intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
-            String password = intent.getStringExtra("Password");
+            String password = intent.getStringExtra("Password");*/
 
             //Contrôle dans la base donnée
             DeveloperDataSource dds =new DeveloperDataSource(this);
@@ -55,29 +59,37 @@ public class ProjectMainActivity extends AppCompatActivity {
             TextView textPassword=new TextView(this);
             TextView isLoginView=new TextView(this);
             TextView idView=new TextView(this);
-            textLogin.setText("User : " + login);
+            //textLogin.setText("User : " + login);
             isLoginView.setText(isLogin.toString());
             textLogin.setPadding(400, 16, 0, 16);
 
-            textPassword.setText("Password : "+ password);
+           // textPassword.setText("Password : "+ password);
 
             idView.setText(id+" ");
             LoginActivity.ID=id;
         }
-        //Si le mot de passe ou l'username est incorrect, ça renvoie à Login Activity
-        if(id==-1){
-            LoginActivity.WRON_LOGIN=true;
-            Intent intent2=new Intent(this, LoginActivity.class);
-            startActivity(intent2);
-        }
-        List<Project> projects=findProject();
 
+        List<Project> projects=findProject();
+        List<ProjectDeveloper> devPro=findDeveloperAssociate();
        // setContentView(R.layout.activity_project_main);
 
         /*Création d'un affichage dynamique fonctionne partiellement, probléme
             avec le one clic listener. Ca fonctionne que sur le dernière item.
          */
         //TODO Essayer d'intergrer le layout "activity_project_textview_layout
+       /* FloatingActionButton addProjectFloatButton=new FloatingActionButton(this);
+        //addProjectFloatButton=(FloatingActionButton)findViewById(R.id.fab2);
+        addProjectFloatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ProjectMainActivity.this, ProjectCrudActivity.class);
+                startActivity(intent);
+            }
+
+        });
+        addProjectFloatButton.setMaxWidth(20);*/
+
+
         LinearLayout ll=new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         ll.setPadding(16, 16, 16, 16);
@@ -106,31 +118,23 @@ public class ProjectMainActivity extends AppCompatActivity {
             ll.addView(item);
         }
 
-      /*for(int i=0;i<logDev.nbProject;i++){
-             item=new TextView(this);
-            item.setText("Item " + i);
-            item.setPadding(16, 16, 16, 16);
-
-            //Fonction utilisée lorsque l'on clic sur un élément
-           item.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent intent2=new Intent(ProjectMainActivity.this,ProjectCrudActivity.class);
-                  // item.setText("New text");
-                   startActivity(intent2);
-               }
-           });
-
+        for(int i=0;i<devPro.size();i++){
+            item=new TextView(this);
+            item.setText("ID "+devPro.get(i).getId()+" DEV_ID "+devPro.get(i).getDevID()+
+            " PRO_ID "+devPro.get(i).getProID()+" ROLE "+devPro.get(i).getRole());
+            item.setPadding(16,16,16,16);
             ll.addView(item);
-
-        }*/
-       /* item=new TextView(this);
-        item.setText("TEST");
-        ll.addView(item);*/
+        }
+      //  ll.addView(addProjectFloatButton);
         ll.addView(addbutton);
         //Ici on ajoute le linearLayout dans le ScrollView
         scroll.addView(ll);
+       // scroll.addView(addProjectFloatButton);
+
         setContentView(scroll);
+
+
+
 
 
 
@@ -143,7 +147,7 @@ public class ProjectMainActivity extends AppCompatActivity {
     }
 
     //Methode "Listener" utilisée pas le fichier xml, non fonctionnel pour l'instant
-    public void goTo_Issue(View view){
+   /* public void goTo_Issue(View view){
 
 
         TextView items[] =new TextView[5];
@@ -170,7 +174,7 @@ public class ProjectMainActivity extends AppCompatActivity {
             items[2].setText("Selected2");
         }
 
-    }
+    }*/
 
     public void goTo_ProjectCRUD(View view){
         Intent intent=new Intent(this, ProjectCrudActivity.class);
@@ -208,7 +212,18 @@ public class ProjectMainActivity extends AppCompatActivity {
         return pds.getAllProjects();
     }
 
+    public List<ProjectDeveloper> findDeveloperAssociate(){
+        ProjectDeveloperDataSource pdds =new ProjectDeveloperDataSource(this);
+
+        return pdds.getAllDeveloperspROJECT();
+    }
+
     class onClicTextView {
+
+    }
+
+
+    public void clicFloat(View view){
 
     }
 

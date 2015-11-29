@@ -29,19 +29,20 @@ public class ProjectDeveloperDataSource {
         return context;
     }
 
-    public  long createProjectDeveloper(long developer_id, long project_id){
+    public  long createProjectDeveloper(long developer_id, long project_id, String role){
         ContentValues values = new ContentValues();
         values.put(Bugtracking.ProjectDeveloperEntry.DEVID, developer_id );
         values.put(Bugtracking.ProjectDeveloperEntry.PROID, project_id);
+        values.put(Bugtracking.ProjectDeveloperEntry.ROLE, role);
 
         return this.db.insert(Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER, null, values);
     }
 
     // GET ALL DEVELOPERS PROJECT
     //TODO Problème, les colonnes son sous format text et l'objet récupère des int + Voir pour les rôles.
-   /* public List<ProjectDeveloper> getAllDeveloperspROJECT(){
+    public List<ProjectDeveloper> getAllDeveloperspROJECT(){
         List<ProjectDeveloper> developersProject = new ArrayList<>();
-        String sql = "SELECT * FROM "+ Bugtracking.DeveloperEntry.TABLE_DEVELOPER + " ORDER BY " + Bugtracking.DeveloperEntry.USERNAME;
+        String sql = "SELECT * FROM "+ Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER;
 
         Cursor cursor = this.db.rawQuery(sql, null);
 
@@ -49,14 +50,14 @@ public class ProjectDeveloperDataSource {
             do {
                 ProjectDeveloper developerProject = new ProjectDeveloper();
                 developerProject.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.ID)));
-                developerProject.setDevID(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.DEVID)));
-                developerProject.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
-                developerProject.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
+                developerProject.setDevID(cursor.getInt(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.DEVID)));
+                developerProject.setProID(cursor.getInt(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.PROID)));
+                developerProject.setRole(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.ROLE)));
 
-                developers.add(developer);
+                developersProject.add(developerProject);
             } while (cursor.moveToNext());
         }
-        return developers;
-    }*/
+        return developersProject;
+    }
 
 }

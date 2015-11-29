@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.example.bugtracking.bugtracking.ProjectMainActivity">
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/itemProject"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="goTo_Issue"
-        android:text="item5"/>
+        android:text="item5"/>-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"/>
 
 
 </LinearLayout>

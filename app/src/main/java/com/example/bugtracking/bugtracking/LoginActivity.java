@@ -96,8 +96,8 @@ public class LoginActivity extends AppCompatActivity {
         EditText password=(EditText)findViewById(R.id.password);
         String _password=password.getText().toString();
 
-        intent.putExtra(EXTRA_MESSAGE,_login);
-        intent.putExtra("Password",_password);
+       /* intent.putExtra(EXTRA_MESSAGE,_login);
+        intent.putExtra("Password",_password);*/
         //intent.putExtra(ETAT,isLogin);
         DeveloperDataSource dds =new DeveloperDataSource(this);
 
