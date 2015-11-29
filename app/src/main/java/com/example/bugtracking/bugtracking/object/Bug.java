@@ -114,4 +114,9 @@ public class Bug {
     public void setDevId(int devId) {
         this.devId = devId;
     }
+
+    @Override
+    public String toString() {
+        return this.id + ". " + this.title;
+    }
 }

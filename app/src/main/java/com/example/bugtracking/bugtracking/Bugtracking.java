@@ -120,9 +120,7 @@ public final class Bugtracking {
     public static abstract class IssueEntry implements BaseColumns{
 
         public static final String TABLE_ISSUE="issue";
-
         //Colums
-
         public static final String ID="idissue";
         public static final String TITLE="title";
         public static final String DESCRIPTION="description";
@@ -139,7 +137,7 @@ public final class Bugtracking {
 
         //Create statements
         public static final String CREATE_TABLE_ISSUE="CREATE TABLE "+TABLE_ISSUE+"("
-                + IssueEntry.ID+" INTEGER PRIMARY KEY,"
+                + IssueEntry.ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + IssueEntry.TITLE+" TEXT,"
                 + IssueEntry.DESCRIPTION+" TEXT,"
                 + IssueEntry.REFERENCE+" TEXT,"

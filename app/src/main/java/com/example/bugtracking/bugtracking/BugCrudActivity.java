@@ -24,49 +24,93 @@ import java.util.ArrayList;
  * Created by Andreas on 25.10.2015.
  */
 public class BugCrudActivity extends AppCompatActivity implements BugAssignDeveloperFragment.SelectionListener {
-    Button openButton;
+    Button developer_add_button;
+    Button bug_action_button;
+    EditText titleView;
+    EditText descriptionView;
+    EditText reproductionView;
+    EditText effectsView;
+    Spinner priorityspinner;
+    Spinner statespinner;
+
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_bug_crud);
         //Test si l'utilisateur est connecté
        /* if(LoginActivity.CONNECTED==false){
             LoginActivity.MESSAGE_ERROR=true;
             Intent intent=new Intent(this,LoginActivity.class);
             startActivity(intent);
         }*/
-
-
-        setContentView(R.layout.activity_bug_crud);
-
-        final Spinner spinner = (Spinner) findViewById(R.id.spinnerPriority);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.priority_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
-        Spinner statespinner = (Spinner) findViewById(R.id.spinnerState);
-        ArrayAdapter<CharSequence> stateadapter = ArrayAdapter.createFromResource(this,
-                R.array.state_array, android.R.layout.simple_spinner_item);
-        stateadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        statespinner.setAdapter(stateadapter);
-        // get action button
-        final Activity thisclass = this;
-        final Button create_button = (Button) findViewById(R.id.createBug);
+        final Activity thisclass = this; // Get this
 
         // get intent info
         Intent intent=getIntent();
         final String action = intent.getStringExtra("action");
-        // set button text
-        create_button.setText(action);
+        final long bugid = intent.getLongExtra("id", 0);
 
-        openButton = (Button)findViewById(R.id.assignedevelopers);
-        openButton.setOnClickListener(new View.OnClickListener() {
+        titleView = (EditText) findViewById(R.id.title);
+        descriptionView = (EditText) findViewById(R.id.description);
+        reproductionView = (EditText) findViewById(R.id.reproduction);
+        effectsView = (EditText) findViewById(R.id.effects);
+
+        switch (action){
+            case "edit":
+                // fill up xml
+                BugDataSource bds = new BugDataSource(thisclass);
+                Bug bug = bds.getBugById(bugid);
+
+                int priorityselection = 0;
+                int stateselection = 0;
+
+                titleView.setText(bug.getTitle());
+                descriptionView.setText(bug.getDescription());
+                reproductionView.setText(bug.getReproduce());
+                effectsView.setText(bug.getEffects());
+                switch (bug.getPriority()){
+                    case "High":
+                        priorityselection = 0;
+                        break;
+                    case "Medium":
+                        priorityselection = 1;
+                        break;
+                    case "Low":
+                        priorityselection = 2;
+                        break;
+                }
+                priorityspinner.setSelection(priorityselection);
+                switch (bug.getState()){
+                    case "On Hold":
+                        stateselection = 0;
+                        break;
+                    case "Current":
+                        stateselection = 1;
+                        break;
+                    case "Solved":
+                        stateselection = 2;
+                        break;
+                }
+                statespinner.setSelection(stateselection);
+
+                break;
+        }
+
+        priorityspinner = (Spinner) findViewById(R.id.spinnerPriority); // Get the spinner element
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.priority_array, android.R.layout.simple_spinner_item); // Create an ArrayAdapter using the string array and a default spinner layout
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
+        priorityspinner.setAdapter(adapter);// Apply the adapter to the spinner
+
+        statespinner = (Spinner) findViewById(R.id.spinnerState);
+        ArrayAdapter<CharSequence> stateadapter = ArrayAdapter.createFromResource(this,
+                R.array.state_array, android.R.layout.simple_spinner_item);
+        stateadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statespinner.setAdapter(stateadapter);
+
+        developer_add_button = (Button)findViewById(R.id.assignedevelopers);
+        developer_add_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -81,84 +125,86 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
             }
         });
 
-        create_button.setOnClickListener(new View.OnClickListener() {
+
+        bug_action_button = (Button) findViewById(R.id.createBug); // get action button
+        bug_action_button.setText(action); // set button text from intent
+        bug_action_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText titleView = (EditText) findViewById(R.id.title);
                 String title = titleView.getText().toString();
-                final EditText descriptionView = (EditText) findViewById(R.id.description);
                 String description = descriptionView.getText().toString();
-                final EditText reproductionView = (EditText) findViewById(R.id.reproduction);
                 String reproduction = reproductionView.getText().toString();
-                final EditText effectsView = (EditText) findViewById(R.id.effects);
                 String effects = effectsView.getText().toString();
-                Spinner prioritySpinner = (Spinner) findViewById(R.id.spinnerPriority);
-                String priority = prioritySpinner.getSelectedItem().toString();
-                Spinner stateSpinner = (Spinner) findViewById(R.id.spinnerState);
-                String state = stateSpinner.getSelectedItem().toString();
-                switch (action){
-                    case "add":
-                        if (!title.isEmpty()) {
-                            if (!description.isEmpty()) {
-                                if (!state.isEmpty()) {
-                                    if (reproduction.isEmpty()) {
-                                        reproduction = "";
-                                    }
-                                    if (effects.isEmpty()) {
-                                        effects = "";
-                                    }
-                                    if (priority.isEmpty()) {
-                                        priority = "";
-                                    }
-                                    BugDataSource bds = new BugDataSource(thisclass);
-                                    Bug bug = new Bug();
-                                    bug.setTitle(title);
-                                    bug.setDescription(description);
-                                    bug.setReproduce(reproduction);
-                                    bug.setEffects(effects);
-                                    bug.setPriority(priority);
-                                    bug.setState(state);
-                                    bug.setId((int) bds.createIssue(bug));
+                String priority = priorityspinner.getSelectedItem().toString();
+                String state = statespinner.getSelectedItem().toString();
+                int devid = 0;
+                int proid = 0;
+                String category = "";
+                String reference = "";
+                String date = "";
 
-                                    SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
-                                    sqlHelper.getWritableDatabase().close();
-                                    Intent intent = new Intent(thisclass, BugActivity.class);
-                                    //intent.putExtra(EXTRA_MESSAGE, username);
-                                    //intent.putExtra("Password", password);
-                                    startActivity(intent);
+                String errormsg = "";
 
+                if (title.isEmpty()) {
+                    errormsg = errormsg + "Title field is required. ";
+                }
+                if (description.isEmpty()) {
+                    errormsg = errormsg + "Description field is required. ";
+                }
+                if (state.isEmpty()) {
+                    errormsg = errormsg + "State field is required. ";
+                }
+                if (reproduction.isEmpty()) {
+                    reproduction = "";
+                }
+                if (effects.isEmpty()) {
+                    effects = "";
+                }
+                if (priority.isEmpty()) {
+                    priority = "";
+                }
 
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(BugCrudActivity.this);
-                                    builder.setMessage("State field is required.")
-                                            .setTitle("Required!")
-                                            .setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
-                                }
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(BugCrudActivity.this);
-                                builder.setMessage("Description field is required.")
-                                        .setTitle("Required!")
-                                        .setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
-                            }
-                        } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(BugCrudActivity.this);
-                            builder.setMessage("Title field is required..")
-                                    .setTitle("Required!")
-                                    .setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                        }
-                        break;
-                    case "edit":
+                if(errormsg == ""){
+                    switch (action) {
+                        case "add":
+                            BugDataSource bds = new BugDataSource(thisclass);
+                            Bug bug = new Bug();
+                            bug.setTitle(title);
+                            bug.setDescription(description);
+                            bug.setReference(reference);
+                            bug.setCategory(category);
+                            bug.setReproduce(reproduction);
+                            bug.setEffects(effects);
+                            bug.setPriority(priority);
+                            bug.setState(state);
+                            bug.setDate(date);
+                            bug.setProjectId(proid);
+                            bug.setDevId(devid);
+                            bug.setId((int) bds.createIssue(bug));
 
-                        break;
+                            SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
+                            sqlHelper.getWritableDatabase().close();
+
+                            Intent intent = new Intent(thisclass, BugActivity.class);
+                            startActivity(intent);
+                            break;
+                        case "edit":
+
+                            break;
+                    }
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BugCrudActivity.this);
+                    builder.setMessage(errormsg)
+                            .setTitle("Error Message!")
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }
         });
+    }
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
     }
     private ArrayList<String> getItems()
     {

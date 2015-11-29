@@ -47,7 +47,7 @@ public class BugDataSource {
         values.put(Bugtracking.IssueEntry.STATE, bug.getState());
 
         id = this.db.insert(Bugtracking.IssueEntry.TABLE_ISSUE,null, values);
-
+        //dbTools.close()
         return id;
     }
     // get issues by project
@@ -75,6 +75,30 @@ public class BugDataSource {
             }while(cursor.moveToNext());
         }
         return bugs;
+    }
+    public Bug getBugById(long id){
+        Bug bug = new Bug();
+        String sql = "SELECT * FROM "+ Bugtracking.IssueEntry.TABLE_ISSUE +
+                " WHERE "+ Bugtracking.IssueEntry.ID+ " = "+id;
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+        bug.setDevId(cursor.getInt(cursor.getColumnIndex(Bugtracking.IssueEntry.DEVID)));
+        bug.setTitle(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.TITLE)));
+        bug.setCategory(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.CATEGORY)));
+        bug.setDate(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.DATE)));
+        bug.setDescription(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.DESCRIPTION)));
+        bug.setEffects(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.EFFECT)));
+        bug.setPriority(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.PRIORITY)));
+        bug.setProjectId(cursor.getInt(cursor.getColumnIndex(Bugtracking.IssueEntry.PROID)));
+        bug.setReference(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.REFERENCE)));
+        bug.setReproduce(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.REPRODUCE)));
+        bug.setState(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.STATE)));
+
+        return bug;
     }
     //GET ISSUE
     public List<Bug> getAllIssueByID(long id){
