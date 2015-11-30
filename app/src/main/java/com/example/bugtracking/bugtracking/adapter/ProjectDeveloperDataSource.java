@@ -39,8 +39,8 @@ public class ProjectDeveloperDataSource {
     }
 
     // GET ALL DEVELOPERS PROJECT
-    //TODO Problème, les colonnes son sous format text et l'objet récupère des int + Voir pour les rôles.
-    public List<ProjectDeveloper> getAllDeveloperspROJECT(){
+
+    public List<ProjectDeveloper> getAllDevelopersProject(){
         List<ProjectDeveloper> developersProject = new ArrayList<>();
         String sql = "SELECT * FROM "+ Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER;
 
@@ -58,6 +58,11 @@ public class ProjectDeveloperDataSource {
             } while (cursor.moveToNext());
         }
         return developersProject;
+    }
+
+    public void deletProjectDeveloperIdProject(long id){
+
+        this.db.delete(Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER, Bugtracking.ProjectDeveloperEntry.PROID+ " = ?", new String[] {String.valueOf(id)});
     }
 
 }

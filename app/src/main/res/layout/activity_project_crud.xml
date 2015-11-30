@@ -51,20 +51,45 @@
         android:textSize="9dp"
         android:onClick="clicAddEndDate"
         />
+
+    <Button
+        android:id="@+id/prodCrudAddDevelopper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Add Developper"
+        android:onClick="clicAddDeveloper"
+        />
+
+
     <Button
         android:id="@+id/AddProjectCrud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="AddProject"
+        android:text="Add Project"
 
         android:onClick="clicAddProject"
-        android:foreground="#adffae36" />
+        />
 
     <TextView
         android:id="@+id/proCrudTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/updateProjectCrud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Update Project"
+
+        android:onClick="clicUpdateProject"
+
+
+        />
+
+
 
 
 
@@ -77,23 +102,14 @@
         android:orientation="vertical"
         tools:context="com.example.bugtracking.bugtracking.ProjectCrudActivity">
 
-        <TextView
-            android:id="@+id/prodCrudDevelopersTitle"
-            android:layout_marginTop="20px"
-            android:layout_marginBottom="20px"
-            android:paddingBottom="140px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Developpers"/>
-
         <Button
-            android:id="@+id/prodCrudAddDevelopper"
+            android:id="@+id/deleteProjectCrud"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@id/prodCrudDevelopersTitle"
             android:layout_alignParentRight="true"
-            android:text="Add"
-            android:onClick="clicAddDeveloper"
+            android:text="Delete project"
+            android:onClick="clicDeletProject"
+
             />
 
 

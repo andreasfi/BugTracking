@@ -1,32 +1,23 @@
 package com.example.bugtracking.bugtracking;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDeveloperDataSource;
-import com.example.bugtracking.bugtracking.object.Developer;
 import com.example.bugtracking.bugtracking.object.Project;
 import com.example.bugtracking.bugtracking.object.ProjectDeveloper;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ProjectMainActivity extends BaseActivity {
@@ -43,33 +34,9 @@ public class ProjectMainActivity extends BaseActivity {
             startActivity(intent);
         }*/
         //Récupération de username (login) + stock dans une variable pour l'affichage
-        setContentView(R.layout.activity_project_main);
-        if(LoginActivity.ID==-1){
-            /*Intent intent=getIntent();
-            String login=intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
-            String password = intent.getStringExtra("Password");*/
+       // setContentView(R.layout.activity_project_main);
 
-            //Contrôle dans la base donnée
-            DeveloperDataSource dds =new DeveloperDataSource(this);
-
-
-            Boolean isLogin=LoginActivity.CONNECTED;
-
-            TextView textLogin=new TextView(this);
-            TextView textPassword=new TextView(this);
-            TextView isLoginView=new TextView(this);
-            TextView idView=new TextView(this);
-            //textLogin.setText("User : " + login);
-            isLoginView.setText(isLogin.toString());
-            textLogin.setPadding(400, 16, 0, 16);
-
-           // textPassword.setText("Password : "+ password);
-
-            idView.setText(id+" ");
-            LoginActivity.ID=id;
-        }
-
-        List<Project> projects=findProject();
+        final List<Project> projects=findProject();
         List<ProjectDeveloper> devPro=findDeveloperAssociate();
        // setContentView(R.layout.activity_project_main);
 
@@ -77,8 +44,8 @@ public class ProjectMainActivity extends BaseActivity {
             avec le one clic listener. Ca fonctionne que sur le dernière item.
          */
         //TODO Essayer d'intergrer le layout "activity_project_textview_layout
-       /* FloatingActionButton addProjectFloatButton=new FloatingActionButton(this);
-        //addProjectFloatButton=(FloatingActionButton)findViewById(R.id.fab2);
+        FloatingActionButton addProjectFloatButton=new FloatingActionButton(this);
+       // addProjectFloatButton=(FloatingActionButton)findViewById(R.id.fab2);
         addProjectFloatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +54,6 @@ public class ProjectMainActivity extends BaseActivity {
             }
 
         });
-        addProjectFloatButton.setMaxWidth(20);*/
-
 
         LinearLayout ll=new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
@@ -104,17 +69,24 @@ public class ProjectMainActivity extends BaseActivity {
             }
         });
 
+
         //Création de la scrollbar
         ScrollView scroll=new ScrollView(this);
-       /* ll.addView(idView);
-        ll.addView(textLogin);
-        ll.addView(textPassword);
-        ll.addView(isLoginView);*/
         //Création des Items de manière dynamique
         for(int i=0;i<projects.size();i++){
             item=new TextView(this);
             item.setText(projects.get(i).getName());
-            item.setPadding(16,16,16,16);
+            final long idProject=projects.get(i).getId();
+            item.setPadding(16, 16, 16, 16);
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(ProjectMainActivity.this, ProjectCrudActivity.class);
+                    intent.putExtra("update", true);
+                    intent.putExtra("idProject", idProject);
+                    startActivity(intent);
+                }
+            });
             ll.addView(item);
         }
 
@@ -127,13 +99,13 @@ public class ProjectMainActivity extends BaseActivity {
         }
       //  ll.addView(addProjectFloatButton);
         ll.addView(addbutton);
+
         //Ici on ajoute le linearLayout dans le ScrollView
         scroll.addView(ll);
        // scroll.addView(addProjectFloatButton);
 
         setContentView(scroll);
-
-
+        //setContentView(R.layout.transparent_layout);
 
 
 
@@ -192,7 +164,7 @@ public class ProjectMainActivity extends BaseActivity {
     public List<ProjectDeveloper> findDeveloperAssociate(){
         ProjectDeveloperDataSource pdds =new ProjectDeveloperDataSource(this);
 
-        return pdds.getAllDeveloperspROJECT();
+        return pdds.getAllDevelopersProject();
     }
 
     class onClicTextView {
