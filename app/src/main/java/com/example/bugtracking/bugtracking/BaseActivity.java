@@ -37,6 +37,14 @@ public class BaseActivity extends AppCompatActivity {
                 Intent intent=new Intent(this, ProfileActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.aboutview:
+                Intent intent2=new Intent(this, AboutActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.action_settings:
+                Intent intent3=new Intent(this, AboutActivity.class);
+                startActivity(intent3);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
