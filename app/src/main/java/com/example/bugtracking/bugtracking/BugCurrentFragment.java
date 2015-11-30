@@ -40,9 +40,8 @@ public class BugCurrentFragment extends Fragment{
         final BugActivity activity = (BugActivity) getActivity();
         // Get db items Get project id
         BugDataSource ids = new BugDataSource(activity);
-        List<Bug> bugs = ids.getAllIssueByProject(activity.getProjectid()); // get only current!!! need to change
+        List<Bug> bugs = ids.getAllIssueByProjectState(activity.getProjectid(), "Current"); // get only current!!! need to change
 
-        String[] bugarray = transformToArray(bugs);
         // Put values in layout
         if (!bugs.isEmpty()){
             ArrayAdapter<Bug> adapter;
@@ -55,19 +54,17 @@ public class BugCurrentFragment extends Fragment{
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     //String issuetitle = (String) (issuesview.getItemAtPosition(position));
                     Bug bug = (Bug)parent.getAdapter().getItem(position);
-                    Log.d("mymsg", "worked" + " " + bug.getId());
+                    Log.d("mymsg", "worked" + " " + bug.getId()+" "+bug.getTitle());
 
                     Intent intent = new Intent(getActivity(), BugCrudActivity.class);
                     intent.putExtra("action", "edit");
-                    intent.putExtra("id", bug.getId());
-                    //startActivity(intent);
+                    intent.putExtra("id", (long)bug.getId());
+                    startActivity(intent);
                 }
             });
         }
         return rootview;
     }
-
-
 
     public String[] transformToArray(List<Bug> bugs){
         String developersArray[]=new String[bugs.size()];

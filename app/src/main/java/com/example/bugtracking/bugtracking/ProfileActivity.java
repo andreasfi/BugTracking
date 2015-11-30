@@ -13,7 +13,7 @@ import android.widget.Button;
 /**
  * Created by Andreas on 26.11.2015.
  */
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Log User out
                 LoginActivity.CONNECTED = false;
-                Intent intent=new Intent(thisclass, ProjectMainActivity.class);
+                Intent intent=new Intent(thisclass, MainActivity.class);
                 intent.putExtra(EXTRA_MESSAGE,"");
                 intent.putExtra("Password","");
                 startActivity(intent);
@@ -35,22 +35,4 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }

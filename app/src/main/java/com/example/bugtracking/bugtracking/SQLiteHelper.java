@@ -12,7 +12,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     //Infos about database
     private static final String DATABASE_NAME = "bugtracking";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static SQLiteHelper instance;
 
     private SQLiteHelper(Context context) {
@@ -45,7 +45,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER);
         db.execSQL("DROP TABLE IF EXISTS " + Bugtracking.IssueEntry.TABLE_ISSUE);
         db.execSQL("DROP TABLE IF EXISTS " + Bugtracking.DeveloperIssueEntry.TABLE_DEVELOPERISSUE);
-        db.execSQL("DROP TABLE IF EXISTS " + Bugtracking.CommentEntry.TABLE_COMMENT);
         db.execSQL("DROP TABLE IF EXISTS " + Bugtracking.CommentEntry.TABLE_COMMENT);
 
         // create new tables

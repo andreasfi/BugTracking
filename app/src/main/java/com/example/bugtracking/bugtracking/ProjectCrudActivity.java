@@ -19,7 +19,7 @@ import com.example.bugtracking.bugtracking.object.Project;
 
 import java.util.List;
 
-public class ProjectCrudActivity extends AppCompatActivity implements ListDeveloperFragment.DeveloperDialogListener {
+public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFragment.DeveloperDialogListener {
 
     long idProject;
     List<String> listdeveloperAssociate;
@@ -36,30 +36,6 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
 
         setContentView(R.layout.activity_project_crud);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     //Action pour ajouter une date de début
     public void clicAddStartDate(View view){
         EditText text=(EditText)findViewById(R.id.proStartDate);

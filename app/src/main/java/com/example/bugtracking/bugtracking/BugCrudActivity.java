@@ -23,15 +23,17 @@ import java.util.ArrayList;
 /**
  * Created by Andreas on 25.10.2015.
  */
-public class BugCrudActivity extends AppCompatActivity implements BugAssignDeveloperFragment.SelectionListener {
+public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperFragment.SelectionListener {
     Button developer_add_button;
     Button bug_action_button;
+    Button bug_delete_button;
     EditText titleView;
     EditText descriptionView;
     EditText reproductionView;
     EditText effectsView;
     Spinner priorityspinner;
     Spinner statespinner;
+    long bugId;
 
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     @Override
@@ -49,22 +51,38 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
         // get intent info
         Intent intent=getIntent();
         final String action = intent.getStringExtra("action");
-        final long bugid = intent.getLongExtra("id", 0);
+        final long bugid = intent.getLongExtra("id", 1L);
+        bug_delete_button = (Button) findViewById(R.id.deleteBug);
 
         titleView = (EditText) findViewById(R.id.title);
         descriptionView = (EditText) findViewById(R.id.description);
         reproductionView = (EditText) findViewById(R.id.reproduction);
         effectsView = (EditText) findViewById(R.id.effects);
 
+
+        priorityspinner = (Spinner) findViewById(R.id.spinnerPriority); // Get the spinner element
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.priority_array, android.R.layout.simple_spinner_item); // Create an ArrayAdapter using the string array and a default spinner layout
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
+        priorityspinner.setAdapter(adapter);// Apply the adapter to the spinner
+
+        statespinner = (Spinner) findViewById(R.id.spinnerState);
+        ArrayAdapter<CharSequence> stateadapter = ArrayAdapter.createFromResource(this,
+                R.array.state_array, android.R.layout.simple_spinner_item);
+        stateadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statespinner.setAdapter(stateadapter);
+
         switch (action){
+            case "add":
+                bug_delete_button.setClickable(false);
+                break;
             case "edit":
                 // fill up xml
-                BugDataSource bds = new BugDataSource(thisclass);
+                BugDataSource bds = new BugDataSource(this);
                 Bug bug = bds.getBugById(bugid);
 
                 int priorityselection = 0;
                 int stateselection = 0;
-
                 titleView.setText(bug.getTitle());
                 descriptionView.setText(bug.getDescription());
                 reproductionView.setText(bug.getReproduce());
@@ -97,17 +115,6 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
                 break;
         }
 
-        priorityspinner = (Spinner) findViewById(R.id.spinnerPriority); // Get the spinner element
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.priority_array, android.R.layout.simple_spinner_item); // Create an ArrayAdapter using the string array and a default spinner layout
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
-        priorityspinner.setAdapter(adapter);// Apply the adapter to the spinner
-
-        statespinner = (Spinner) findViewById(R.id.spinnerState);
-        ArrayAdapter<CharSequence> stateadapter = ArrayAdapter.createFromResource(this,
-                R.array.state_array, android.R.layout.simple_spinner_item);
-        stateadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        statespinner.setAdapter(stateadapter);
 
         developer_add_button = (Button)findViewById(R.id.assignedevelopers);
         developer_add_button.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +132,19 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
             }
         });
 
+        bug_delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BugDataSource bds = new BugDataSource(thisclass);
+                bds.deletEIssue(bugid);
+
+                SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
+                sqlHelper.getWritableDatabase().close();
+
+                Intent intent = new Intent(thisclass, BugActivity.class);
+                startActivity(intent);
+            }
+        });
 
         bug_action_button = (Button) findViewById(R.id.createBug); // get action button
         bug_action_button.setText(action); // set button text from intent
@@ -180,6 +200,8 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
                             bug.setDate(date);
                             bug.setProjectId(proid);
                             bug.setDevId(devid);
+
+
                             bug.setId((int) bds.createIssue(bug));
 
                             SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
@@ -189,7 +211,28 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
                             startActivity(intent);
                             break;
                         case "edit":
+                            BugDataSource bds2 = new BugDataSource(thisclass);
+                            Bug bugEdit = new Bug();
+                            bugEdit.setId((int)bugid);
+                            bugEdit.setTitle(title);
+                            bugEdit.setDescription(description);
+                            bugEdit.setReference(reference);
+                            bugEdit.setCategory(category);
+                            bugEdit.setReproduce(reproduction);
+                            bugEdit.setEffects(effects);
+                            bugEdit.setPriority(priority);
+                            bugEdit.setState(state);
+                            bugEdit.setDate(date);
+                            bugEdit.setProjectId(proid);
+                            bugEdit.setDevId(devid);
 
+                            bds2.updateIssue(bugEdit);
+
+                            SQLiteHelper sqlHelper2 = SQLiteHelper.getInstance(thisclass);
+                            sqlHelper2.getWritableDatabase().close();
+
+                            Intent intent2 = new Intent(thisclass, BugActivity.class);
+                            startActivity(intent2);
                             break;
                     }
                 } else {
@@ -215,16 +258,7 @@ public class BugCrudActivity extends AppCompatActivity implements BugAssignDevel
 
         return ret_val;
     }
-    public void createBug(){
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public void selectItem(int position) {

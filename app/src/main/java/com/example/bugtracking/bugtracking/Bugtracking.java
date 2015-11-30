@@ -137,7 +137,7 @@ public final class Bugtracking {
 
         //Create statements
         public static final String CREATE_TABLE_ISSUE="CREATE TABLE "+TABLE_ISSUE+"("
-                + IssueEntry.ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + IssueEntry.ID+" INTEGER PRIMARY KEY, "
                 + IssueEntry.TITLE+" TEXT,"
                 + IssueEntry.DESCRIPTION+" TEXT,"
                 + IssueEntry.REFERENCE+" TEXT,"

@@ -36,8 +36,7 @@
         </activity>
         <activity
             android:name=".ProjectMainActivity"
-            android:label="BugTraking - Project"
-            android:parentActivityName=".LoginActivity">
+            android:label="BugTraking - Project">
         </activity>
         <activity
             android:name=".BugActivity"
@@ -63,7 +62,7 @@
         </activity>
         <activity android:name=".ProfileActivity"
             android:label="Profile"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".ProjectMainActivity">
         </activity>
     </application>
 

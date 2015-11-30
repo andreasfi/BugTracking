@@ -17,7 +17,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BugActivity extends AppCompatActivity {
+public class BugActivity extends BaseActivity {
 
     //private ActionBar toolbar;
     private TabLayout tabLayout;
@@ -27,20 +27,7 @@ public class BugActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Test si l'utilisateur est connecté
-       /* if(LoginActivity.CONNECTED==false){
-            LoginActivity.MESSAGE_ERROR=true;
-            Intent intent=new Intent(this,LoginActivity.class);
-            startActivity(intent);
-        }*/
-
         setContentView(R.layout.activity_bug);
-
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);// Some problems here...
-        //setSupportActionBar(toolbar);
-        //toolbar = getActionBar();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Adapter that handles the tabs/fragments as a menu
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -52,11 +39,8 @@ public class BugActivity extends AppCompatActivity {
         // ID of the project
         projectid = 0; // change,, get selected project id
 
-        //DB
-        //BugDataSource ids = new BugDataSource(this);
-        //List<Bug> issues = ids.getAllIssueByProject(projectid);
-
         final Activity thisclass = this;
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,34 +95,5 @@ public class BugActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-    public void goToAddIssue(View view){
-        Intent intent = new Intent(this, BugCrudActivity.class);
-        startActivity(intent);
-    }
-    public void goToViewIssue(View view){
-        Intent intent = new Intent(this, BugViewActivity.class);
-        startActivity(intent);
-    }
 }
