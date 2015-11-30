@@ -1,15 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.bugtracking.bugtracking.CommentFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Comment"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="20px"
-        android:onClick="clicComment"/>
+    <ListView
+        android:layout_width="fill_parent"
+        android:fillViewport="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewComment"
+        android:layout_alignParentTop="true"
+        android:scrollbars="vertical"/>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/listViewComment"
+        android:layout_alignBottom="@id/listViewComment"
+        android:layout_gravity="end|bottom"/>
+
+</RelativeLayout>

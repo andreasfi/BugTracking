@@ -68,6 +68,31 @@ public class CommentDataSource {
         return comments;
     }
 
+
+    //GET ALL COMMENT
+    public List<Comment> getAllComment(){
+
+        List<Comment> comments=new ArrayList<>();
+        String sql = "SELECT * FROM "+ Bugtracking.CommentEntry.TABLE_COMMENT;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+       /* if (cursor != null){
+            cursor.moveToFirst();
+        }*/
+
+        if(cursor.moveToFirst()){
+            do{
+                Comment comment = new Comment();
+                comment.setComment(cursor.getString(cursor.getColumnIndex(Bugtracking.CommentEntry.COMMENT)));
+
+                comments.add(comment);
+            }while (cursor.moveToNext());
+        }
+
+        return comments;
+    }
+
     //DELETE COMMENT
     public void deleteComment(long id){
 

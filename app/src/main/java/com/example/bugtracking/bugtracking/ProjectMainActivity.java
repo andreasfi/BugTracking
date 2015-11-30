@@ -81,8 +81,8 @@ public class ProjectMainActivity extends BaseActivity {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(ProjectMainActivity.this, ProjectCrudActivity.class);
-                    intent.putExtra("update", true);
+                    Intent intent=new Intent(ProjectMainActivity.this, BugActivity.class);
+
                     intent.putExtra("idProject", idProject);
                     startActivity(intent);
                 }

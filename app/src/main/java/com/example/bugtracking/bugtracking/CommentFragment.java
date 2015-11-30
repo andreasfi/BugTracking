@@ -1,6 +1,7 @@
 package com.example.bugtracking.bugtracking;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +10,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bugtracking.bugtracking.adapter.CommentDataSource;
+import com.example.bugtracking.bugtracking.object.Comment;
+
+import java.util.List;
 
 
 public class CommentFragment extends Fragment {
@@ -37,7 +46,31 @@ public class CommentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comment, container, false);
+        View rootview =inflater.inflate(R.layout.fragment_comment, container, false);
+
+        final ListView commentView=(ListView) rootview.findViewById(R.id.listViewComment);
+
+        final BugViewActivity activity=(BugViewActivity) getActivity();
+        //Get comment from db
+        CommentDataSource cds=new CommentDataSource(activity);
+        List<Comment> comments = cds.getAllComment();
+
+        //Put value in layout
+        if(!comments.isEmpty()){
+            ArrayAdapter<Comment> adapter;
+            adapter = new ArrayAdapter<Comment>(getActivity(), android.R.layout.simple_list_item_1, comments);
+
+            commentView.setAdapter(adapter);
+           /* commentView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                }
+            });*/
+        }
+
+
+        return rootview;
     }
 
     //Methode appelée dans le Fragment "CommentEntry"
