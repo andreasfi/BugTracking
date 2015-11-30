@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,8 +22,17 @@ import java.util.List;
 
 public class ProjectCrudActivity extends AppCompatActivity implements ListDeveloperFragment.DeveloperDialogListener {
 
-    long idProject;
-    List<String> listdeveloperAssociate;
+    private long idProject;
+    private List<String> listdeveloperAssociate;
+    private boolean update=false;
+    private EditText title;
+    private EditText description;
+    private EditText startDate;
+    private EditText endDate;
+    private Button updateDeveloper;
+    private Button deleteDeveloper;
+    private Button addDeveloper;
+    private Project project;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +44,49 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
             startActivity(intent);
         }*/
 
+        Intent intent=getIntent();
+        update=intent.getBooleanExtra("update", false);
         setContentView(R.layout.activity_project_crud);
+        //Dans le cas ou on souhaite modifier le projet
+        if(update==true){
+            idProject=intent.getLongExtra("idProject", -1);
+
+            title=(EditText)findViewById(R.id.proCrudTitle);
+            description=(EditText)findViewById(R.id.proCrudDescription);
+            startDate=(EditText)findViewById(R.id.proStartDate);
+            endDate=(EditText) findViewById(R.id.proEndDate);
+            updateDeveloper=(Button)findViewById(R.id.updateProjectCrud);
+            updateDeveloper.setHeight(20);
+            updateDeveloper.setVisibility(View.VISIBLE);
+
+            deleteDeveloper=(Button)findViewById(R.id.deleteProjectCrud);
+            deleteDeveloper.setHeight(20);
+            deleteDeveloper.setVisibility(View.VISIBLE);
+
+            addDeveloper=(Button)findViewById(R.id.AddProjectCrud);
+            addDeveloper.setVisibility(View.INVISIBLE);
+            addDeveloper.setHeight(0);
+
+            project=searchProject(idProject);
+
+            title.setText(project.getName());
+            description.setText(project.getDescription());
+            startDate.setText(project.getStartdate());
+            endDate.setText(project.getEnddate());
+            endDate.setText(project.getEnddate());
+        }
+
+        else{
+            updateDeveloper=(Button)findViewById(R.id.updateProjectCrud);
+
+            updateDeveloper.setVisibility(View.INVISIBLE);
+
+            deleteDeveloper=(Button)findViewById(R.id.deleteProjectCrud);
+
+            deleteDeveloper.setVisibility(View.INVISIBLE);
+        }
+
+
     }
 
     @Override
@@ -83,13 +135,13 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
     //Fonction pour créer un nouveau Projet
     public void clicAddProject(View view){
         ProjectDataSource pds=new ProjectDataSource(this);
-        EditText title=(EditText)findViewById(R.id.proCrudTitle);
-        EditText description=(EditText)findViewById(R.id.proCrudDescription);
-        EditText startDate=(EditText)findViewById(R.id.proStartDate);
-        EditText endDate=(EditText)findViewById(R.id.proEndDate);
+         title=(EditText)findViewById(R.id.proCrudTitle);
+         description=(EditText)findViewById(R.id.proCrudDescription);
+         startDate=(EditText)findViewById(R.id.proStartDate);
+         endDate=(EditText)findViewById(R.id.proEndDate);
 
         //Récupération des données inserées
-        Project project=new Project();
+        project=new Project();
         project.setName(title.getText().toString());
         project.setDescription(description.getText().toString());
         project.setStartdate(startDate.getText().toString());
@@ -117,6 +169,41 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
         startActivity(intent);
     }
 
+    public void clicUpdateDeveloper(View view){
+        ProjectDataSource pds=new ProjectDataSource(this);
+        title=(EditText)findViewById(R.id.proCrudTitle);
+        description=(EditText)findViewById(R.id.proCrudDescription);
+        startDate=(EditText)findViewById(R.id.proStartDate);
+        endDate=(EditText)findViewById(R.id.proEndDate);
+
+        //Récupération des données inserées
+        //Project project=new Project();
+        project.setName(title.getText().toString());
+        project.setDescription(description.getText().toString());
+        project.setStartdate(startDate.getText().toString());
+        project.setEnddate(endDate.getText().toString());
+
+        pds.updateProject(project);
+
+        SQLiteHelper sqlHelper=SQLiteHelper.getInstance(this);
+        sqlHelper.getWritableDatabase().close();
+
+        Intent intent = new Intent(this, ProjectMainActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void clicDeletProject(View view) {
+
+        ProjectDataSource pds = new ProjectDataSource(this);
+        pds.deleteProject(idProject);
+
+        SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
+        sqlHelper.getWritableDatabase().close();
+
+        Intent intent = new Intent(this, ProjectMainActivity.class);
+        startActivity(intent);
+    }
     //Méthode utilisée par le DialogFragment
     public List<Developer> getListdeveloper(){
         DeveloperDataSource dds=new DeveloperDataSource(this);
@@ -160,6 +247,10 @@ public class ProjectCrudActivity extends AppCompatActivity implements ListDevelo
             //Ajout des developer associé
             pdds.createProjectDeveloper(developer.getId(), idProject, "0");
         }
+    }
 
+    public Project searchProject(long id){
+        ProjectDataSource pds=new ProjectDataSource(this);
+        return pds.getProjectByID(id);
     }
 }

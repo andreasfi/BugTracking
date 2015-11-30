@@ -9,6 +9,7 @@ import com.example.bugtracking.bugtracking.Bugtracking;
 import com.example.bugtracking.bugtracking.SQLiteHelper;
 import com.example.bugtracking.bugtracking.object.Bug;
 import com.example.bugtracking.bugtracking.object.Project;
+import com.example.bugtracking.bugtracking.object.ProjectDeveloper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,9 +105,13 @@ public class ProjectDataSource {
         // Delete all Issues linked to projecct
         BugDataSource ids = new BugDataSource(context);
         List<Bug> bugs = ids.getAllIssueByProject(projectid);
+
+        ProjectDeveloperDataSource pdds=new ProjectDeveloperDataSource(context);
+
         for (Bug bug : bugs){
             ids.deletEIssue(bug.getId());
         }
+        pdds.deletProjectDeveloperIdProject(projectid);
         // Delete the project
         this.db.delete(Bugtracking.ProjectEntry.TABLE_PROJECT, Bugtracking.ProjectEntry.ID + " = ?", new String[] { String.valueOf(projectid)} );
     }
