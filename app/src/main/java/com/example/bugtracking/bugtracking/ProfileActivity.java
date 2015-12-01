@@ -27,52 +27,26 @@ import java.util.List;
 public class ProfileActivity extends AppCompatActivity {
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     Button confirm_action;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Button logout_button = (Button) findViewById(R.id.button_logout);
+        final Button logout_button = (Button) findViewById(R.id.button_logout);
         final Activity thisclass = this;
         logout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Log User out
-                LoginActivity.CONNECTED = false;
-                Intent intent = new Intent(thisclass, MainActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, "");
-                intent.putExtra("Password", "");
-                startActivity(intent);
+                logout(thisclass);
                 // Send back to main activity
             }
         });
 
-        // Fill Spinner
-        final Spinner langspinner = (Spinner) findViewById(R.id.spinner_lang);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.lang_array, android.R.layout.simple_spinner_item); // Create an ArrayAdapter using the string array and a default spinner layout
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
-        langspinner.setAdapter(adapter);// Apply the adapterCurrent to the spinner
-
         DeveloperDataSource dds =new DeveloperDataSource(thisclass);
 
         Developer developer = dds.getDeveloperByID(LoginActivity.ID);
-
-        // Put the lang in an int
-        int langselection = 0;
-        Log.d("string", developer.getLang()+" "+ LoginActivity.ID+ " "+developer.getUsername());
-        switch (developer.getLang()){
-            case "EN":
-                langselection = 0;
-                break;
-            case "FR":
-                langselection = 1;
-                break;
-            default:
-                langselection = 0;
-        }
-        // Set the spinner to the developers lang
-        langspinner.setSelection(langselection);
 
         confirm_action = (Button) findViewById(R.id.button_action_confirm);
         confirm_action.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 String errormsg="";
 
-
                 if(current != ""){
                     // Check if current password true
                     DeveloperDataSource dds =new DeveloperDataSource(thisclass);
@@ -102,13 +75,10 @@ public class ProfileActivity extends AppCompatActivity {
                     if(LoginActivity.USER_PASSWORD.equals(current)){
                         // Check if passfield1 and passfield2 are the same
                         if(newpass.equals(newpassrepeat)){
-                            // Update Db
-                            String spinnerlang = langspinner.getSelectedItem().toString();
-                            Log.d("tesss", spinnerlang+" ");
-                            developer.setLang(spinnerlang);
-
+                            // Update Dbg
                             developer.setPassword(newpass);
                             LoginActivity.USER_PASSWORD = newpass;
+                            logout(thisclass);
                             dds.updateDeveloper(developer);
                             SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
                             sqlHelper.getWritableDatabase().close();
@@ -140,5 +110,11 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
-
+    public void logout(Activity thisclass){
+        LoginActivity.CONNECTED = false;
+        Intent intent = new Intent(thisclass, MainActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, "");
+        intent.putExtra("Password", "");
+        startActivity(intent);
+    }
 }

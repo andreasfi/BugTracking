@@ -36,10 +36,12 @@ public class BugCurrentFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootviewCurrent = inflater.inflate(R.layout.fragment_bug_current, container, false);
+        // Get the list
         final ListView issuesviewCurrent = (ListView) rootviewCurrent.findViewById(R.id.listViewIssues);
 
         final BugActivity activity = (BugActivity) getActivity();
 
+        // Get the project id
         projectidCurrent = activity.getProjectid();
         // Get db items Get project id
         BugDataSource ids = new BugDataSource(activity);

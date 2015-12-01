@@ -34,18 +34,6 @@
         android:hint="Repeat new password"
         android:id="@+id/new_pass_repeat" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select language"
-        android:id="@+id/textView3" />
-    <Spinner
-        android:id="@+id/spinner_lang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_horizontal" />
-
     <Button
         android:layout_width="fill_parent"
         android:layout_marginTop="15dp"
