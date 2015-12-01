@@ -127,11 +127,11 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
        idProject= pds.createProject(project);
 
 //Associe les developer choisis au projet.
-        if(listdeveloperAssociate!=null){
 
-            joinDeveloperToProject(listdeveloperAssociate, idProject);
 
-        }
+        joinDeveloperToProject(listdeveloperAssociate, idProject);
+
+
 
         SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
         sqlHelper.getWritableDatabase().close();
@@ -216,12 +216,14 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
         ProjectDeveloperDataSource pdds=new ProjectDeveloperDataSource(this);
         //Ajout du déveloper qui crée le projet
         pdds.createProjectDeveloper(LoginActivity.ID, idProject, "1");
-        Developer developer;
-        for(int i=0;i<developers.size();i++){
+        if(developers!=null){
+            Developer developer;
+            for(int i=0;i<developers.size();i++){
 
-            developer=dds.getDeveloperByUsername(developers.get(i));
-            //Ajout des developer associé
-            pdds.createProjectDeveloper(developer.getId(), idProject, "0");
+                developer=dds.getDeveloperByUsername(developers.get(i));
+                //Ajout des developer associé
+                pdds.createProjectDeveloper(developer.getId(), idProject, "0");
+            }
         }
     }
 
@@ -229,4 +231,6 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
         ProjectDataSource pds=new ProjectDataSource(this);
         return pds.getOneProjectByID(id);
     }
+
+
 }
