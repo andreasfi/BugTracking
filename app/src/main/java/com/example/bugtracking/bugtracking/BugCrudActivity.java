@@ -52,6 +52,7 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
         Intent intent=getIntent();
         final String action = intent.getStringExtra("action");
         final long bugid = intent.getLongExtra("id", 1L);
+        final long proid2 = intent.getLongExtra("idpro", 1L);
         bug_delete_button = (Button) findViewById(R.id.deleteBug);
 
         titleView = (EditText) findViewById(R.id.title);
@@ -158,7 +159,8 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
                 String priority = priorityspinner.getSelectedItem().toString();
                 String state = statespinner.getSelectedItem().toString();
                 int devid = 0;
-                int proid = 0;
+                int proid = (int)proid2;
+
                 String category = "";
                 String reference = "";
                 String date = "";

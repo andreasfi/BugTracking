@@ -41,7 +41,7 @@
         <activity
             android:name=".BugActivity"
             android:label="BugActivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".ProjectMainActivity" >
         </activity>
 
         <activity

@@ -19,7 +19,7 @@ import java.util.List;
 
 
 public class BugCurrentFragment extends Fragment{
-
+    long projectid;
     public BugCurrentFragment() {
         // Required empty public constructor
     }
@@ -38,9 +38,15 @@ public class BugCurrentFragment extends Fragment{
         final ListView issuesview = (ListView) rootview.findViewById(R.id.listViewIssues);
 
         final BugActivity activity = (BugActivity) getActivity();
+
+        projectid = activity.getProjectid();
+        Log.d("test", projectid+"");
+
         // Get db items Get project id
         BugDataSource ids = new BugDataSource(activity);
-        List<Bug> bugs = ids.getAllIssueByProjectState(activity.getProjectid(), "Current"); // get only current!!! need to change
+        List<Bug> bugs = ids.getAllIssueByProjectState(projectid, "Current"); // get only current!!! need to change
+
+
 
         // Put values in layout
         if (!bugs.isEmpty()){
@@ -59,6 +65,7 @@ public class BugCurrentFragment extends Fragment{
                     Intent intent = new Intent(getActivity(), BugCrudActivity.class);
                     intent.putExtra("action", "edit");
                     intent.putExtra("id", (long)bug.getId());
+                    intent.putExtra("idpro", projectid);
                     startActivity(intent);
                 }
             });

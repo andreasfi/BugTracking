@@ -22,7 +22,7 @@ public class BugActivity extends BaseActivity {
     //private ActionBar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    int projectid;
+    long projectid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,10 @@ public class BugActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         // ID of the project
-        projectid = 0; // change,, get selected project id
+
+        Intent intent=getIntent();
+        projectid = intent.getLongExtra("idProject", 1L);
+
 
         final Activity thisclass = this;
 
@@ -48,12 +51,13 @@ public class BugActivity extends BaseActivity {
                 //TODO open add bug activity
                 Intent intent = new Intent(thisclass, BugCrudActivity.class);
                 intent.putExtra("action", "add");
+                intent.putExtra("idpro", projectid);
                 startActivity(intent);
             }
         });
     }
 
-    public int getProjectid() {
+    public long getProjectid() {
         return projectid;
     }
 

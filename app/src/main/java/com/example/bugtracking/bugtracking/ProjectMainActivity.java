@@ -82,7 +82,6 @@ public class ProjectMainActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(ProjectMainActivity.this, BugActivity.class);
-
                     intent.putExtra("idProject", idProject);
                     startActivity(intent);
                 }
