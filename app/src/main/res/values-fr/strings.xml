@@ -3,78 +3,86 @@
 
     <string name="default_lang">en</string>
     <!-- Login Activity-->
-    <string name="login">login</string>
+    <string name="login">Connection</string>
     <string name="password">Mot de passe</string>
     <string name="register">S\'enregistrer</string>
     <string name="logButton">Connection</string>
     <string name="input_username">Nom d\'utilisateur</string>
     <string name="input_password">Mot de passe</string>
-    <string name="input_repeatPassword">Repeat Password</string>
-    <string name="action_register">Register</string>
-    <string name="action_already_account">Already an account? Go back</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="input_repeatPassword">Répéter mot de passe</string>
+    <string name="action_register">S\'enregistrer</string>
+    <string name="action_already_account">Déjà un compte? Retournée</string>
+    <string name="title_activity_login">Login</string>
 
     <!-- Action bar Activity-->
-    <string name="hello_world">Hello world!</string>
+
     <string name="action_settings">Paramètres</string>
-    <string name="about">About</string>
+    <string name="about">À propos</string>
     <string name="profil">Profile</string>
 
     <!-- Action bar Title -->
-    <string name="title_activity_project_main">ProjectMainActivity</string>
+    <string name="title_activity_project_main">Home</string>
 
 
     <!-- Bug Tabs-->
-    <string name="tab_current">Actuel</string>
+    <string name="tab_current">Actuelle</string>
     <string name="tab_solved">Resolue</string>
     <string name="tab_onhold">En attente</string>
-    <string name="issue_title">Title</string>
+    <string name="issue_title">Titre</string>
     <string name="issue_description">Description</string>
-    <string name="issue_reproduction">How to reproduce</string>
-    <string name="issue_effects">Effects</string>
+    <string name="issue_reproduction">Comment reproduire</string>
+    <string name="issue_effects">Effets</string>
 
 
     <string-array name="priority_array">
-        <item>High</item>
-        <item>Medium</item>
-        <item>Low</item>
+        <item>Haut</item>
+        <item>Moyen</item>
+        <item>Bas</item>
     </string-array>
     <string-array name="state_array">
-        <item>On Hold</item>
-        <item>Current</item>
-        <item>Solved</item>
+        <item>En attente</item>
+        <item>Actuelle</item>
+        <item>Resolue</item>
     </string-array>
     <string-array name="lang_array">
         <item>EN</item>
         <item>FR</item>
     </string-array>
-    <string name="title_activity_project_crud">ProjectCrudActivity</string>
+    <string name="title_activity_project_crud">Project CRUD</string>
 
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_issue_view">IssueViewActivity</string>
-    <string name="title_activity_comment">CommentActivity</string>
+
+    <string name="title_activity_issue_view">Bug</string>
+    <string name="title_activity_comment">Comments</string>
     <string name="aboutDev">Developers</string>
-    <string name="CREATE_BUG">Create Bug</string>
-    <string name="COMMENT_TITLE">Title</string>
-    <string name="ADD_COMMENT">Add comment</string>
-    <string name="WRONG_LOGIN">Your login or password is wrong !</string>
-    <string name="CHANGE_PASSWORD">Change password</string>
-    <string name="CURRENT_PASSWORD">Current password</string>
-    <string name="NEW_PASSWORD">New password</string>
-    <string name="CONFIRM">Confirm</string>
-    <string name="LOGOUT">Logout</string>
-    <string name="TITLE">Title</string>
+    <string name="CREATE_BUG">Créer un Bug</string>
+    <string name="COMMENT_TITLE">Titre</string>
+    <string name="ADD_COMMENT">Ajouter commentaire</string>
+    <string name="WRONG_LOGIN">Ton nom d\'utilisateur ou ton mot de passe est faux!</string>
+    <string name="CHANGE_PASSWORD">Changer mot de passe</string>
+    <string name="CURRENT_PASSWORD">Mot de passe actuelle</string>
+    <string name="NEW_PASSWORD">Nouveau mot de passe</string>
+    <string name="CONFIRM">Confirmer</string>
+    <string name="LOGOUT">Déconnexion</string>
+    <string name="TITLE">Titre</string>
     <string name="DESCRIPTION">Description</string>
-    <string name="START_DATE">Start date</string>
-    <string name="ADD_START_DATE">Add Start Date</string>
-    <string name="END_DATE">End Date</string>
-    <string name="ADD_END_DATE">Add End Date</string>
-    <string name="ADD_DEVELOPPER">Add Developper</string>
-    <string name="ADD_PROJECT">Add Project</string>
-    <string name="UPDATE_PROJECT">Update Project</string>
-    <string name="DELETE_PROJECT">Delete project</string>
-    <string name="ADD">Add</string>
-    <string name="SELECT_LANG">Select language</string>
+    <string name="START_DATE">Date de début</string>
+    <string name="ADD_START_DATE">Ajouter date de début</string>
+    <string name="END_DATE">Date de fin</string>
+    <string name="ADD_END_DATE">Ajouter date de fin</string>
+    <string name="ADD_DEVELOPPER">Ajouter Developpeur</string>
+    <string name="ADD_PROJECT">Ajouter project</string>
+    <string name="UPDATE_PROJECT">Mis à jour Project</string>
+    <string name="DELETE_PROJECT">Effacer project</string>
+    <string name="ADD">Ajouter</string>
+    <string name="SELECT_LANG">Choisir langue</string>
+    <string name="SETTINGS">Settings</string>
+    <string name="ABOUT">About</string>
+    <string name="PROFILE">Profile</string>
+    <string name="ISSUE_VIEW">Issue View</string>
+    <string name="PROJECT_CRUD">Project CRUD</string>
+    <string name="BUG_CRUD">BugCrud</string>
+    <string name="BUG_ACITVITY">Bug Activity</string>
+    <string name="BUGTRAKPRO">BugTraking - Projects</string>
 
 </resources>

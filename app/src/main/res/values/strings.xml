@@ -77,5 +77,13 @@
     <string name="DELETE_PROJECT">Delete project</string>
     <string name="ADD">Add</string>
     <string name="SELECT_LANG">Select language</string>
+    <string name="SETTINGS">Settings</string>
+    <string name="ABOUT">About</string>
+    <string name="PROFILE">Profile</string>
+    <string name="ISSUE_VIEW">Issue View</string>
+    <string name="PROJECT_CRUD">Project CRUD</string>
+    <string name="BUG_CRUD">BugCrud</string>
+    <string name="BUG_ACITVITY">Bug Activity</string>
+    <string name="BUGTRAKPRO">BugTraking - Projects</string>
 
 </resources>
