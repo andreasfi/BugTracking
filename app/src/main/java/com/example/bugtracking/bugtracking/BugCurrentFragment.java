@@ -73,8 +73,7 @@ public class BugCurrentFragment extends Fragment{
                     //Log.d("mymsg", "worked" + " " + bug.getId()+" "+bug.getTitle());
 
                     Intent intent = new Intent(getActivity(), BugViewActivity.class);
-                    intent.putExtra("action", "edit");
-                    intent.putExtra("id", (long) bug.getId());
+                    intent.putExtra("BugId", (long) bug.getId());
                     intent.putExtra("idpro", projectid);
                     startActivity(intent);
                 }

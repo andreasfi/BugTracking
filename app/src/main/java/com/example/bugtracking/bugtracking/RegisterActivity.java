@@ -73,8 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
                             //@todo Set user to logged in
                             //@todo Go to project activity
                             Intent intent = new Intent(thisclass, MainActivity.class);
-                            intent.putExtra(EXTRA_MESSAGE,username);
-                            intent.putExtra("Password",password);
                             startActivity(intent);
                         } else {
                             // show error

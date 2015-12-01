@@ -55,7 +55,7 @@ public class BugViewFragment extends Fragment {
             }
         });
 
-         activity=(BugViewActivity)getActivity();
+        activity=(BugViewActivity)getActivity();
         bugId=activity.getIdBug();
         BugDataSource bds = new BugDataSource(activity);
         Bug bug=bds.getBugById(bugId);

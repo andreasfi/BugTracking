@@ -30,7 +30,7 @@ public class BugViewActivity extends BaseActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private long idBug;
+    public long idBug;
     private long idProject;
 
     @Override
@@ -58,7 +58,7 @@ public class BugViewActivity extends BaseActivity {
         idProject=intent.getLongExtra("idPro",1L);
 
         Log.d("IDissue","Id "+idBug);
-        idBug=2;
+
 
     }
 

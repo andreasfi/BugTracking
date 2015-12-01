@@ -103,7 +103,7 @@ public class BugDataSource {
         return bugs;
     }
     public Bug getBugById(long id){
-        Bug bug = new Bug();
+
         String sql = "SELECT * FROM "+ Bugtracking.IssueEntry.TABLE_ISSUE +
                 " WHERE "+ Bugtracking.IssueEntry.ID+ " = "+id;
         Cursor cursor = this.db.rawQuery(sql, null);
@@ -111,6 +111,7 @@ public class BugDataSource {
         if(cursor != null){
             cursor.moveToFirst();
         }
+        Bug bug = new Bug();
         bug.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.IssueEntry.ID)));
         bug.setDevId(cursor.getInt(cursor.getColumnIndex(Bugtracking.IssueEntry.DEVID)));
         bug.setTitle(cursor.getString(cursor.getColumnIndex(Bugtracking.IssueEntry.TITLE)));

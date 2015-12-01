@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         String errormsg = "";
         switch (id){
             case R.id.action_profil:
+                // Set error
                 errormsg = "You need to be logged in to acces this page.";
                 break;
             case R.id.action_about:
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 errormsg = "You need to be logged in to acces this page.";
                 break;
         }
+
+        // Show error
         if(errormsg != ""){
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setMessage(errormsg)
@@ -76,20 +79,17 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
     public void goToLogIn(View view){
+        // Renvoye vers le login
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
     public void goToRegister(View view){
+        // Renvoye vers le register
         Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-    public void goToIssues(View view){
-        Intent intent = new Intent(this, BugActivity.class);
         startActivity(intent);
     }
 }
