@@ -44,6 +44,10 @@
         <item>Current</item>
         <item>Solved</item>
     </string-array>
+    <string-array name="lang_array">
+        <item>EN</item>
+        <item>FR</item>
+    </string-array>
     <string name="title_activity_project_crud">ProjectCrudActivity</string>
 
 <!-- TODO: Remove or change this placeholder text -->

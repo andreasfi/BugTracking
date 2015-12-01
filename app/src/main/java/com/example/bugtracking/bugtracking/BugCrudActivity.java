@@ -40,12 +40,6 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bug_crud);
-        //Test si l'utilisateur est connecté
-       /* if(LoginActivity.CONNECTED==false){
-            LoginActivity.MESSAGE_ERROR=true;
-            Intent intent=new Intent(this,LoginActivity.class);
-            startActivity(intent);
-        }*/
         final Activity thisclass = this; // Get this
 
         // get intent info

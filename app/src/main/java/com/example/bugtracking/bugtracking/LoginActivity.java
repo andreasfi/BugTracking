@@ -81,20 +81,31 @@ public class LoginActivity extends AppCompatActivity {
 
         List<Developer> developers;
         developers=dds.getAllDevelopers();
-        findDevelopper(developers, _login, _password);
-        if(CONNECTED==true){
-            startActivity(intent);
-        }
-        else{
-            if(WRON_LOGIN==true){
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Your login or password are wrong !")
-                        .setTitle("Error!")
-                        .setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+
+        if(!developers.isEmpty()){
+            findDevelopper(developers, _login, _password);
+            if(CONNECTED==true){
+                startActivity(intent);
             }
+            else{
+                if(WRON_LOGIN==true){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("Your login or password is wrong !")
+                            .setTitle("Error!")
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Your login or password is wrong !")
+                    .setTitle("Error!")
+                    .setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
+
 
     }
 
