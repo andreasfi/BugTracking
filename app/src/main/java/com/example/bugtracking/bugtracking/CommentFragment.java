@@ -51,7 +51,7 @@ public class CommentFragment extends Fragment {
         final BugViewActivity activity=(BugViewActivity) getActivity();
         //Get comment from db
         CommentDataSource cds=new CommentDataSource(activity);
-        List<Comment> comments = cds.getAllComment();
+        List<Comment> comments = cds.getAllCommentByProjectID(activity.getIdBug());
         List<String> title=new ArrayList<>();
 
         for(int i=0;i<comments.size();i++){

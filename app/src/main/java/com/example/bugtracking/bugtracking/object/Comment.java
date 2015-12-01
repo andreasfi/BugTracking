@@ -4,16 +4,18 @@ package com.example.bugtracking.bugtracking.object;
  * Created by Sylvain on 07.11.2015.
  */
 public class Comment {
-    private int id;
+    private long id;
     private String title;
     private String comment;
-    private int devId;
-    private int issueId;
+    private long devId;
+    private long issueId;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -31,19 +33,19 @@ public class Comment {
         this.comment = comment;
     }
 
-    public int getDevId() {
+    public long getDevId() {
         return devId;
     }
 
-    public void setDevId(int devId) {
+    public void setDevId(long devId) {
         this.devId = devId;
     }
 
-    public int getIssueId() {
+    public long getIssueId() {
         return issueId;
     }
 
-    public void setIssueId(int issueId) {
+    public void setIssueId(long issueId) {
         this.issueId = issueId;
     }
 

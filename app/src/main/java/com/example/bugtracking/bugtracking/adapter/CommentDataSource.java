@@ -60,6 +60,7 @@ public class CommentDataSource {
         if(cursor.moveToFirst()){
             do{
                 Comment comment = new Comment();
+                comment.setTitle(cursor.getString(cursor.getColumnIndex(Bugtracking.CommentEntry.TITLE)));
                 comment.setComment(cursor.getString(cursor.getColumnIndex(Bugtracking.CommentEntry.COMMENT)));
 
                 comments.add(comment);
