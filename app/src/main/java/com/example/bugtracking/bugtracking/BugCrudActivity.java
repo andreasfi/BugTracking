@@ -179,12 +179,14 @@ public class BugCrudActivity extends BaseActivity {
                             sqlHelper.getWritableDatabase().close();
 
                             Intent intent = new Intent(thisclass, BugActivity.class);
+                            intent.putExtra("idProject",proId);
+
                             startActivity(intent);
                             break;
                         case "edit":
                             BugDataSource bds2 = new BugDataSource(thisclass);
                             Bug bugEdit = new Bug();
-                            bugEdit.setId((int)bugid);
+                            bugEdit.setId((int) bugid);
                             bugEdit.setTitle(title);
                             bugEdit.setDescription(description);
                             bugEdit.setReference(reference);
@@ -203,6 +205,7 @@ public class BugCrudActivity extends BaseActivity {
                             sqlHelper2.getWritableDatabase().close();
 
                             Intent intent2 = new Intent(thisclass, BugActivity.class);
+                            intent2.putExtra("idProject",proId);
                             startActivity(intent2);
                             break;
                     }
