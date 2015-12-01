@@ -56,7 +56,6 @@ public class RegisterActivity extends AppCompatActivity {
                         for(int i = 0; i < developers.size(); i++){
                             if(developers.get(i).getUsername().toString().equals(username)){
                                 developerExists = false;
-                                Log.d("MyApp","OOOMMMMGGG it worked -----------------");
                             }
                         }
                         if (developerExists || developers.isEmpty()) { // check if username is unique
@@ -65,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             developer.setUsername(username);
                             developer.setPassword(password);
-                            developer.setLang("en");
+                            developer.setLang("EN");
 
                             developer.setId((int) dds.createDeveloper(developer));
 
@@ -73,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                             sqlHelper.getWritableDatabase().close();
                             //@todo Set user to logged in
                             //@todo Go to project activity
-                            Intent intent = new Intent(thisclass, ProjectMainActivity.class);
+                            Intent intent = new Intent(thisclass, MainActivity.class);
                             intent.putExtra(EXTRA_MESSAGE,username);
                             intent.putExtra("Password",password);
                             startActivity(intent);

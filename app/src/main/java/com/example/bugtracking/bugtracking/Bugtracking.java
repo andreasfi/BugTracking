@@ -2,8 +2,6 @@ package com.example.bugtracking.bugtracking;
 
 import android.provider.BaseColumns;
 
-import com.example.bugtracking.bugtracking.object.Project;
-
 /**
  * Created by Andreas on 07.11.2015.
  */
@@ -17,15 +15,15 @@ public final class Bugtracking {
         public static final String TABLE_DEVELOPER = "developer";
 
         // Columns
-        public static final String ID = "iddeveloper";
+        public static final String IDDEVLOPER = "iddeveloper";
         public static final String USERNAME = "username";
         public static final String PASSWORD = "password";
-        public static final String LANGUAGE = "language";
+        public static final String LANGUAGE = "language2";
 
         // Create statement
         public static final String CREATE_TABLE_DEVELOPER = "CREATE TABLE "
                 + TABLE_DEVELOPER + "("
-                + DeveloperEntry.ID + " INTEGER PRIMARY KEY,"
+                + DeveloperEntry.IDDEVLOPER + " INTEGER PRIMARY KEY,"
                 + DeveloperEntry.USERNAME + " TEXT, "
                 + DeveloperEntry.PASSWORD + " TEXT, "
                 + DeveloperEntry.LANGUAGE + " TEXT "
@@ -72,7 +70,7 @@ public final class Bugtracking {
                 + " FOREIGN KEY (" +PROID+") REFERENCES "+ ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
                 + " FOREIGN KEY (" +DEVID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+") "
                 + ");";
-        // +" FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
+        // +" FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+IDDEVLOPER+"), "
     }
 
     public static abstract class CommentEntry implements BaseColumns{

@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     public static boolean CONNECTED=false;
     public static String TEST_LOGIN;
     public static long ID=-1;
+    public static String USER_PASSWORD;
 
     //Test message d'erreur utilisateur non connecté
     public static boolean MESSAGE_ERROR =false;
@@ -127,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
             if(developers.get(i).getUsername().equals(userName)){
                 if(developers.get(i).getPassword().equals(password)){
                     ID=developers.get(i).getId();
+                    USER_PASSWORD = developers.get(i).getPassword();
                     CONNECTED=true;
                 }
                 else{

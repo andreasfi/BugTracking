@@ -46,7 +46,7 @@ public class CommentDataSource {
 
     //GET COMMENT
     public List<Comment> getAllCommentByProjectID(long id){
-        //Je recherche par rapport à l'ID de l'Bug selectionnée
+        //Je recherche par rapport à l'IDDEVLOPER de l'Bug selectionnée
         List<Comment> comments=new ArrayList<>();
         String sql = "SELECT * FROM "+ Bugtracking.CommentEntry.TABLE_COMMENT +
                 " WHERE "+ Bugtracking.CommentEntry.ISS_ID+ " = "+id;

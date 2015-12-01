@@ -36,7 +36,7 @@ public class BugActivity extends BaseActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        // ID of the project
+        // IDDEVLOPER of the project
 
         Intent intent=getIntent();
         projectid = intent.getLongExtra("idProject", 1L);

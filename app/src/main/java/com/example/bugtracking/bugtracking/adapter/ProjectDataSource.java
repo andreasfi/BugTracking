@@ -61,7 +61,7 @@ public class ProjectDataSource {
         project.setName(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.NAME)));
         project.setDescription(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.DESCRIPTION)));
         project.setStartdate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.STARTDATE)));
-        project.setEnddate(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.ProjectEntry.ENDDATE)));
+        project.setEnddate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.ENDDATE)));
 //eh
         return project;
     }
@@ -80,7 +80,7 @@ public class ProjectDataSource {
                 project.setName(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.NAME)));
                 project.setDescription(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.DESCRIPTION)));
                 project.setStartdate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.STARTDATE)));
-                project.setEnddate(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.ProjectEntry.ENDDATE)));
+                project.setEnddate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.ENDDATE)));
 
                 projects.add(project);
             } while (cursor.moveToNext());

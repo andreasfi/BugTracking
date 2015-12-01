@@ -41,10 +41,10 @@ public class DeveloperDataSource {
 
         return id;
     }
-    // FIND DEVELOPER BY ID
+    // FIND DEVELOPER BY IDDEVLOPER
     public Developer getDeveloperByID(long id){
         String sql = "SELECT * FROM " + Bugtracking.DeveloperEntry.TABLE_DEVELOPER +
-                " WHERE " + Bugtracking.DeveloperEntry.ID+ " = " + id;
+                " WHERE " + Bugtracking.DeveloperEntry.IDDEVLOPER + " = " + id;
 
         Cursor cursor = this.db.rawQuery(sql, null);
 
@@ -53,10 +53,10 @@ public class DeveloperDataSource {
         }
 
         Developer developer = new Developer();
-        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
+        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.IDDEVLOPER)));
         developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
-        developer.setPassword(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
-        developer.setLang(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
+        developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+        developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
 
         return developer;
     }
@@ -73,11 +73,10 @@ public class DeveloperDataSource {
         }
 
         Developer developer = new Developer();
+        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.IDDEVLOPER)));
         developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
-        developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
-
-        developer.setPassword(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
-        developer.setLang(cursor.getColumnName(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
+        developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+        developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
 
         return developer;
     }
@@ -91,7 +90,7 @@ public class DeveloperDataSource {
         if(cursor.moveToFirst()){
             do {
                 Developer developer = new Developer();
-                developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.ID)));
+                developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.IDDEVLOPER)));
                 developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
                 developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
                 developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
@@ -108,7 +107,7 @@ public class DeveloperDataSource {
         values.put(Bugtracking.DeveloperEntry.PASSWORD, developer.getPassword());
         values.put(Bugtracking.DeveloperEntry.LANGUAGE, developer.getLang());
 
-        return this.db.update(Bugtracking.DeveloperEntry.TABLE_DEVELOPER, values, Bugtracking.DeveloperEntry.ID + " = ?", new String[]{String.valueOf(developer.getId())});
+        return this.db.update(Bugtracking.DeveloperEntry.TABLE_DEVELOPER, values, Bugtracking.DeveloperEntry.IDDEVLOPER + " = ?", new String[]{String.valueOf(developer.getId())});
 
     }
     // DELETE DEVELOPER

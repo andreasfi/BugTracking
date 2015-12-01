@@ -51,7 +51,7 @@
         android:layout_marginTop="15dp"
         android:layout_height="wrap_content"
         android:text="Confirm"
-        android:id="@+id/button_action" />
+        android:id="@+id/button_action_confirm" />
     <Button
         android:layout_width="fill_parent"
         android:layout_marginTop="15dp"
