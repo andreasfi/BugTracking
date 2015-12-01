@@ -3,29 +3,18 @@ package com.example.bugtracking.bugtracking;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
-import com.example.bugtracking.bugtracking.adapter.BugDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDeveloperDataSource;
-import com.example.bugtracking.bugtracking.object.Bug;
 import com.example.bugtracking.bugtracking.object.Project;
 import com.example.bugtracking.bugtracking.object.ProjectDeveloper;
 
@@ -73,7 +62,7 @@ public class ProjectMainActivity extends BaseActivity {
                     intent.putExtra("idProject", project.getId());
                     startActivity(intent);
                     /*
-                    Project project = (Project) parent.getAdapter().getItem(position);
+                    Project project = (Project) parent.getAdapterCurrent().getItem(position);
                     Intent intent = new Intent(ProjectMainActivity.this , ProjectCrudActivity.class);
                     intent.putExtra("update", true);
                     intent.putExtra("idproject", project.getId());
@@ -121,7 +110,7 @@ public class ProjectMainActivity extends BaseActivity {
         Log.d("img it workeeeeees", project.getName());
 
 
-        ListView lv = (ListView) findViewById(R.id.listViewIssues);
+        ListView lv = (ListView) findViewById(R.id.listViewIssuesSolved);
         //Log.d("help", "help me here2 " + lv.getSelectedItem() + " si " +item.getItemId() + " o " + item.getTitle());
 
         // item.getTitle()

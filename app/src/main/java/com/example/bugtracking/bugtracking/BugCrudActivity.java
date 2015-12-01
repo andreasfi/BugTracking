@@ -69,7 +69,7 @@ public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFra
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.priority_array, android.R.layout.simple_spinner_item); // Create an ArrayAdapter using the string array and a default spinner layout
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
-        priorityspinner.setAdapter(adapter);// Apply the adapter to the spinner
+        priorityspinner.setAdapter(adapter);// Apply the adapterCurrent to the spinner
 
         statespinner = (Spinner) findViewById(R.id.spinnerState);
         ArrayAdapter<CharSequence> stateadapter = ArrayAdapter.createFromResource(this,

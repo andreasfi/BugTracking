@@ -1,10 +1,7 @@
 package com.example.bugtracking.bugtracking;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,22 +11,17 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.bugtracking.bugtracking.adapter.BugDataSource;
 import com.example.bugtracking.bugtracking.object.Bug;
-import com.example.bugtracking.bugtracking.object.Developer;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class BugCurrentFragment extends Fragment{
-    long projectid;
-    View rootview;
-    ArrayAdapter<Bug> adapter;
+    long projectidCurrent;
+    View rootviewCurrent;
+    ArrayAdapter<Bug> adapterCurrent;
     public BugCurrentFragment() {
         // Required empty public constructor
     }
@@ -37,57 +29,47 @@ public class BugCurrentFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootview = inflater.inflate(R.layout.fragment_bug_current, container, false);
-        final ListView issuesview = (ListView) rootview.findViewById(R.id.listViewIssues);
+        rootviewCurrent = inflater.inflate(R.layout.fragment_bug_current, container, false);
+        final ListView issuesviewCurrent = (ListView) rootviewCurrent.findViewById(R.id.listViewIssues);
 
         final BugActivity activity = (BugActivity) getActivity();
 
-        projectid = activity.getProjectid();
-        Log.d("test", projectid+"");
-
+        projectidCurrent = activity.getProjectid();
         // Get db items Get project id
         BugDataSource ids = new BugDataSource(activity);
-        List<Bug> bugs = ids.getAllIssueByProjectState(projectid, "Current"); // get only current!!! need to change
-
-
+        List<Bug> bugs = ids.getAllIssueByProjectState(projectidCurrent, "Current"); // Gets ** bugs
 
         // Put values in layout
         if (!bugs.isEmpty()){
+            adapterCurrent = new ArrayAdapter<Bug>(getActivity(), android.R.layout.simple_list_item_1, bugs);
 
-            adapter = new ArrayAdapter<Bug>(getActivity(), android.R.layout.simple_list_item_1, bugs);
+            issuesviewCurrent.setAdapter(adapterCurrent);
 
-            issuesview.setAdapter(adapter);
-
-            issuesview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            issuesviewCurrent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     //String issuetitle = (String) (issuesview.getItemAtPosition(position));
                     Bug bug = (Bug) parent.getAdapter().getItem(position);
-                    //Log.d("mymsg", "worked" + " " + bug.getId()+" "+bug.getTitle());
 
                     Intent intent = new Intent(getActivity(), BugViewActivity.class);
                     intent.putExtra("BugId", (long) bug.getId());
-                    intent.putExtra("idpro", projectid);
+                    intent.putExtra("idpro", projectidCurrent);
                     startActivity(intent);
                 }
             });
-            registerForContextMenu(issuesview);
-
+            registerForContextMenu(issuesviewCurrent);
         }
-        return rootview;
+        return rootviewCurrent;
     }
-
-    public ArrayAdapter<Bug> getAdapter() {
-        return adapter;
+    public ArrayAdapter<Bug> getAdapterCurrent() {
+        return adapterCurrent;
     }
-
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         if (v.getId() == R.id.listViewIssues) {
@@ -95,9 +77,8 @@ public class BugCurrentFragment extends Fragment{
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
 
-            Adapter adapter = getAdapter();
+            Adapter adapter = getAdapterCurrent();
             Bug bug = (Bug)adapter.getItem(acmi.position);
-            Log.d("aldskfjalösdkfj",bug.getTitle());
 
             menu.setHeaderTitle(bug.getTitle());
             menu.add("Edit");
@@ -106,31 +87,30 @@ public class BugCurrentFragment extends Fragment{
     }
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        if( getUserVisibleHint() == false )
+        {
+            return false;
+        }
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-        Bug bug = getAdapter().getItem(info.position);
-        Log.d("img it workeeeeees", bug.getTitle());
-
+        Bug bugCurrent = getAdapterCurrent().getItem(info.position);
 
         int bugid = info.position;
-        Log.d("bugid", "and "+bugid);
 
-        ListView lv = (ListView) rootview.findViewById(R.id.listViewIssues);
-        //Log.d("help", "help me here2 " + lv.getSelectedItem() + " si " +item.getItemId() + " o " + item.getTitle());
+        ListView lv = (ListView) rootviewCurrent.findViewById(R.id.listViewIssues);
 
-        // item.getTitle()
         switch ((String)item.getTitle()){
             case "Edit":
                 Intent intent = new Intent(getActivity(), BugCrudActivity.class);
                 intent.putExtra("action", "edit");
-                intent.putExtra("id", (long) bug.getId());
-                intent.putExtra("idpro", (long)bug.getProjectId());
+                intent.putExtra("id", (long) bugCurrent.getId());
+                intent.putExtra("idpro", (long) bugCurrent.getProjectId());
                 startActivity(intent);
                 break;
             case "Delete":
                 BugActivity activity = (BugActivity) getActivity();
                 BugDataSource bds = new BugDataSource(activity);
-                bds.deletEIssue(bug.getId());
+                bds.deletEIssue(bugCurrent.getId());
 
                 // DElete all comments
 
@@ -146,14 +126,5 @@ public class BugCurrentFragment extends Fragment{
         return true;
     }
 
-    public String[] transformToArray(List<Bug> bugs){
-        String developersArray[]=new String[bugs.size()];
-
-        for(int i=0;i<developersArray.length;i++){
-            developersArray[i]=bugs.get(i).getTitle();
-        }
-
-        return developersArray;
-    }
 
 }
