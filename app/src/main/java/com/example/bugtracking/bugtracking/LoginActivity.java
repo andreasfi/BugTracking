@@ -43,16 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        //Display the messages error if the password is wrong or if the user is not connected
-        messageError=(TextView) findViewById(R.id.login_messageError);
-        if(MESSAGE_ERROR==true){
-            messageError.setVisibility(View.VISIBLE);
-        }
 
-        messageError_login=(TextView) findViewById(R.id.login_messageError2);
-        if(WRON_LOGIN==true){
-            messageError_login.setVisibility(View.VISIBLE);
-        }
 
     }
     public void clicLogin(View view){

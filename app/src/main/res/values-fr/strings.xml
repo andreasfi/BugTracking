@@ -54,5 +54,27 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_issue_view">IssueViewActivity</string>
     <string name="title_activity_comment">CommentActivity</string>
+    <string name="aboutDev">Developers</string>
+    <string name="CREATE_BUG">Create Bug</string>
+    <string name="COMMENT_TITLE">Title</string>
+    <string name="ADD_COMMENT">Add comment</string>
+    <string name="WRONG_LOGIN">Your login or password is wrong !</string>
+    <string name="CHANGE_PASSWORD">Change password</string>
+    <string name="CURRENT_PASSWORD">Current password</string>
+    <string name="NEW_PASSWORD">New password</string>
+    <string name="CONFIRM">Confirm</string>
+    <string name="LOGOUT">Logout</string>
+    <string name="TITLE">Title</string>
+    <string name="DESCRIPTION">Description</string>
+    <string name="START_DATE">Start date</string>
+    <string name="ADD_START_DATE">Add Start Date</string>
+    <string name="END_DATE">End Date</string>
+    <string name="ADD_END_DATE">Add End Date</string>
+    <string name="ADD_DEVELOPPER">Add Developper</string>
+    <string name="ADD_PROJECT">Add Project</string>
+    <string name="UPDATE_PROJECT">Update Project</string>
+    <string name="DELETE_PROJECT">Delete project</string>
+    <string name="ADD">Add</string>
+    <string name="SELECT_LANG">Select language</string>
 
 </resources>

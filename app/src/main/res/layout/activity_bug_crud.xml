@@ -58,6 +58,6 @@
         android:id="@+id/createBug"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Create Bug"
+        android:text="@string/CREATE_BUG"
         android:onClick="createBug" />
 </LinearLayout>

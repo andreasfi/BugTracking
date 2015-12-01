@@ -43,18 +43,6 @@ public class BugViewFragment extends Fragment {
         TextView state=(TextView)rootView.findViewById(R.id.bugViewState);
         TextView date=(TextView)rootView.findViewById(R.id.bugViewDate);
 
-        Button editBug=(Button)rootView.findViewById(R.id.bugViewEditbugButton);
-        editBug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(activity, BugCrudActivity.class);
-                intent.putExtra("action","edit");
-                intent.putExtra("idBug", activity.getIdBug());
-                intent.putExtra("idPro",activity.getIdProject());
-                startActivity(intent);
-            }
-        });
-
         activity=(BugViewActivity)getActivity();
         bugId=activity.getIdBug();
         BugDataSource bds = new BugDataSource(activity);

@@ -12,8 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300px"
-        android:textSize="20dp"
-        android:text="Text"/>
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/bugViewDescription"
@@ -55,11 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/bugViewEditbugButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit Bug"
 />
 
 

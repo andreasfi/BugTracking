@@ -11,19 +11,19 @@
        android:id="@+id/commentTitleText"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:hint="Title"/>
+       android:hint="@string/COMMENT_TITLE"/>
 
     <EditText
         android:id="@+id/commentText"
         android:layout_width="wrap_content"
         android:layout_height="400px"
-        android:text="Android, prononcé androïde, est un système d'exploitation mobile open source 2,3 basé sur le noyau Linux et développé actuellement par Google. Le système a d'abord été conçu pour les smartphones et tablettes tactiles, puis s'est diversifié"/>
+        />
 
     <Button
         android:id="@+id/addComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add comment"
+        android:text="@string/ADD_COMMENT"
         android:onClick="clicAddComment"/>
 
 

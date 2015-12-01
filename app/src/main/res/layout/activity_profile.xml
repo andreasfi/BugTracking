@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change password"
+        android:text="@string/CHANGE_PASSWORD"
         android:id="@+id/textView2" />
 
     <EditText
@@ -15,7 +15,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/current_pass"
-        android:hint="Current password"
+        android:hint="@string/CURRENT_PASSWORD"
         android:layout_gravity="center_horizontal" />
 
     <EditText
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:hint="New password"
+        android:hint="@string/NEW_PASSWORD"
         android:id="@+id/new_pass" />
 
     <EditText
@@ -31,19 +31,19 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:hint="Repeat new password"
+        android:hint="@string/NEW_PASSWORD_REPEAT"
         android:id="@+id/new_pass_repeat" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_marginTop="15dp"
         android:layout_height="wrap_content"
-        android:text="Confirm"
+        android:text="@string/CONFIRM"
         android:id="@+id/button_action_confirm" />
     <Button
         android:layout_width="fill_parent"
         android:layout_marginTop="15dp"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:text="@string/LOGOUT"
         android:id="@+id/button_logout" />
 </LinearLayout>
