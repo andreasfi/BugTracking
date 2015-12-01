@@ -60,7 +60,7 @@ public class BugCurrentFragment extends Fragment{
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     //String issuetitle = (String) (issuesview.getItemAtPosition(position));
                     Bug bug = (Bug)parent.getAdapter().getItem(position);
-                    Log.d("mymsg", "worked" + " " + bug.getId()+" "+bug.getTitle());
+                    //Log.d("mymsg", "worked" + " " + bug.getId()+" "+bug.getTitle());
 
                     Intent intent = new Intent(getActivity(), BugCrudActivity.class);
                     intent.putExtra("action", "edit");

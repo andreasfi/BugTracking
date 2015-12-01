@@ -1,50 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="16dp"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    android:orientation="@dimen/activity_vertical_margin"
     tools:context="com.example.bugtracking.bugtracking.ProjectMainActivity">
 
-   <!-- <TextView
-        android:id="@+id/itemProject"
+    <ListView
         android:layout_width="fill_parent"
+        android:fillViewport="true"
         android:layout_height="wrap_content"
-        android:onClick="goTo_Issue"
-        android:text="item1"/>
+        android:id="@+id/listViewProjects"
+        android:layout_alignParentTop="true" />
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"/>
+        <!--android:src="@drawable/ic_action_add"-->
 
-    <TextView
-        android:id="@+id/itemProject2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goTo_Issue"
-        android:text="item2"/>
-
-    <TextView
-        android:id="@+id/itemProject3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goTo_Issue"
-        android:text="item3"/>
-
-
-    <TextView
-        android:id="@+id/itemProject4"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goTo_Issue"
-        android:text="item4"/>
-
-
-    <TextView
-        android:id="@+id/itemProject5"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goTo_Issue"
-        android:text="item5"/>-->
+    </android.support.design.widget.CoordinatorLayout>
 
 
 
-</LinearLayout>
+</RelativeLayout>

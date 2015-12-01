@@ -43,4 +43,9 @@ public class Project {
     public void setEnddate(String enddate) {
         this.enddate = enddate;
     }
+
+    @Override
+    public String toString() {
+        return id +" " +name;
+    }
 }

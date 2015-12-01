@@ -1,15 +1,21 @@
 package com.example.bugtracking.bugtracking;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -27,86 +33,57 @@ public class ProjectMainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_project_main);
 
-       /* if(LoginActivity.CONNECTED==false){
-            LoginActivity.MESSAGE_ERROR=true;
-            Intent intent=new Intent(this,LoginActivity.class);
-            startActivity(intent);
-        }*/
         //Récupération de username (login) + stock dans une variable pour l'affichage
        // setContentView(R.layout.activity_project_main);
 
-        final List<Project> projects=findProject();
-        List<ProjectDeveloper> devPro=findDeveloperAssociate();
-       // setContentView(R.layout.activity_project_main);
+        //final List<Project> projects=findProject();
+        //List<ProjectDeveloper> devPro=findDeveloperAssociate();
+
+
 
         /*Création d'un affichage dynamique fonctionne partiellement, probléme
             avec le one clic listener. Ca fonctionne que sur le dernière item.
          */
-        //TODO Essayer d'intergrer le layout "activity_project_textview_layout
-        FloatingActionButton addProjectFloatButton=new FloatingActionButton(this);
-       // addProjectFloatButton=(FloatingActionButton)findViewById(R.id.fab2);
-        addProjectFloatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(ProjectMainActivity.this, ProjectCrudActivity.class);
-                startActivity(intent);
-            }
+        final Activity thisclass = this;
 
-        });
-
-        LinearLayout ll=new LinearLayout(this);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setPadding(16, 16, 16, 16);
-        //Création du boutton
-        Button addbutton=new Button(this);
-        addbutton.setText("Add");
-        addbutton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(ProjectMainActivity.this, ProjectCrudActivity.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                //TODO open add bug activity
+
+                Intent intent = new Intent(thisclass, ProjectCrudActivity.class);
+                intent.putExtra("action", "add");
+                //startActivity(intent);
             }
         });
 
 
-        //Création de la scrollbar
-        ScrollView scroll=new ScrollView(this);
-        //Création des Items de manière dynamique
-        for(int i=0;i<projects.size();i++){
-            item=new TextView(this);
-            item.setText(projects.get(i).getName());
-            final long idProject=projects.get(i).getId();
-            item.setPadding(16, 16, 16, 16);
-            item.setOnClickListener(new View.OnClickListener() {
+        ListView projectview = (ListView) findViewById(R.id.listViewProjects);
+        ProjectDataSource pds = new ProjectDataSource(this);
+        List<Project> projects = pds.getAllProjects();
+
+        if(!projects.isEmpty()){
+            final ArrayAdapter<Project> adapter;
+            adapter = new ArrayAdapter<Project>(this, android.R.layout.simple_list_item_1,projects);
+
+            // Remplir la listview
+            projectview.setAdapter(adapter);
+
+            // gere si on click sur la listview
+            projectview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent(ProjectMainActivity.this, BugActivity.class);
-                    intent.putExtra("idProject", idProject);
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Project project = (Project) adapter.getItem(position);
+                    Intent intent = new Intent(ProjectMainActivity.this , ProjectCrudActivity.class);
+                    intent.putExtra("action", "edit");
+                    intent.putExtra("id", project.getId());
                     startActivity(intent);
                 }
             });
-            ll.addView(item);
         }
-
-        for(int i=0;i<devPro.size();i++){
-            item=new TextView(this);
-            item.setText("ID "+devPro.get(i).getId()+" DEV_ID "+devPro.get(i).getDevID()+
-            " PRO_ID "+devPro.get(i).getProID()+" ROLE "+devPro.get(i).getRole());
-            item.setPadding(16,16,16,16);
-            ll.addView(item);
-        }
-      //  ll.addView(addProjectFloatButton);
-        ll.addView(addbutton);
-
-        //Ici on ajoute le linearLayout dans le ScrollView
-        scroll.addView(ll);
-       // scroll.addView(addProjectFloatButton);
-
-        setContentView(scroll);
-        //setContentView(R.layout.transparent_layout);
-
-
 
 
         //TODO Essyayer de récupérer les objet LinearLayout et TextView depuis le fichier xml
@@ -116,36 +93,34 @@ public class ProjectMainActivity extends BaseActivity {
         ll2.addView(item2);
         setContentView(ll2);*/
     }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    //Methode "Listener" utilisée pas le fichier xml, non fonctionnel pour l'instant
-   /* public void goTo_Issue(View view){
+        ListView projectview = (ListView) findViewById(R.id.listViewProjects);
+        ProjectDataSource pds = new ProjectDataSource(this);
+        List<Project> projects = pds.getAllProjects();
 
+        if(!projects.isEmpty()){
+            final ArrayAdapter<Project> adapter;
+            adapter = new ArrayAdapter<Project>(this, android.R.layout.simple_list_item_1,projects);
 
-        TextView items[] =new TextView[5];
-        items[0]=(TextView)findViewById(R.id.itemProject);
-        items[1]=(TextView)findViewById(R.id.itemProject2);
-        items[2]=(TextView)findViewById(R.id.itemProject3);
-        items[3]=(TextView)findViewById(R.id.itemProject4);
-        items[4]=(TextView)findViewById(R.id.itemProject5);
+            // Remplir la listview
+            projectview.setAdapter(adapter);
 
-        if(items[0].isClickable()){
-            items[0].setText("Selected0");
+            // gere si on click sur la listview
+            projectview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Project project = (Project) adapter.getItem(position);
+                    Intent intent = new Intent(ProjectMainActivity.this , ProjectCrudActivity.class);
+                    intent.putExtra("action", "edit");
+                    intent.putExtra("id", project.getId());
+                    startActivity(intent);
+                }
+            });
         }
-
-        if(items[1].isFocused()){
-            items[1].setText("Selected1");
-        }
-        if(items[3].isFocused()){
-            items[3].setText("Selected3");
-        }
-        if(items[4].isClickable()){
-            items[4].setText("Selected4");
-        }
-        if(items[2].isClickable()) {
-            items[2].setText("Selected2");
-        }
-
-    }*/
+        return inflater.inflate(R.layout.activity_project_main, container, false);
+    }
 
     public void goTo_ProjectCRUD(View view){
         Intent intent=new Intent(this, ProjectCrudActivity.class);
