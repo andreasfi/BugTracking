@@ -85,5 +85,6 @@
     <string name="BUG_CRUD">BugCrud</string>
     <string name="BUG_ACITVITY">Bug Activity</string>
     <string name="BUGTRAKPRO">BugTraking - Projects</string>
+    <string name="YOUR_COMMENT">Your comment</string>
 
 </resources>

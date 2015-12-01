@@ -32,7 +32,6 @@ public class BugViewActivity extends BaseActivity {
     private ViewPager viewPager;
     public long idBug;
     private long idProject;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +56,6 @@ public class BugViewActivity extends BaseActivity {
         idBug=intent.getLongExtra("BugId", 1L);
         idProject=intent.getLongExtra("idPro",1L);
 
-        Log.d("IDissue","Id "+idBug);
 
 
     }
@@ -110,5 +108,40 @@ public class BugViewActivity extends BaseActivity {
 
     public long getIdProject() {
         return idProject;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, BugActivity.class);
+                intent.putExtra("idProject", idProject);
+                startActivity(intent);
+                break;
+            case R.id.action_profil:
+                Intent intent2=new Intent(this, ProfileActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.action_about:
+                Intent intent4=new Intent(this, AboutActivity.class);
+                startActivity(intent4);
+                break;
+            case R.id.action_settings:
+                Intent intent3=new Intent(this, SettingsActivity.class);
+                startActivity(intent3);
+                break;
+        }
+        return true;
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(this, BugActivity.class);
+
+        intent.putExtra("idProject", idProject);
+        startActivity(intent);
+
+        finish();
+
     }
 }

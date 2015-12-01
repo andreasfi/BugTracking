@@ -12,7 +12,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     //Infos about database
     private static final String DATABASE_NAME = "bugtracking";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 10;
     private static SQLiteHelper instance;
 
     private SQLiteHelper(Context context) {

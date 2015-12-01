@@ -61,7 +61,7 @@ public class BugCurrentFragment extends Fragment{
 
                     Intent intent = new Intent(getActivity(), BugViewActivity.class);
                     intent.putExtra("BugId", (long) bug.getId());
-                    intent.putExtra("idpro", projectidCurrent);
+                    intent.putExtra("idPro", projectidCurrent);
                     startActivity(intent);
                 }
             });
@@ -120,6 +120,7 @@ public class BugCurrentFragment extends Fragment{
                 sqlHelper.getWritableDatabase().close();
 
                 Intent intent2 = new Intent(activity, BugActivity.class);
+                intent2.putExtra("idProject", (long) bugCurrent.getProjectId());
                 startActivity(intent2);
                 break;
 

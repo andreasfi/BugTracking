@@ -5,11 +5,11 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,21 +17,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.bugtracking.bugtracking.adapter.BugDataSource;
-import com.example.bugtracking.bugtracking.adapter.BugDeveloperDataSource;
-import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
-import com.example.bugtracking.bugtracking.adapter.ProjectDeveloperDataSource;
 import com.example.bugtracking.bugtracking.object.Bug;
-import com.example.bugtracking.bugtracking.object.DevIssue;
-import com.example.bugtracking.bugtracking.object.Developer;
-import com.example.bugtracking.bugtracking.object.ProjectDeveloper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Andreas on 25.10.2015.
  */
-public class BugCrudActivity extends BaseActivity {
+public class BugCrudActivity extends BaseActivity  {
+    Button developer_add_button;
     Button bug_action_button;
     EditText titleView;
     EditText descriptionView;
@@ -39,9 +33,7 @@ public class BugCrudActivity extends BaseActivity {
     EditText effectsView;
     Spinner priorityspinner;
     Spinner statespinner;
-    long bugId;
-    long proId;
-
+    long projectid;
 
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     @Override
@@ -55,9 +47,7 @@ public class BugCrudActivity extends BaseActivity {
         final String action = intent.getStringExtra("action");
         final long bugid = intent.getLongExtra("id", 1L);
         final long proid2 = intent.getLongExtra("idpro", 1L);
-
-        this.bugId=bugid;
-        this.proId=proid2;
+        projectid = proid2;
         titleView = (EditText) findViewById(R.id.title);
         descriptionView = (EditText) findViewById(R.id.description);
         reproductionView = (EditText) findViewById(R.id.reproduction);
@@ -68,7 +58,7 @@ public class BugCrudActivity extends BaseActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.priority_array, android.R.layout.simple_spinner_item); // Create an ArrayAdapter using the string array and a default spinner layout
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
-        priorityspinner.setAdapter(adapter);// Apply the adapterCurrent to the spinner
+        priorityspinner.setAdapter(adapter);// Apply the adapter to the spinner
 
         statespinner = (Spinner) findViewById(R.id.spinnerState);
         ArrayAdapter<CharSequence> stateadapter = ArrayAdapter.createFromResource(this,
@@ -117,6 +107,8 @@ public class BugCrudActivity extends BaseActivity {
 
                 break;
         }
+
+
 
 
         bug_action_button = (Button) findViewById(R.id.createBug); // get action button
@@ -174,19 +166,21 @@ public class BugCrudActivity extends BaseActivity {
                             bug.setDate(date);
                             bug.setProjectId(proid);
                             bug.setDevId(devid);
+
+
                             bug.setId((int) bds.createIssue(bug));
+
                             SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
                             sqlHelper.getWritableDatabase().close();
 
                             Intent intent = new Intent(thisclass, BugActivity.class);
-                            intent.putExtra("idProject",proId);
-
+                            intent.putExtra("idProject", projectid);
                             startActivity(intent);
                             break;
                         case "edit":
                             BugDataSource bds2 = new BugDataSource(thisclass);
                             Bug bugEdit = new Bug();
-                            bugEdit.setId((int) bugid);
+                            bugEdit.setId((int)bugid);
                             bugEdit.setTitle(title);
                             bugEdit.setDescription(description);
                             bugEdit.setReference(reference);
@@ -205,7 +199,7 @@ public class BugCrudActivity extends BaseActivity {
                             sqlHelper2.getWritableDatabase().close();
 
                             Intent intent2 = new Intent(thisclass, BugActivity.class);
-                            intent2.putExtra("idProject",proId);
+                            intent2.putExtra("idProject", projectid);
                             startActivity(intent2);
                             break;
                     }
@@ -223,6 +217,40 @@ public class BugCrudActivity extends BaseActivity {
     public void onPause() {
         super.onPause();  // Always call the superclass method first
     }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(this, BugActivity.class);
 
+        intent.putExtra("idProject", projectid);
+        startActivity(intent);
+
+        finish();
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, BugActivity.class);
+                intent.putExtra("idProject", projectid);
+                startActivity(intent);
+                break;
+            case R.id.action_profil:
+                Intent intent2=new Intent(this, ProfileActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.action_about:
+                Intent intent4=new Intent(this, AboutActivity.class);
+                startActivity(intent4);
+                break;
+            case R.id.action_settings:
+                Intent intent3=new Intent(this, SettingsActivity.class);
+                startActivity(intent3);
+                break;
+        }
+        return true;
+    }
 
 }

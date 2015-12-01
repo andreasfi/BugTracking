@@ -2,8 +2,11 @@ package com.example.bugtracking.bugtracking;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +19,7 @@ import com.example.bugtracking.bugtracking.object.Developer;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -106,7 +110,17 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent =new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+    public void setLocale(String lang) {
 
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, SettingsActivity.class);
+        startActivity(refresh);
+    }
     //Vérifie la validité du login
     public void findDevelopper(List<Developer> developers, String userName, String password){
         Iterator iterator=developers.iterator();
@@ -121,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                     ID=developers.get(i).getId();
                     USER_PASSWORD = developers.get(i).getPassword();
                     CONNECTED=true;
+                    setLocale(developers.get(i).getLang().toLowerCase());
                 }
                 else{
                     WRON_LOGIN=true;

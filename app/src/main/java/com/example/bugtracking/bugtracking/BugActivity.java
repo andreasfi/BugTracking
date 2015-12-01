@@ -23,7 +23,8 @@ public class BugActivity extends BaseActivity {
     //private ActionBar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    long projectid;
+    static long projectid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

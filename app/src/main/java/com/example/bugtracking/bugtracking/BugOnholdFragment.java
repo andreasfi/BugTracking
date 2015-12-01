@@ -110,7 +110,7 @@ public class BugOnholdFragment extends Fragment{
                 Intent intent = new Intent(getActivity(), BugCrudActivity.class);
                 intent.putExtra("action", "edit");
                 intent.putExtra("id", (long) bug.getId());
-                intent.putExtra("idpro", (long)bug.getProjectId());
+                intent.putExtra("idPro", (long)bug.getProjectId());
                 startActivity(intent);
                 break;
             case "Delete":
@@ -124,6 +124,7 @@ public class BugOnholdFragment extends Fragment{
                 sqlHelper.getWritableDatabase().close();
 
                 Intent intent2 = new Intent(activity, BugActivity.class);
+                intent2.putExtra("idProject", (long) bug.getProjectId());
                 startActivity(intent2);
                 break;
 
