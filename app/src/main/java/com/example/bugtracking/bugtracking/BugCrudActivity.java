@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperFragment.SelectionListener {
     Button developer_add_button;
     Button bug_action_button;
-    Button bug_delete_button;
     EditText titleView;
     EditText descriptionView;
     EditText reproductionView;
@@ -47,7 +46,6 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
         final String action = intent.getStringExtra("action");
         final long bugid = intent.getLongExtra("id", 1L);
         final long proid2 = intent.getLongExtra("idpro", 1L);
-        bug_delete_button = (Button) findViewById(R.id.deleteBug);
 
         titleView = (EditText) findViewById(R.id.title);
         descriptionView = (EditText) findViewById(R.id.description);
@@ -69,7 +67,6 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
 
         switch (action){
             case "add":
-                bug_delete_button.setClickable(false);
                 break;
             case "edit":
                 // fill up xml
@@ -124,20 +121,6 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
                 bundle.putInt(BugAssignDeveloperFragment.SELECTED, 0);
                 dialog.setArguments(bundle);
                 dialog.show(manager, "Dialog");
-            }
-        });
-
-        bug_delete_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BugDataSource bds = new BugDataSource(thisclass);
-                bds.deletEIssue(bugid);
-
-                SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
-                sqlHelper.getWritableDatabase().close();
-
-                Intent intent = new Intent(thisclass, BugActivity.class);
-                startActivity(intent);
             }
         });
 

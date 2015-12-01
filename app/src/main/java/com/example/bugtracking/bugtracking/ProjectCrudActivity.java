@@ -49,7 +49,7 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
         setContentView(R.layout.activity_project_crud);
         //Dans le cas ou on souhaite modifier le projet
         if(update==true){
-            idProject=intent.getLongExtra("idProject", -1);
+            idProject=intent.getLongExtra("idProject", 1L);
 
             title=(EditText)findViewById(R.id.proCrudTitle);
             description=(EditText)findViewById(R.id.proCrudDescription);

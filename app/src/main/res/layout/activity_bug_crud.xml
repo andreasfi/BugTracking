@@ -65,9 +65,4 @@
         android:layout_height="wrap_content"
         android:text="Create Bug"
         android:onClick="createBug" />
-    <Button
-        android:id="@+id/deleteBug"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete Bug"/>
 </LinearLayout>
