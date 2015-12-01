@@ -5,12 +5,22 @@ package com.example.bugtracking.bugtracking.object;
  */
 public class Comment {
     private int id;
+    private String title;
     private String comment;
     private int devId;
     private int issueId;
 
     public int getId() {
         return id;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getComment() {
@@ -35,5 +45,10 @@ public class Comment {
 
     public void setIssueId(int issueId) {
         this.issueId = issueId;
+    }
+
+    @Override
+    public String toString() {
+        return this.title;
     }
 }

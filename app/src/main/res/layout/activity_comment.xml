@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:orientation="vertical"
+    tools:context="com.example.bugtracking.bugtracking.CommentEditActivity">
+
+   <EditText
+       android:id="@+id/commentTitleText"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:hint="Title"/>
+
+    <EditText
+        android:id="@+id/commentText"
+        android:layout_width="wrap_content"
+        android:layout_height="400px"
+        android:hint="Comment"/>
+
+    <Button
+        android:id="@+id/addComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add comment"
+        android:onClick="clicAddComment"/>
+
+
+</LinearLayout>

@@ -1,6 +1,9 @@
 package com.example.bugtracking.bugtracking;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,6 +14,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.example.bugtracking.bugtracking.adapter.CommentDataSource;
+import com.example.bugtracking.bugtracking.object.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +27,7 @@ public class BugViewActivity extends BaseActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private long idBug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,8 @@ public class BugViewActivity extends BaseActivity {
         tabLayout=(TabLayout) findViewById(R.id.tabsIssueView);
         tabLayout.setupWithViewPager(viewPager);
 
+        Intent intent=getIntent();
+        idBug=intent.getLongExtra("BugId", -1);
     }
 
     private void setupViewPager(ViewPager viewPager){
@@ -83,5 +93,8 @@ public class BugViewActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             return issueFragmentTitleList.get(position);
         }
+    }
+    public long getIdBug() {
+        return idBug;
     }
 }

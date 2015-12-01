@@ -72,6 +72,11 @@
             android:label="Settings"
             android:parentActivityName=".ProjectMainActivity">
         </activity>
+        <activity
+            android:name=".CommentEditActivity"
+            android:label="@string/title_activity_comment"
+            android:parentActivityName=".BugViewActivity">
+        </activity>
     </application>
 
 </manifest>

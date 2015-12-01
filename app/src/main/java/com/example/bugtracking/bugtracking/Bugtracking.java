@@ -81,6 +81,7 @@ public final class Bugtracking {
 
         //Columns
         public static final String ID= "idcomment";
+        public static final String TITLE="title";
         public static final String COMMENT="comment";
         public static final String DEV_ID="devID";
         public static final String ISS_ID="issID";
@@ -89,6 +90,7 @@ public final class Bugtracking {
         public static final String CREATE_TABLE_COMMENT="CREATE TABLE "+
                 TABLE_COMMENT+"("
                 + CommentEntry.ID+ " INTEGER PRIMARY KEY, "
+                + CommentEntry.TITLE+" TEXT, "
                 + CommentEntry.COMMENT+" TEXT, "
                 + CommentEntry.DEV_ID+" INTEGER, "
                 + CommentEntry.ISS_ID+" INTEGER, "

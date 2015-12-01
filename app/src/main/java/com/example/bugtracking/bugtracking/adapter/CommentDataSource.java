@@ -34,6 +34,7 @@ public class CommentDataSource {
     public long addComment (Comment comment){
         long id;
         ContentValues values = new ContentValues();
+        values.put(Bugtracking.CommentEntry.TITLE, comment.getTitle());
         values.put(Bugtracking.CommentEntry.COMMENT, comment.getComment());
         values.put(Bugtracking.CommentEntry.DEV_ID, comment.getDevId());
         values.put(Bugtracking.CommentEntry.ISS_ID, comment.getIssueId());
@@ -84,6 +85,7 @@ public class CommentDataSource {
         if(cursor.moveToFirst()){
             do{
                 Comment comment = new Comment();
+                comment.setTitle(cursor.getString(cursor.getColumnIndex(Bugtracking.CommentEntry.TITLE)));
                 comment.setComment(cursor.getString(cursor.getColumnIndex(Bugtracking.CommentEntry.COMMENT)));
 
                 comments.add(comment);

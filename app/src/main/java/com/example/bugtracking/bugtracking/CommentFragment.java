@@ -1,24 +1,22 @@
 package com.example.bugtracking.bugtracking;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.net.Uri;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.bugtracking.bugtracking.adapter.CommentDataSource;
 import com.example.bugtracking.bugtracking.object.Comment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -54,50 +52,46 @@ public class CommentFragment extends Fragment {
         //Get comment from db
         CommentDataSource cds=new CommentDataSource(activity);
         List<Comment> comments = cds.getAllComment();
+        List<String> title=new ArrayList<>();
+
+        for(int i=0;i<comments.size();i++){
+            title.add(comments.get(i).getTitle());
+        }
+
 
         //Put value in layout
         if(!comments.isEmpty()){
             ArrayAdapter<Comment> adapter;
             adapter = new ArrayAdapter<Comment>(getActivity(), android.R.layout.simple_list_item_1, comments);
+            Log.d("Reception", "commentaire" + " " + comments.get(comments.size()-1).getTitle() + " " + comments.get(comments.size()-1).getComment());
 
             commentView.setAdapter(adapter);
-           /* commentView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            commentView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+                //Display de comment in a AlertDialog
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Comment comment =(Comment)parent.getItemAtPosition(position);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setMessage(comment.getComment())
+                            .setTitle(comment.getTitle())
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
-            });*/
+            });
         }
-
+        FloatingActionButton fab=(FloatingActionButton) rootview.findViewById(R.id.fabAddComment);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, CommentEditActivity.class);
+                intent.putExtra("BugId",activity.getIdBug());
+                startActivity(intent);
+            }
+        });
 
         return rootview;
     }
-
-    //Methode appelée dans le Fragment "CommentEntry"
-    public void clicComment(View view){
-        CommentToast toast=new CommentToast();
-        toast.runToast("MON COMMENTAIRE");
-
-    }
-
-
-    class CommentToast extends AppCompatActivity{
-
-        public void runToast(String comment){
-            LayoutInflater inflater=getLayoutInflater();
-            View layout =inflater.inflate(R.layout.toast_comment_layout,
-                    (ViewGroup) findViewById(R.id.toastComment_layout));
-
-            TextView comment2=(TextView) findViewById(R.id.commentInToast);
-            comment2.setText(comment);
-
-            Toast toast=new Toast(getApplicationContext());
-            toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setView(layout);
-            toast.show();
-        }
-    }
-
 
 }
