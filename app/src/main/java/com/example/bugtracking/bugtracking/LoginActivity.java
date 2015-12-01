@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
 
     boolean isLogin=false;
 
@@ -138,5 +139,45 @@ public class LoginActivity extends BaseActivity {
             i++;
         }*/
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        String errormsg = "";
+        switch (id){
+            case R.id.action_profil:
+                errormsg = "You need to be logged in to acces this page.";
+                break;
+            case R.id.action_about:
+                Intent intent2=new Intent(this, AboutActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.action_settings:
+                errormsg = "You need to be logged in to acces this page.";
+                break;
+        }
+        if(errormsg != ""){
+            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+            builder.setMessage(errormsg)
+                    .setTitle("Error!")
+                    .setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        // Code qui (ENFIN) affiche le menu crée dans /menu
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
 }

@@ -29,20 +29,17 @@ public class BaseActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
         switch (id){
             case R.id.action_profil:
                 Intent intent=new Intent(this, ProfileActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.aboutview:
+            case R.id.action_about:
                 Intent intent2=new Intent(this, AboutActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.action_settings:
-                Intent intent3=new Intent(this, AboutActivity.class);
+                Intent intent3=new Intent(this, SettingsActivity.class);
                 startActivity(intent3);
                 break;
         }

@@ -1,5 +1,6 @@
 package com.example.bugtracking.bugtracking;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -53,15 +54,28 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        String errormsg = "";
         switch (id){
             case R.id.action_profil:
-                Intent intent=new Intent(this, ProfileActivity.class);
-                startActivity(intent);
+                errormsg = "You need to be logged in to acces this page.";
+                break;
+            case R.id.action_about:
+                Intent intent2=new Intent(this, AboutActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.action_settings:
+                errormsg = "You need to be logged in to acces this page.";
                 break;
         }
+        if(errormsg != ""){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(errormsg)
+                    .setTitle("Error!")
+                    .setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
