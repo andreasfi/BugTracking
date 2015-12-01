@@ -1,5 +1,6 @@
 package com.example.bugtracking.bugtracking;
 
+import android.app.AlertDialog;
 import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -36,13 +37,6 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Pour retourner à Login Activity si on est pas connecté
-       /* if(LoginActivity.CONNECTED==false){
-            LoginActivity.MESSAGE_ERROR=true;
-            Intent intent=new Intent(this,LoginActivity.class);
-            startActivity(intent);
-        }*/
 
         Intent intent=getIntent();
         update=intent.getBooleanExtra("update", false);
@@ -90,6 +84,7 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
     }
     //Action pour ajouter une date de début
     public void clicAddStartDate(View view){
+
         EditText text=(EditText)findViewById(R.id.proStartDate);
 
         MyDatePickerFragment datePicker=new MyDatePickerFragment();
@@ -104,7 +99,7 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
 
         MyDatePickerFragment datePicker=new MyDatePickerFragment();
         datePicker.setView(text);
-        datePicker.show(getSupportFragmentManager(),"Date Picker");
+        datePicker.show(getSupportFragmentManager(), "Date Picker");
 
     }
 
@@ -123,25 +118,26 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
         project.setStartdate(startDate.getText().toString());
         project.setEnddate(endDate.getText().toString());
 
-        //Création du projet
-       idProject= pds.createProject(project);
+        if(!project.getName().isEmpty()){
+            //Création du projet
+            idProject= pds.createProject(project);
 
-//Associe les developer choisis au projet.
+            //Associe les developer choisis au projet.
+            joinDeveloperToProject(listdeveloperAssociate, idProject);
+            SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
+            sqlHelper.getWritableDatabase().close();
+            Intent intent = new Intent(this, ProjectMainActivity.class);
+            startActivity(intent);
+        }
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Please complete title field !")
+                    .setTitle("Not complete!")
+                    .setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
 
-
-        joinDeveloperToProject(listdeveloperAssociate, idProject);
-
-
-
-        SQLiteHelper sqlHelper = SQLiteHelper.getInstance(this);
-        sqlHelper.getWritableDatabase().close();
-
-
-
-
-
-        Intent intent = new Intent(this, ProjectMainActivity.class);
-        startActivity(intent);
     }
 
     public void clicUpdateProject(View view){
