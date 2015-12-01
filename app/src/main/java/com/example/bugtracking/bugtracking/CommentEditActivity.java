@@ -36,7 +36,7 @@ public class CommentEditActivity extends BaseActivity {
         comment.setTitle(title.getText().toString());
         comment.setComment(commentText.getText().toString());
         comment.setDevId(1);
-        comment.setIssueId(1);
+        comment.setIssueId(idBug);
         CommentDataSource cds=new CommentDataSource(this);
         cds.addComment(comment);
 

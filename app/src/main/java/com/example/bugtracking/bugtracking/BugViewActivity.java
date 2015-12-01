@@ -11,12 +11,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.bugtracking.bugtracking.adapter.BugDataSource;
 import com.example.bugtracking.bugtracking.adapter.CommentDataSource;
+import com.example.bugtracking.bugtracking.object.Bug;
 import com.example.bugtracking.bugtracking.object.Comment;
 
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ public class BugViewActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private long idBug;
+    private long idProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,12 @@ public class BugViewActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         Intent intent=getIntent();
-        idBug=intent.getLongExtra("BugId", -1);
+        idBug=intent.getLongExtra("BugId", 1L);
+        idProject=intent.getLongExtra("idPro",1L);
+
+        Log.d("IDissue","Id "+idBug);
+        idBug=2;
+
     }
 
     private void setupViewPager(ViewPager viewPager){
@@ -96,5 +105,10 @@ public class BugViewActivity extends BaseActivity {
     }
     public long getIdBug() {
         return idBug;
+    }
+
+
+    public long getIdProject() {
+        return idProject;
     }
 }
