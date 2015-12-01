@@ -13,11 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDataSource;
 import com.example.bugtracking.bugtracking.adapter.ProjectDeveloperDataSource;
 import com.example.bugtracking.bugtracking.object.Project;
 import com.example.bugtracking.bugtracking.object.ProjectDeveloper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectMainActivity extends BaseActivity {
@@ -43,7 +45,8 @@ public class ProjectMainActivity extends BaseActivity {
 
         final ListView projectview = (ListView) findViewById(R.id.listViewProjects);
         ProjectDataSource pds = new ProjectDataSource(this);
-        final List<Project> projects = pds.getAllProjects();
+        //final List<Project> projects = pds.getAllProjects();
+        final List<Project> projects = getDeveloperFromProject();
 
         if(!projects.isEmpty()){
 
@@ -157,5 +160,22 @@ public class ProjectMainActivity extends BaseActivity {
         return pdds.getAllDevelopersProject();
     }
 
+    public List<Project> getDeveloperFromProject(){
+        //Get DeveloperId in link with the project
+        List<ProjectDeveloper> listProject;
+        ProjectDeveloperDataSource pdd=new ProjectDeveloperDataSource(this);
+        listProject=pdd.getDevelopersProjectByIdDev(LoginActivity.ID);
+
+
+
+        //get developers with id
+        List<Project> projects=new ArrayList<>();
+        DeveloperDataSource dds=new DeveloperDataSource(this);
+        ProjectDataSource pds=new ProjectDataSource(this);
+        for(int i=0;i<listProject.size();i++){
+            projects.add(pds.getProjectByID_Dev(listProject.get(i).getProID()));
+        }
+        return projects;
+    }
 
 }

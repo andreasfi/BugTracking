@@ -123,11 +123,10 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
         project.setStartdate(startDate.getText().toString());
         project.setEnddate(endDate.getText().toString());
 
-       /* TextView test=(TextView) findViewById(R.id.proCrudTest);
-        test.setText(project.getName());*/
         //Création du projet
        idProject= pds.createProject(project);
 
+//Associe les developer choisis au projet.
         if(listdeveloperAssociate!=null){
 
             joinDeveloperToProject(listdeveloperAssociate, idProject);
@@ -138,14 +137,14 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
         sqlHelper.getWritableDatabase().close();
 
 
-        //Associe les developer choisis au projet.
+
 
 
         Intent intent = new Intent(this, ProjectMainActivity.class);
         startActivity(intent);
     }
 
-    public void clicUpdateDeveloper(View view){
+    public void clicUpdateProject(View view){
         ProjectDataSource pds=new ProjectDataSource(this);
         title=(EditText)findViewById(R.id.proCrudTitle);
         description=(EditText)findViewById(R.id.proCrudDescription);
@@ -228,6 +227,6 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
 
     public Project searchProject(long id){
         ProjectDataSource pds=new ProjectDataSource(this);
-        return pds.getProjectByID(id);
+        return pds.getOneProjectByID(id);
     }
 }

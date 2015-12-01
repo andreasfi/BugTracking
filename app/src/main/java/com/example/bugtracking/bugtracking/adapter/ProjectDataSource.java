@@ -46,7 +46,32 @@ public class ProjectDataSource {
     }
 
     // GET PROJECT
-    public Project getProjectByID(long id){
+    public Project getProjectByID_Dev(long id){
+        String sql = "SELECT * FROM "+ Bugtracking.ProjectEntry.TABLE_PROJECT +
+                " WHERE " + Bugtracking.ProjectEntry.ID + " = " + id;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+                Project project = new Project();
+                project.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.ProjectEntry.ID)));
+                project.setName(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.NAME)));
+                project.setDescription(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.DESCRIPTION)));
+                project.setStartdate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.STARTDATE)));
+                project.setEnddate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.ENDDATE)));
+
+
+
+
+
+        return project;
+    }
+
+    // GET PROJECT
+    public Project getOneProjectByID(long id){
         String sql = "SELECT * FROM "+ Bugtracking.ProjectEntry.TABLE_PROJECT +
                 " WHERE " + Bugtracking.ProjectEntry.ID + " = " + id;
 
@@ -62,7 +87,8 @@ public class ProjectDataSource {
         project.setDescription(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.DESCRIPTION)));
         project.setStartdate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.STARTDATE)));
         project.setEnddate(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectEntry.ENDDATE)));
-//eh
+
+
         return project;
     }
 
