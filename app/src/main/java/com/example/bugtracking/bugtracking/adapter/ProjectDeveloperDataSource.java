@@ -60,6 +60,30 @@ public class ProjectDeveloperDataSource {
         return developersProject;
     }
 
+
+    //GET DEVELOPER BY id
+
+    public List<ProjectDeveloper> getDevelopersProjectByIdDev(long idProject){
+        List<ProjectDeveloper> developersProject = new ArrayList<>();
+        String sql = "SELECT * FROM "+ Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER
+                + " WHERE "+Bugtracking.ProjectDeveloperEntry.PROID+" = "+idProject;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                ProjectDeveloper developerProject = new ProjectDeveloper();
+                developerProject.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.ID)));
+                developerProject.setDevID(cursor.getInt(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.DEVID)));
+                developerProject.setProID(cursor.getInt(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.PROID)));
+                developerProject.setRole(cursor.getString(cursor.getColumnIndex(Bugtracking.ProjectDeveloperEntry.ROLE)));
+
+                developersProject.add(developerProject);
+            } while (cursor.moveToNext());
+        }
+        return developersProject;
+    }
+
     public void deletProjectDeveloperIdProject(long id){
 
         this.db.delete(Bugtracking.ProjectDeveloperEntry.TABLE_PROJECTDEVELOPER, Bugtracking.ProjectDeveloperEntry.PROID+ " = ?", new String[] {String.valueOf(id)});

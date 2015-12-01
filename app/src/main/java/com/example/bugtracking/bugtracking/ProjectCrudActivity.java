@@ -180,6 +180,7 @@ public class ProjectCrudActivity extends BaseActivity implements ListDeveloperFr
         Intent intent = new Intent(this, ProjectMainActivity.class);
         startActivity(intent);
     }
+
     //Méthode utilisée par le DialogFragment
     public List<Developer> getListdeveloper(){
         DeveloperDataSource dds=new DeveloperDataSource(this);

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,6 +53,7 @@ public class BugActivity extends BaseActivity {
                 Intent intent = new Intent(thisclass, BugCrudActivity.class);
                 intent.putExtra("action", "add");
                 intent.putExtra("idpro", projectid);
+                Log.d("IdProject in BugAct",""+projectid);
                 startActivity(intent);
             }
         });

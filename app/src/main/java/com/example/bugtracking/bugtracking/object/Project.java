@@ -8,15 +8,15 @@ import java.text.SimpleDateFormat;
  * Created by Andreas on 07.11.2015.
  */
 public class Project {
-    private int id;
+    private long id;
     private String name;
     private String description;
     private String startdate;
     private String enddate;
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getName() {

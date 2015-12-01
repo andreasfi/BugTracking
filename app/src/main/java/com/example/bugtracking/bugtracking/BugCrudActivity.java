@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -16,14 +17,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.bugtracking.bugtracking.adapter.BugDataSource;
+import com.example.bugtracking.bugtracking.adapter.BugDeveloperDataSource;
+import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
+import com.example.bugtracking.bugtracking.adapter.ProjectDeveloperDataSource;
 import com.example.bugtracking.bugtracking.object.Bug;
+import com.example.bugtracking.bugtracking.object.DevIssue;
+import com.example.bugtracking.bugtracking.object.Developer;
+import com.example.bugtracking.bugtracking.object.ProjectDeveloper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Andreas on 25.10.2015.
  */
-public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperFragment.SelectionListener {
+public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFragment.DeveloperDialogListener {
     Button developer_add_button;
     Button bug_action_button;
     EditText titleView;
@@ -33,6 +41,8 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
     Spinner priorityspinner;
     Spinner statespinner;
     long bugId;
+    long proId;
+    List<String>listDeveloperAssociate;
 
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     @Override
@@ -47,6 +57,8 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
         final long bugid = intent.getLongExtra("id", 1L);
         final long proid2 = intent.getLongExtra("idpro", 1L);
 
+        this.bugId=bugid;
+        this.proId=proid2;
         titleView = (EditText) findViewById(R.id.title);
         descriptionView = (EditText) findViewById(R.id.description);
         reproductionView = (EditText) findViewById(R.id.reproduction);
@@ -113,14 +125,16 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
 
             @Override
             public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
+                /*FragmentManager manager = getFragmentManager();
                 BugAssignDeveloperFragment dialog = new BugAssignDeveloperFragment();
 
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList(BugAssignDeveloperFragment.DATA, getItems());     // Require ArrayList
                 bundle.putInt(BugAssignDeveloperFragment.SELECTED, 0);
                 dialog.setArguments(bundle);
-                dialog.show(manager, "Dialog");
+                dialog.show(manager, "Dialog");*/
+                DialogFragment dialog=new ListBugDeveloperFragment();
+                dialog.show(getSupportFragmentManager(), "ChoiceDeveloper");
             }
         });
 
@@ -182,6 +196,11 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
 
 
                             bug.setId((int) bds.createIssue(bug));
+                            if(listDeveloperAssociate!=null){
+
+                                joinDeveloperToBug(listDeveloperAssociate, bug.getId());
+
+                            }
 
                             SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
                             sqlHelper.getWritableDatabase().close();
@@ -206,7 +225,11 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
                             bugEdit.setDevId(devid);
 
                             bds2.updateIssue(bugEdit);
+                            if(listDeveloperAssociate!=null){
 
+                                joinDeveloperToBug(listDeveloperAssociate, bugEdit.getId());
+
+                            }
                             SQLiteHelper sqlHelper2 = SQLiteHelper.getInstance(thisclass);
                             sqlHelper2.getWritableDatabase().close();
 
@@ -238,9 +261,46 @@ public class BugCrudActivity extends BaseActivity implements BugAssignDeveloperF
         return ret_val;
     }
 
+    public List<Developer> getDeveloperFromProject(){
+        //Get DeveloperId in link with the project
+        List<ProjectDeveloper> listDev;
+        ProjectDeveloperDataSource pdd=new ProjectDeveloperDataSource(this);
+        listDev=pdd.getDevelopersProjectByIdDev(proId);
+        Log.d("Project ID "," "+proId);
+
+
+        //get developers with id
+        List<Developer> developers=new ArrayList<>();
+        DeveloperDataSource dds=new DeveloperDataSource(this);
+        for(int i=0;i<listDev.size();i++){
+            developers.add(dds.getDeveloperByID(listDev.get(i).getDevID()));
+        }
+        return developers;
+    }
+
 
     @Override
-    public void selectItem(int position) {
-        Log.d("Favorites", getItems().get(position));
+    public void onDialogPositiveClick(List<String> usernameList) {
+        this.listDeveloperAssociate=usernameList;
+
+    }
+
+    @Override
+    public void onDialogNegativeClick() {
+
+    }
+
+    //Link beetween Developer and Issue
+    public void joinDeveloperToBug(List<String> developers, long idBug){
+        DeveloperDataSource dds=new DeveloperDataSource(this);
+
+        BugDeveloperDataSource bdds=new BugDeveloperDataSource(this);
+        Developer developer;
+        for(int i=0;i<developers.size();i++){
+
+            developer=dds.getDeveloperByUsername(developers.get(i));
+            //Add developer to Issue
+            bdds.createIssueDeveloper(developer.getId(), idBug);
+        }
     }
 }

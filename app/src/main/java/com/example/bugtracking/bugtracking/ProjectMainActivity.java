@@ -69,6 +69,7 @@ public class ProjectMainActivity extends BaseActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Project project = (Project) parent.getAdapter().getItem(position);
                     Intent intent=new Intent(ProjectMainActivity.this, BugActivity.class);
+                    Log.d("ID_PROJECT ",""+project.getId());
                     intent.putExtra("idProject", project.getId());
                     startActivity(intent);
                     /*
