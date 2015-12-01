@@ -121,7 +121,7 @@ public class ProjectMainActivity extends BaseActivity {
             case "Edit":
                 Intent intent = new Intent(this , ProjectCrudActivity.class);
                 intent.putExtra("update", true);
-                intent.putExtra("idproject", (long)project.getId());
+                intent.putExtra("idProject", (long)project.getId());
                 startActivity(intent);
                 break;
             case "Delete":
