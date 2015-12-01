@@ -31,8 +31,7 @@ import java.util.List;
 /**
  * Created by Andreas on 25.10.2015.
  */
-public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFragment.DeveloperDialogListener {
-    Button developer_add_button;
+public class BugCrudActivity extends BaseActivity {
     Button bug_action_button;
     EditText titleView;
     EditText descriptionView;
@@ -42,7 +41,7 @@ public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFra
     Spinner statespinner;
     long bugId;
     long proId;
-    List<String>listDeveloperAssociate;
+
 
     public final  static String EXTRA_MESSAGE="com.example.bugtracking.bugtracking.MESSAGE";
     @Override
@@ -120,24 +119,6 @@ public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFra
         }
 
 
-        developer_add_button = (Button)findViewById(R.id.assignedevelopers);
-        developer_add_button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                /*FragmentManager manager = getFragmentManager();
-                BugAssignDeveloperFragment dialog = new BugAssignDeveloperFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList(BugAssignDeveloperFragment.DATA, getItems());     // Require ArrayList
-                bundle.putInt(BugAssignDeveloperFragment.SELECTED, 0);
-                dialog.setArguments(bundle);
-                dialog.show(manager, "Dialog");*/
-                DialogFragment dialog=new ListBugDeveloperFragment();
-                dialog.show(getSupportFragmentManager(), "ChoiceDeveloper");
-            }
-        });
-
         bug_action_button = (Button) findViewById(R.id.createBug); // get action button
         bug_action_button.setText(action); // set button text from intent
         bug_action_button.setOnClickListener(new View.OnClickListener() {
@@ -193,15 +174,7 @@ public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFra
                             bug.setDate(date);
                             bug.setProjectId(proid);
                             bug.setDevId(devid);
-
-
                             bug.setId((int) bds.createIssue(bug));
-                            if(listDeveloperAssociate!=null){
-
-                                joinDeveloperToBug(listDeveloperAssociate, bug.getId());
-
-                            }
-
                             SQLiteHelper sqlHelper = SQLiteHelper.getInstance(thisclass);
                             sqlHelper.getWritableDatabase().close();
 
@@ -225,11 +198,7 @@ public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFra
                             bugEdit.setDevId(devid);
 
                             bds2.updateIssue(bugEdit);
-                            if(listDeveloperAssociate!=null){
 
-                                joinDeveloperToBug(listDeveloperAssociate, bugEdit.getId());
-
-                            }
                             SQLiteHelper sqlHelper2 = SQLiteHelper.getInstance(thisclass);
                             sqlHelper2.getWritableDatabase().close();
 
@@ -251,56 +220,6 @@ public class BugCrudActivity extends BaseActivity implements ListBugDeveloperFra
     public void onPause() {
         super.onPause();  // Always call the superclass method first
     }
-    private ArrayList<String> getItems()
-    {
-        ArrayList<String> ret_val = new ArrayList<String>();
-
-        ret_val.add("Sylvain");
-        ret_val.add("Andreas");
-
-        return ret_val;
-    }
-
-    public List<Developer> getDeveloperFromProject(){
-        //Get DeveloperId in link with the project
-        List<ProjectDeveloper> listDev;
-        ProjectDeveloperDataSource pdd=new ProjectDeveloperDataSource(this);
-        listDev=pdd.getDevelopersProjectByIdDev(proId);
-        Log.d("Project ID "," "+proId);
 
 
-        //get developers with id
-        List<Developer> developers=new ArrayList<>();
-        DeveloperDataSource dds=new DeveloperDataSource(this);
-        for(int i=0;i<listDev.size();i++){
-            developers.add(dds.getDeveloperByID(listDev.get(i).getDevID()));
-        }
-        return developers;
-    }
-
-
-    @Override
-    public void onDialogPositiveClick(List<String> usernameList) {
-        this.listDeveloperAssociate=usernameList;
-
-    }
-
-    @Override
-    public void onDialogNegativeClick() {
-
-    }
-
-    //Link beetween Developer and Issue
-    public void joinDeveloperToBug(List<String> developers, long idBug){
-        DeveloperDataSource dds=new DeveloperDataSource(this);
-
-        BugDeveloperDataSource bdds=new BugDeveloperDataSource(this);
-        Developer developer;
-        for(int i=0;i<developers.size();i++){
-
-            developer=dds.getDeveloperByUsername(developers.get(i));
-            //Add developer to Issue
-            bdds.createIssueDeveloper(developer.getId(), idBug);
-        }
-    }
 }

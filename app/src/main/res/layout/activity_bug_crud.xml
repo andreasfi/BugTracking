@@ -53,12 +53,7 @@
         android:ems="10"
         android:hint="@string/issue_effects"
         android:inputType="textCapWords"/>
-    <Button
-        android:id="@+id/assignedevelopers"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Assign Developers"/>
+
     <Button
         android:id="@+id/createBug"
         android:layout_width="fill_parent"
