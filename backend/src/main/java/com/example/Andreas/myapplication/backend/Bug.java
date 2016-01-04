@@ -33,7 +33,7 @@ public class Bug {
     public List<Comment> getCommentList() {
         return commentList;
     }
-
+// test
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
     }
