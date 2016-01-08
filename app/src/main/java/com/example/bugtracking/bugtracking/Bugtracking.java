@@ -19,6 +19,7 @@ public final class Bugtracking {
         public static final String USERNAME = "username";
         public static final String PASSWORD = "password";
         public static final String LANGUAGE = "language2";
+        public static final String UPDATES = "updates";
 
         // Create statement
         public static final String CREATE_TABLE_DEVELOPER = "CREATE TABLE "
@@ -26,7 +27,8 @@ public final class Bugtracking {
                 + DeveloperEntry.IDDEVLOPER + " INTEGER PRIMARY KEY,"
                 + DeveloperEntry.USERNAME + " TEXT, "
                 + DeveloperEntry.PASSWORD + " TEXT, "
-                + DeveloperEntry.LANGUAGE + " TEXT "
+                + DeveloperEntry.LANGUAGE + " TEXT, "
+                + DeveloperEntry.UPDATES + " TEXT "
                 + ");";
     }
     public  static abstract class ProjectEntry implements BaseColumns {

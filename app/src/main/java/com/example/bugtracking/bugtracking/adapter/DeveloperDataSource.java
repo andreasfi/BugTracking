@@ -28,6 +28,18 @@ public class DeveloperDataSource {
     public Context getContext() {
         return context;
     }
+    public int setUpdated(Developer developer){
+        // Neues element in der tablle (boolean) zum sagen das es updated ist
+        // hier einfügen
+        ContentValues values = new ContentValues();
+        values.put(Bugtracking.DeveloperEntry.USERNAME, developer.getUsername());
+        values.put(Bugtracking.DeveloperEntry.PASSWORD, developer.getPassword());
+        values.put(Bugtracking.DeveloperEntry.LANGUAGE, developer.getLang());
+        values.put(Bugtracking.DeveloperEntry.UPDATES, true);
+
+        return this.db.update(Bugtracking.DeveloperEntry.TABLE_DEVELOPER, values, Bugtracking.DeveloperEntry.IDDEVLOPER + " = ?", new String[]{String.valueOf(developer.getId())});
+
+    }
 
     // INSERT DEVELOPER
     public long createDeveloper(Developer developer){
@@ -96,6 +108,27 @@ public class DeveloperDataSource {
                 developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
 
                 developers.add(developer);
+            } while (cursor.moveToNext());
+        }
+        return developers;
+    }
+    public List<com.example.andreas.myapplication.backend.developerApi.model.Developer> getAllNotUpdated(){
+        List<com.example.andreas.myapplication.backend.developerApi.model.Developer> developers = new ArrayList<>();
+        String sql = "SELECT * FROM "+ Bugtracking.DeveloperEntry.TABLE_DEVELOPER + " ORDER BY " + Bugtracking.DeveloperEntry.USERNAME;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                com.example.andreas.myapplication.backend.developerApi.model.Developer developer = new com.example.andreas.myapplication.backend.developerApi.model.Developer();
+                developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.IDDEVLOPER)));
+                developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
+                developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+                developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
+
+                developers.add(developer);
+                Developer devFront = getDeveloperByID(developer.getId());
+                this.setUpdated(devFront);
             } while (cursor.moveToNext());
         }
         return developers;

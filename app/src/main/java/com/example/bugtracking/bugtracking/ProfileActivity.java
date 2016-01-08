@@ -117,4 +117,10 @@ public class ProfileActivity extends AppCompatActivity {
         intent.putExtra("Password", "");
         startActivity(intent);
     }
+    public void updateCloud(){
+        List<com.example.andreas.myapplication.backend.developerApi.model.Developer> developers = new DeveloperDataSource(this).getAllNotUpdated();
+        new EndpointsAsyncTask(developers);
+
+
+    }
 }

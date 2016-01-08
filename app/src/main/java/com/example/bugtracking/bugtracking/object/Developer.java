@@ -8,6 +8,14 @@ public class Developer {
     private String username;
     private String password;
     private String lang;
+    private boolean updates;
+
+    public boolean getUpdated(){
+        return updates;
+    }
+    public void setUpdated(boolean updated){
+        this.updates = updated;
+    }
 
     public int getId() {
         return id;

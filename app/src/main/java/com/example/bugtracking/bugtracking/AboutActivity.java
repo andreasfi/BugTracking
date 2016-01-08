@@ -10,6 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
+import com.example.andreas.myapplication.backend.developerApi.model.Developer;
+
+import java.util.List;
+
 /**
  * Created by Andreas on 30.11.2015.
  */
@@ -21,5 +26,6 @@ public class AboutActivity extends AppCompatActivity {
 
         TextView about = (TextView) findViewById(R.id.aboutview);
         about.setText("Developers: Sylvain Tauxe and Andreas Fischer");
+
     }
 }
