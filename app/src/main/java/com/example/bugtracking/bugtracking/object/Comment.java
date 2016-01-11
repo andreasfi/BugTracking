@@ -9,6 +9,15 @@ public class Comment {
     private String comment;
     private long devId;
     private long issueId;
+    private boolean updates;
+
+    public boolean getUpdated(){
+        return updates;
+    }
+
+    public void setUpdated(boolean updated){
+        this.updates=updated;
+    }
 
     public long getId() {
         return id;

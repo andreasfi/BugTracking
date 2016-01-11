@@ -30,6 +30,29 @@ public class BugDataSource {
         return context;
     }
 
+
+    public  int setUpdatedIssue(Bug bug){
+        //New element (boolean) to know if te table was updated
+        ContentValues values = new ContentValues();
+
+        values.put(Bugtracking.IssueEntry.TITLE, bug.getTitle());
+        values.put(Bugtracking.IssueEntry.CATEGORY, bug.getCategory());
+        values.put(Bugtracking.IssueEntry.DATE, bug.getDate());
+        values.put(Bugtracking.IssueEntry.DESCRIPTION, bug.getDescription());
+        values.put(Bugtracking.IssueEntry.DEVID, bug.getDevId());
+        values.put(Bugtracking.IssueEntry.EFFECT, bug.getEffects());
+        values.put(Bugtracking.IssueEntry.PRIORITY, bug.getPriority());
+        values.put(Bugtracking.IssueEntry.PROID, bug.getProjectId());
+        values.put(Bugtracking.IssueEntry.REFERENCE, bug.getReference());
+        values.put(Bugtracking.IssueEntry.REPRODUCE, bug.getReproduce());
+        values.put(Bugtracking.IssueEntry.STATE, bug.getState());
+        values.put(Bugtracking.IssueEntry.UPDATES, true);
+
+        return this.db.update(Bugtracking.IssueEntry.TABLE_ISSUE, values,Bugtracking.IssueEntry.ID+ " = ?", new String[]{String.valueOf(bug.getId())});
+    }
+
+
+
     //INSERT ISSUE
     public long createIssue(Bug bug){
         long id;
@@ -45,6 +68,7 @@ public class BugDataSource {
         values.put(Bugtracking.IssueEntry.REFERENCE, bug.getReference());
         values.put(Bugtracking.IssueEntry.REPRODUCE, bug.getReproduce());
         values.put(Bugtracking.IssueEntry.STATE, bug.getState());
+
 
         id = this.db.insert(Bugtracking.IssueEntry.TABLE_ISSUE, null, values);
 

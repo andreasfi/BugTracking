@@ -30,6 +30,19 @@ public class CommentDataSource {
         return context;
     }
 
+    public int setUpdated(Comment comment){
+        // Neues element in der tablle (boolean) zum sagen das es updated ist
+        // hier einfügen
+        ContentValues values = new ContentValues();
+        values.put(Bugtracking.CommentEntry.TITLE, comment.getTitle());
+        values.put(Bugtracking.CommentEntry.COMMENT, comment.getComment());
+        values.put(Bugtracking.DeveloperEntry.UPDATES, true);
+
+        return this.db.update(Bugtracking.CommentEntry.TABLE_COMMENT, values, Bugtracking.CommentEntry.ID + " = ?", new String[]{String.valueOf(comment.getId())});
+
+    }
+
+
     //INSERT COMMENT
     public long addComment (Comment comment){
         long id;

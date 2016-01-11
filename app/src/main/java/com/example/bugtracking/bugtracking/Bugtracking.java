@@ -85,6 +85,7 @@ public final class Bugtracking {
         public static final String COMMENT="comment";
         public static final String DEV_ID="devID";
         public static final String ISS_ID="issID";
+        public static final String UPDATES = "updates";
 
         //Create statement
         public static final String CREATE_TABLE_COMMENT="CREATE TABLE "+
@@ -94,6 +95,7 @@ public final class Bugtracking {
                 + CommentEntry.COMMENT+" TEXT, "
                 + CommentEntry.DEV_ID+" INTEGER, "
                 + CommentEntry.ISS_ID+" INTEGER, "
+                + CommentEntry.UPDATES + " TEXT, "
                 + " FOREIGN KEY (" +DEV_ID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+"), "
                 + " FOREIGN KEY (" +ISS_ID+") REFERENCES "+ IssueEntry.TABLE_ISSUE+" ("+ID+") "
                 +");";
@@ -135,6 +137,7 @@ public final class Bugtracking {
         public static final String DATE="date";
         public static final String PROID="proId";
         public static final String DEVID="devId";
+        public static final String UPDATES = "updates";
 
 
         //Create statements
@@ -151,8 +154,10 @@ public final class Bugtracking {
                 + IssueEntry.DATE+" TEXT,"
                 + IssueEntry.PROID+" INTEGER,"
                 + IssueEntry.DEVID+" INTEGER,"
+                + IssueEntry.UPDATES + " TEXT, "
                 +" FOREIGN KEY ("+PROID+") REFERENCES "+ProjectEntry.TABLE_PROJECT+" ("+ID+"), "
                 +" FOREIGN KEY ("+DEVID+") REFERENCES "+ DeveloperEntry.TABLE_DEVELOPER+" ("+ID+") "
+
                 +");";
     }
 

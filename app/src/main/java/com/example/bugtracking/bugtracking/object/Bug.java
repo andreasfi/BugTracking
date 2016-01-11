@@ -18,6 +18,15 @@ public class Bug {
     private String date;
     private int projectId;
     private int devId;
+    private boolean updates;
+
+    public boolean getUpdated(){
+        return updates;
+    }
+
+    public void setUpdated(boolean updated){
+        this.updates=updated;
+    }
 
     public int getId() {
         return id;
