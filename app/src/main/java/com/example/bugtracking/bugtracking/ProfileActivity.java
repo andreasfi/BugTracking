@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import com.example.bugtracking.bugtracking.adapter.DeveloperDataSource;
 import com.example.bugtracking.bugtracking.object.Developer;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,6 +42,15 @@ public class ProfileActivity extends AppCompatActivity {
                 // Log User out
                 logout(thisclass);
                 // Send back to main activity
+            }
+        });
+
+        Button cloud = (Button) findViewById(R.id.button_cloud);
+
+        cloud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateCloud();
             }
         });
 
@@ -116,5 +126,18 @@ public class ProfileActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, "");
         intent.putExtra("Password", "");
         startActivity(intent);
+    }
+    public void updateCloud() {
+        List<Developer> developersList = new DeveloperDataSource(this).getAllNotUpdated();
+        List<com.example.andreas.myapplication.backend.developerApi.model.Developer> developerListBackend = new ArrayList<>();
+        DeveloperDataSource dds = new DeveloperDataSource(this);
+
+        for (Developer temp : developersList) {
+            developerListBackend.add(dds.getDeveloperByIDBackend(temp.getId()));
+        }
+
+        if(developersList != null){
+            new EndpointsAsyncTask(developerListBackend).execute();
+        }
     }
 }

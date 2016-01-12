@@ -1,27 +1,28 @@
-package com.example.bugtracking.bugtracking.object;
+package com.example.andreas.myapplication.backend;
+
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * Created by Andreas on 07.11.2015.
  */
+@Entity
 public class Developer {
-    private int id;
+    @Id
+    @GeneratedValue(strategy=	GenerationType.IDENTITY)
+    private long id;
     private String username;
     private String password;
     private String lang;
-    private boolean updated;
 
-    public boolean getUpdated(){
-        return updated;
-    }
-    public void setUpdated(boolean updated){
-        this.updated = updated;
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

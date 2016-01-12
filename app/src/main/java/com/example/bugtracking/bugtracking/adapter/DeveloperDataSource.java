@@ -60,6 +60,24 @@ public class DeveloperDataSource {
 
         return developer;
     }
+    public com.example.andreas.myapplication.backend.developerApi.model.Developer getDeveloperByIDBackend(long id){
+        String sql = "SELECT * FROM " + Bugtracking.DeveloperEntry.TABLE_DEVELOPER +
+                " WHERE " + Bugtracking.DeveloperEntry.IDDEVLOPER + " = " + id;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+        com.example.andreas.myapplication.backend.developerApi.model.Developer developer = new com.example.andreas.myapplication.backend.developerApi.model.Developer();
+        developer.setId(Long.valueOf(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.IDDEVLOPER))));
+        developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
+        developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+        developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
+
+        return developer;
+    }
 
     // FIND DEVELOPER BY Username
     public Developer getDeveloperByUsername(String username){
@@ -81,6 +99,37 @@ public class DeveloperDataSource {
         return developer;
     }
     // GET ALL DEVELOPERS
+    public List<Developer> getAllNotUpdated(){
+        List<Developer> developers = new ArrayList<>();
+        String sql = "SELECT * FROM "+ Bugtracking.DeveloperEntry.TABLE_DEVELOPER +
+                " WHERE "+ Bugtracking.DeveloperEntry.UPDATED + " = 'false' ORDER BY " + Bugtracking.DeveloperEntry.USERNAME;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                Developer developer = new Developer();
+                developer.setId(cursor.getInt(cursor.getColumnIndex(Bugtracking.DeveloperEntry.IDDEVLOPER)));
+                developer.setUsername(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.USERNAME)));
+                developer.setPassword(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.PASSWORD)));
+                developer.setLang(cursor.getString(cursor.getColumnIndex(Bugtracking.DeveloperEntry.LANGUAGE)));
+
+                developers.add(developer);
+                updateNotUpdated(developer);
+            } while (cursor.moveToNext());
+        }
+        return developers;
+    }
+    public int updateNotUpdated(Developer developer){
+        ContentValues values = new ContentValues();
+        values.put(Bugtracking.DeveloperEntry.USERNAME, developer.getUsername());
+        values.put(Bugtracking.DeveloperEntry.PASSWORD, developer.getPassword());
+        values.put(Bugtracking.DeveloperEntry.LANGUAGE, developer.getLang());
+        values.put(Bugtracking.DeveloperEntry.UPDATED, true);
+
+        return this.db.update(Bugtracking.DeveloperEntry.TABLE_DEVELOPER, values, Bugtracking.DeveloperEntry.IDDEVLOPER + " = ?", new String[]{String.valueOf(developer.getId())});
+
+    }
     public List<Developer> getAllDevelopers(){
         List<Developer> developers = new ArrayList<>();
         String sql = "SELECT * FROM "+ Bugtracking.DeveloperEntry.TABLE_DEVELOPER + " ORDER BY " + Bugtracking.DeveloperEntry.USERNAME;

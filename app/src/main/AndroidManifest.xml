@@ -10,6 +10,8 @@
     <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,20 +38,18 @@
         </activity>
         <activity
             android:name=".ProjectMainActivity"
-            android:label="@string/BUGTRAKPRO">
+            android:label="@string/BUGTRAKPRO" >
         </activity>
         <activity
             android:name=".BugActivity"
             android:label="@string/BUG_ACITVITY"
             android:parentActivityName=".ProjectMainActivity" >
         </activity>
-
         <activity
             android:name=".BugCrudActivity"
             android:label="@string/BUG_CRUD"
             android:parentActivityName=".BugActivity" >
         </activity>
-
         <activity
             android:name=".ProjectCrudActivity"
             android:label="@string/PROJECT_CRUD"
@@ -58,24 +58,27 @@
         <activity
             android:name=".BugViewActivity"
             android:label="@string/ISSUE_VIEW"
-            android:parentActivityName=".BugActivity">
+            android:parentActivityName=".BugActivity" >
         </activity>
-        <activity android:name=".ProfileActivity"
+        <activity
+            android:name=".ProfileActivity"
             android:label="@string/PROFILE"
-            android:parentActivityName=".ProjectMainActivity">
+            android:parentActivityName=".ProjectMainActivity" >
         </activity>
-        <activity android:name=".AboutActivity"
+        <activity
+            android:name=".AboutActivity"
             android:label="@string/ABOUT"
-            android:parentActivityName=".ProjectMainActivity">
+            android:parentActivityName=".ProjectMainActivity" >
         </activity>
-        <activity android:name=".SettingsActivity"
+        <activity
+            android:name=".SettingsActivity"
             android:label="@string/SETTINGS"
-            android:parentActivityName=".ProjectMainActivity">
+            android:parentActivityName=".ProjectMainActivity" >
         </activity>
         <activity
             android:name=".CommentEditActivity"
             android:label="@string/title_activity_comment"
-            android:parentActivityName=".BugViewActivity">
+            android:parentActivityName=".BugViewActivity" >
         </activity>
     </application>
 
